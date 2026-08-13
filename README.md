@@ -57,4 +57,6 @@ npm install
 npm run dev
 ```
 
-See [architecture](docs/ARCHITECTURE.md), [API](docs/API.md), [hackathon research](docs/HACKATHON_2026.md), and [test report](docs/TEST_REPORT.md).
+Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+
+See [architecture](docs/ARCHITECTURE.md), [API](docs/API.md), [hackathon research](docs/HACKATHON_2026.md), [2–3 minute demo runbook](docs/DEMO_RUNBOOK_ZH-TW.md), [Devpost submission draft](docs/DEVPOST_SUBMISSION_DRAFT.md), and [test report](docs/TEST_REPORT.md).

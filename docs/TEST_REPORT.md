@@ -36,3 +36,23 @@ Live HTTP run on localhost port 8877 returned: `/register` 201; `/passport`, `/h
 | OpenAI provenance API | NOT INTEGRATED | No public third-party Verify API confirmed |
 | Image history/masks | PASS | Three real signed versions and two generated diff masks |
 | Video prototype | NOT IMPLEMENTED | Deferred behind image/text/black-box core |
+
+## Public judge-flow acceptance — 2026-08-14
+
+Target: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+
+| Public flow | Status | Observed result |
+|---|---|---|
+| Anonymous HTTPS load | PASS | Page opened without login and rendered the verifier |
+| Try Demo | PASS | Modified result, valid evidence signature, 3 C2PA versions, Registry match |
+| Modification Mask | PASS | Mask view displayed the measured 4.8% changed region |
+| Version navigation | PASS | Version 1, 2, and 3 controls responded; Version 2 showed the background/badge action |
+| ProofCart Verify Evidence | PASS | Returned to the signed ProofCart evidence result |
+| Registered Evidence ID | PASS | `proofcart-v1` resolved to its registered history |
+| Missing Evidence ID | PASS | Displayed `No registry record found for that Evidence ID.` |
+| Advanced evidence | PASS | Active Manifest, Event ID, parent event, event hash, and raw C2PA link displayed |
+| Signed file upload | PASS | Public verifier showed 3 manifests, matching hash, and signed Registry record |
+| Tampered file upload | PASS | Displayed `Invalid Signature` and `assertion.dataHash.mismatch` |
+| Unsigned file upload | PASS | Displayed `Unknown` and 0 C2PA manifests |
+
+The browser upload tests used project-generated fixtures. The verifier processes those files locally; they were not sent to a server upload endpoint.

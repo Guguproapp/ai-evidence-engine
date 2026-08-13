@@ -38,3 +38,9 @@ Nutrient DWS is the strongest natural fit for AI Evidence Engine: its challenge 
 
 Doctavian also fits document generation/signing but demands a real API call. SerpApi fits evidence discovery but is secondary to provenance. Perfect Corp strongly favors consumer/retail experiences and therefore favors ProofCart AI.
 
+## Current demo checkpoint
+
+- Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+- Judge runbook: [DEMO_RUNBOOK_ZH-TW.md](DEMO_RUNBOOK_ZH-TW.md)
+- Devpost copy draft: [DEVPOST_SUBMISSION_DRAFT.md](DEVPOST_SUBMISSION_DRAFT.md)
+- The draft does not accept rules, enter a sponsor challenge, or perform final submission.
