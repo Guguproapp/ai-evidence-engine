@@ -1,5 +1,7 @@
 # DevNetwork [API + Cloud + AI] Hackathon 2026 — official-source checkpoint
 
+> Historical research only. The current submission target is Build with Gemini XPRIZE. See [BUILD_WITH_GEMINI_XPRIZE.md](BUILD_WITH_GEMINI_XPRIZE.md).
+
 Checked: 2026-08-13. Event facts can change; recheck before submission.
 
 Official pages:

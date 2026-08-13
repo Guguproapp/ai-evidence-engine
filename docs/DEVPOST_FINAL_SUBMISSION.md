@@ -1,0 +1,152 @@
+# Devpost Final Submission — AI Evidence Engine
+
+Status: **DRAFT — NOT SUBMISSION READY**
+
+## Project Name
+
+AI Evidence Engine
+
+## Category
+
+Small Business Services
+
+## Elevator Pitch
+
+AI Evidence Engine gives product media a verifiable history: where it came from, who or what changed it, exactly what changed, and whether the evidence was tampered with.
+
+## What it does
+
+AI Evidence Engine helps merchants, platforms, and consumers verify the provenance of digital product content. It combines content hashes, digital signatures, official C2PA manifests, an append-only parent-child evidence chain, and explainable image modification masks. The public verifier presents `Authentic`, `Modified`, `Unknown`, or `Invalid Signature` without requiring judges to read JSON.
+
+ProofCart is the first Small Business Services use case. A buyer can inspect a listing photo's original version, edit history, changed region, C2PA provenance, and signed registry evidence before deciding whether to trust the media.
+
+## How we built it
+
+- Official `c2patool 0.27.12` creates, embeds, reads, and verifies C2PA manifests.
+- Official `@contentauth/c2pa-web 0.13.4` verifies image provenance in the browser.
+- RSA-2048/SHA-256 signs canonical evidence events.
+- An append-only event chain preserves version and parent-hash relationships.
+- A deterministic RGB image-diff algorithm generates the Modification Mask, ratio, and bounding box.
+- The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
+- A bounded Cloud Run Evidence Explainer is designed to call Gemini on Vertex AI after cryptographic verification. Production deployment evidence is still required before this sentence may be changed to a completed integration claim.
+
+## AI-Native Operations
+
+The evidence decision pipeline is deterministic. Hash, signature, C2PA, registry, and parent-chain validation determine the verification state. Gemini is restricted to explaining the supplied structured facts to a non-technical buyer; it cannot replace or reinterpret the verification state.
+
+Current qualification status: the Gemini explainer source is locally tested, but AI-native production operation is not yet proven.
+
+## Google Cloud Usage
+
+Planned required production product: Google Cloud Run, hosting the Evidence Explainer API.
+
+Authentication design: Cloud Run service-account Application Default Credentials. No Gemini API key is shipped to the browser or repository.
+
+Current status: NOT RUN. Insert the Cloud Run service URL, region, revision, and sanitized production log evidence after deployment.
+
+## Gemini Usage
+
+Planned API: Gemini API on Vertex AI using the official Google Gen AI SDK.
+
+Input: allowlisted structured verification facts after the deterministic verifier has completed.
+
+Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
+
+Current status: NOT RUN in production. A local mock-based boundary test is not represented as a real Gemini API call.
+
+## C2PA
+
+The three-version ProofCart image chain contains real embedded C2PA manifests and parent ingredients. Original C2PA reports are preserved. The bytes and claims validate, while the current demo signing certificate is a development identity and is not represented as a production-trusted C2PA Trust List identity.
+
+## ProofCart Use Case
+
+ProofCart demonstrates how a small merchant can attach evidence to a product image and how a buyer can verify the image's origin, two edits, changed region, signatures, C2PA chain, and registry record.
+
+## Business Model
+
+Potential model: verification and provenance infrastructure sold to merchants and platforms through usage-based API plans and ProofCart verification features. No paid customer or enterprise partnership is currently claimed.
+
+## Users
+
+Verified external users: 0. Internal developer and automated browser tests are not counted. Real external testing remains required.
+
+## Revenue
+
+Total Revenue: $0.00 USD.
+
+Monthly revenue: May $0.00; June $0.00; July $0.00; August $0.00 as of 2026-08-14.
+
+Related-Party Revenue: $0.00.
+
+## Expenses
+
+Total documented expenses: $0.00 pending Entrant confirmation against all billing records.
+
+Marketing Spend: $0.00. Customer Acquisition Spend: $0.00.
+
+## Challenges
+
+The central technical challenge was separating content integrity from issuer trust. A C2PA claim can be cryptographically intact while the development certificate is not on the official Trust List. The interface therefore states `Integrity verified; development identity` instead of overstating production trust.
+
+The Gemini boundary presents a second challenge: a helpful explanation must never become an ungrounded provenance verdict. The service validates a deterministic status, forwards only allowlisted facts, and returns that status unchanged.
+
+## Accomplishments
+
+- Three signed image versions with nested C2PA parent ingredients.
+- Shared Event IDs between C2PA assertions and the signed Registry.
+- Actual pixel-derived Modification Masks.
+- Working `Modified`, `Unknown`, and `Invalid Signature` flows.
+- Public one-click ProofCart demo.
+- 19/19 Python tests and 3/3 website tests at the current checkpoint.
+
+## What we learned
+
+Provenance should report evidence rather than make legal verdicts. Recorded version events can support contribution and modification history; an AI detector probability cannot reconstruct missing provenance with certainty.
+
+## What's next
+
+- Complete and prove Cloud Run plus Gemini production operation.
+- Obtain external user feedback with informed disclosure.
+- Replace the demo registry bundle with a persistent production registry.
+- Obtain a production C2PA signing certificate and protect the key with KMS/HSM after submission readiness.
+
+## Testing Instructions
+
+1. Open the public demo without signing in.
+2. Click `Try the 60-second demo`.
+3. Confirm `Modified`, valid evidence signature, three C2PA versions, and Registry match.
+4. Click `Change overlay` and `Mask` to inspect the 4.8% changed region.
+5. Select Versions 1, 2, and 3 to inspect parent-child history.
+6. Open Advanced details to inspect Manifest ID, Event ID, parent, and event hash.
+7. Click ProofCart `Verify Evidence`.
+8. After Gemini deployment, click Evidence Explainer and confirm that its returned `verification_status` exactly matches the deterministic result.
+
+No login or payment is required for the public verifier.
+
+## Public Demo URL
+
+https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+
+## Cloud Production URL
+
+PENDING — Cloud Run deployment required.
+
+## Repository URL
+
+PENDING — GitHub authentication and push required.
+
+## Video URL
+
+PENDING — video must be under three minutes and publicly visible.
+
+## Production Evidence
+
+See `docs/PRODUCTION_EVIDENCE.md`. Cloud Run and Gemini records remain pending.
+
+## Known Limitations
+
+- Development C2PA certificate, not an official production Trust List identity.
+- No persistent cloud registry yet.
+- No external users or revenue yet.
+- Cloud Run, Gemini production usage, public repository, and video remain mandatory blockers.
+

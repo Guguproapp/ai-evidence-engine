@@ -16,6 +16,7 @@ This is not an AI detector and does not produce legal conclusions. It records ve
 - Three-version image provenance chain using official C2PA tooling.
 - Explainable RGB image-diff masks with measured change ratios and bounding boxes.
 - Judge-facing Verifier website with Try Demo, upload verification, Evidence ID lookup, version history, and ProofCart vertical demo.
+- A bounded Cloud Run Evidence Explainer service that keeps Gemini outside the deterministic verification decision; production deployment is not yet claimed.
 
 Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, video prototype, persistent cloud registry, and production security hardening.
 
@@ -59,4 +60,4 @@ npm run dev
 
 Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-See [architecture](docs/ARCHITECTURE.md), [API](docs/API.md), [hackathon research](docs/HACKATHON_2026.md), [2–3 minute demo runbook](docs/DEMO_RUNBOOK_ZH-TW.md), [Devpost submission draft](docs/DEVPOST_SUBMISSION_DRAFT.md), and [test report](docs/TEST_REPORT.md).
+See [architecture](docs/ARCHITECTURE.md), [API](docs/API.md), [Build with Gemini XPRIZE compliance](docs/BUILD_WITH_GEMINI_XPRIZE.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), [video script](docs/VIDEO_SCRIPT_XPRIZE.md), and [test report](docs/TEST_REPORT.md).

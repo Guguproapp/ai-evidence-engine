@@ -6,7 +6,7 @@
 Device Passport Agent
   ├─ exact hash + hierarchical fingerprint
   ├─ event + parent hash
-  └─ Ed25519 signature
+  └─ RSA-2048/SHA-256 signature
           │
           ├─ Private Evidence Wallet (content, prompt, input/output, tools)
           │
@@ -40,3 +40,9 @@ The deterministic demo retains RGB buffers before and after each edit. For every
 ## Public demo boundary
 
 The deployed website contains signed public demo images, raw public C2PA reports, registry public evidence, and public keys only. It does not contain the Evidence Wallet source directory, development Registry private key, prompt data, credentials, or API secrets.
+
+## Evidence Explainer submission integration
+
+The optional Evidence Explainer is isolated under `services/explainer/` and targets Google Cloud Run plus the Gemini API on Vertex AI. It receives only an allowlisted structured verification result after the hash, signature, C2PA, Registry, and evidence-chain checks have completed.
+
+Gemini is not in the trust path. The service validates one of four deterministic states (`Authentic`, `Modified`, `Unknown`, or `Invalid Signature`), sends the state and facts for plain-language explanation, and returns the original state unchanged. Gemini failures return an explicit service error; no generated fallback is presented as a real model result.

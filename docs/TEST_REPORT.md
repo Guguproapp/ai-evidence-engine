@@ -6,7 +6,7 @@ This file records commands and results. It must be updated from actual execution
 
 Command: `PYTHONPATH=src python3 -m unittest discover -s tests -v`
 
-Latest result: **PASS — 15/15 Python tests and 3/3 web tests**.
+Latest result: **PASS — 19/19 Python tests and 3/3 web tests**.
 
 The generated demo report recorded exact retyping at 1.0000 confidence, the approximately 10% edit at 0.8603 (strong), the approximately 30% edit at 0.6218 (medium), and the heavy rewrite at 0.0503 (weak). These are test-fixture measurements, not universal accuracy claims.
 
@@ -36,6 +36,11 @@ Live HTTP run on localhost port 8877 returned: `/register` 201; `/passport`, `/h
 | OpenAI provenance API | NOT INTEGRATED | No public third-party Verify API confirmed |
 | Image history/masks | PASS | Three real signed versions and two generated diff masks |
 | Video prototype | NOT IMPLEMENTED | Deferred behind image/text/black-box core |
+| Evidence Explainer boundary | PASS locally | Gemini output is mocked; deterministic verification status cannot be replaced and non-allowlisted facts are removed |
+| Cloud Run deployment | NOT RUN | No Google Cloud account/project is authenticated yet |
+| Gemini production call | NOT RUN | Local mock test is not represented as a production API call |
+| Explainer Gunicorn startup | PASS locally | Gunicorn served `/health` on localhost and returned Cloud Run/Vertex AI target metadata |
+| Explainer invalid-state rejection | PASS locally | Unsupported `Probably Authentic` status returned HTTP 400 instead of reaching Gemini |
 
 ## Public judge-flow acceptance — 2026-08-14
 

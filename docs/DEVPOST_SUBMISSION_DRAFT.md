@@ -1,5 +1,7 @@
 # Devpost Submission Draft｜AI Evidence Engine
 
+> Superseded for the current competition. Use [DEVPOST_FINAL_SUBMISSION.md](DEVPOST_FINAL_SUBMISSION.md) for Build with Gemini XPRIZE.
+
 這是可編輯草稿，不代表已接受 Devpost 規則，也沒有執行最終 Submission。
 
 ## Project name
@@ -75,4 +77,3 @@ https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 - Do not claim a sponsor API challenge until that API is actually integrated and tested.
 - Do not describe `Unknown` as proof that content is fake.
 - Repository and video URLs remain to be added before final submission.
-
