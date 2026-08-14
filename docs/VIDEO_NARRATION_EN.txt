@@ -1,17 +1,15 @@
-SUPERSEDED — DO NOT USE FOR THE FINAL SUBMISSION VIDEO.
+How can we prove where digital content came from, without guessing whether AI made it? AI Evidence Engine is a Universal Evidence Passport for digital and physical creation.
 
-AI-edited product media is everywhere. But buyers usually cannot tell where an image came from, who changed it, what changed, or whether its history was tampered with.
+I am uploading a real signed product image. Verification runs locally in the browser. The result is Verified Modified because its C2PA integrity is valid, its exact bytes match a signed Registry record, and its verified history has a parent version.
 
-AI Evidence Engine verifies recorded evidence instead of guessing an AI percentage. This public demo checks the content hash, digital signature, C2PA manifests, signed Registry record, and the parent-child version chain.
+The current image, change overlay, and pixel-derived mask show where this version changed. Four point eight percent is measured spatial change. It is not an AI probability, copyright percentage, or truth score.
 
-The current ProofCart image is marked Modified. The change overlay and pixel-derived mask show the exact product-label region that changed. Four point eight percent of the image is different. This is a measured modification area, not a copyright percentage.
+Each material edit creates a child event instead of overwriting history. Every version records its parent, timestamp, tool, AI involvement level, Event ID, hash, signature, and C2PA manifest.
 
-Every substantive edit creates a new child version. Version one is the recorded original. Version two adjusts the background and adds an AI badge. Version three changes the product label area. Each version keeps its own Event ID, parent, content hash, signature, timestamp, and embedded C2PA provenance. The development certificate proves integrity but is not presented as an official production Trust List identity.
+Now I upload the same signed asset after its bytes were altered. The live verifier returns Invalid Evidence and assertion dot data hash dot mismatch. This is a real validation failure, not prewritten demo text.
 
-Now we test tampering. This prepared file changes the signed image bytes. The verifier reports Invalid Signature and explains that the asset no longer matches the signed C2PA claim. The original evidence history remains available and unchanged.
+Gemini on Vertex AI explains only allowlisted verified facts. It cannot assign or change the result. Hashes, signatures, C2PA, the Registry, and the Event Chain remain the source of truth.
 
-Gemini on Vertex AI explains the already-verified facts in plain language. It does not decide Authentic, Modified, Unknown, or Invalid Signature. Those states still come only from hashes, signatures, C2PA, the Registry, and the Evidence Chain. If Gemini is unavailable, cryptographic verification continues to work.
+Image is our first working adapter. Text, video, audio, documents, two-dimensional designs, three-dimensional models, and manufacturing records use modality-specific fingerprints while sharing one Passport, Event Chain, Registry, and Private Wallet.
 
-ProofCart is the first Small Business Services use case. A merchant can attach a verifiable history to a product photo, and a buyer can inspect the source, edits, changed region, C2PA evidence, and signature before trusting a listing.
-
-AI Evidence Engine records what happened. It does not make copyright, infringement, or legal verdicts. Evidence, not guesswork.
+Next, Private Black Box evidence stays encrypted with the owner. A phone can approve selected fields, purpose, and expiry, then sign a single-use authorization. This is the next-stage architecture, not a completed feature.

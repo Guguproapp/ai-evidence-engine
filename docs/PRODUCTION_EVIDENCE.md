@@ -11,7 +11,7 @@ Only artifacts actually captured for the rebuilt release may be marked `PASS`. H
 | Gemini Cloud Logging | PASS | Request ID `3da55316-9616-46af-9ab2-39e34a1bdb49`; upstream Vertex AI HTTP 200; no prompt/secret logged |
 | Rebuilt public verifier deployment | PASS | Sites Version 4, commit `b0eb08c74c78ca5f6fa271204d8f335d74d850fd` |
 | Rebuilt public browser regression | PASS | All four states, valid-C2PA Registry miss, no-C2PA miss, History, Mask, ProofCart, Gemini, adapters, and Next Stage rerun on public HTTPS |
-| Final public demo video | NOT RUN | Old `Fwu7yGUTVwo` video rejected; replacement required |
+| Final public demo video | PASS | Replacement `HDG1qYo5hUg`: public, 2:43, 1920×1080, real Production operation, English captions; old `Fwu7yGUTVwo` remains rejected |
 | Real external user evidence | FAIL | 0 verified external users |
 
 ## Rebuilt Version 3 identifiers

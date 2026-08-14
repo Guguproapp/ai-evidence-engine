@@ -68,4 +68,17 @@ The checks above were rerun against Sites Version 4 at the public HTTPS URL afte
 
 ## Video
 
-Final operation video: `NOT RUN`. The previous 2:24 YouTube video is rejected because its framing and interaction do not satisfy the new acceptance gate. It must not be submitted as the final video.
+Final operation video: **PASS** — https://youtu.be/HDG1qYo5hUg
+
+- Duration: 2:42.733 (YouTube display 2:43), below the three-minute limit.
+- Video: H.264, 1920×1080, 30 fps, 16:9, burned-in English captions.
+- Actual Production operations: signed Version 3 upload, `Verified Modified`,
+  Current Image, Change Overlay, 4.8% Mask, History 1/2/3, tampered upload,
+  `Invalid Evidence`, `assertion.dataHash.mismatch`, Gemini explanation,
+  ProofCart, universal adapters, and labelled Next Stage.
+- Visual QA: complete browser viewport, visible operation cursor, no giant black
+  borders, and no cropped website column. A four-pixel encoder edge was removed
+  before the final 1920×1080 export.
+- YouTube copyright check: completed with no issue reported at publication.
+
+The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.

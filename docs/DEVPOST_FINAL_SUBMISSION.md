@@ -139,7 +139,14 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-`NOT RUN` — the previous YouTube video was rejected for framing and incomplete real-operation coverage. It must not be submitted as the final video.
+https://youtu.be/HDG1qYo5hUg
+
+The accepted replacement is 2:43, 1920×1080, and uses real Production
+interaction with burned-in English captions. It shows signed Version 3 upload,
+all three image views, version history, a real tampered upload,
+`assertion.dataHash.mismatch`, Gemini explanation, ProofCart, the universal
+adapter architecture, and the explicitly labelled next stage. The superseded
+`Fwu7yGUTVwo` video must not be submitted.
 
 ## Production Evidence
 

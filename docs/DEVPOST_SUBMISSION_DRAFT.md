@@ -76,4 +76,5 @@ https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 - Do not claim Google SynthID or an OpenAI Verify API is integrated.
 - Do not claim a sponsor API challenge until that API is actually integrated and tested.
 - Do not describe `Unknown` as proof that content is fake.
-- Repository and video URLs remain to be added before final submission.
+- Repository: https://github.com/Guguproapp/ai-evidence-engine
+- Final public video: https://youtu.be/HDG1qYo5hUg
