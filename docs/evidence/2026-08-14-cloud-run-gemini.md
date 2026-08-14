@@ -36,14 +36,14 @@ Cloud Logging independently recorded:
 
 Gemini explained an already-computed result. It did not determine or overwrite `Authentic`, `Modified`, `Unknown`, or `Invalid Signature`.
 
-## Public Verifier production integration
+## Public Verifier production integration — Version 3 refresh
 
-Sites version 2 deployed commit `362b324ce117ccf53efb1c3db84d31c3608a89f8` to the public verifier. A browser test opened the anonymous HTTPS site, clicked `Explain with Gemini`, and received:
+Sites Version 3 deployed commit `c0a407a160c3bf90a03f76a75c69ce6f577f5976` to the public verifier. A fresh browser test opened the anonymous HTTPS site, selected the rebuilt ProofCart Version 3 evidence, clicked `Explain with Gemini`, and received:
 
 - Explanation: `This image has been modified. Specifically, the product label area was changed.`
 - Model: `gemini-2.5-flash` on Vertex AI
 - Preserved status: `Modified`
 
-Cloud Logging recorded the browser-triggered request at `2026-08-14T14:48:45Z` with request ID `5a1f1616-f75c-4446-8e14-d0ecae94bd60`, ProofCart evidence ID `ee108227-b97c-46ed-89de-19f792b7b2a7`, revision `ai-evidence-explainer-00002-z76`, and 7101 ms latency.
+Cloud Logging recorded the browser-triggered request at `2026-08-14T17:07:58Z` with request ID `79039afc-d8e9-4ae1-8569-0d7a780e387d`, ProofCart evidence ID `b56445dd-1530-4c69-93d1-6977120a9f40`, revision `ai-evidence-explainer-00002-z76`, and 3460 ms latency. The Vertex AI upstream request returned HTTP 200.
 
-Production browser regression passed `Modified`, `Authentic`, `Unknown`, `Invalid Signature`, Modification Mask, three-version history, ProofCart, Advanced C2PA evidence, and Gemini Explanation. A local cross-origin failure simulation displayed the fallback message and left the cryptographic status unchanged.
+Version 3 Production browser regression passed `Modified`, `Authentic`, `Unknown`, `Invalid Signature`, Modification Mask, three-version history, ProofCart, Advanced C2PA evidence, and Gemini Explanation. A local cross-origin failure simulation displayed the fallback message and left the cryptographic status unchanged.

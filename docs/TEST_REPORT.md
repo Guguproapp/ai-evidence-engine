@@ -6,7 +6,7 @@ This file records commands and results. It must be updated from actual execution
 
 Command: `PYTHONPATH=src python3 -m unittest discover -s tests -v`
 
-Latest result: **PASS — 19/19 Python tests and 3/3 web tests**.
+Latest result: **PASS — 19/19 Python tests and 4/4 web tests**.
 
 The generated demo report recorded exact retyping at 1.0000 confidence, the approximately 10% edit at 0.8603 (strong), the approximately 30% edit at 0.6218 (medium), and the heavy rewrite at 0.0503 (weak). These are test-fixture measurements, not universal accuracy claims.
 
@@ -42,22 +42,24 @@ Live HTTP run on localhost port 8877 returned: `/register` 201; `/passport`, `/h
 | Explainer Gunicorn startup | PASS locally | Gunicorn served `/health` on localhost and returned Cloud Run/Vertex AI target metadata |
 | Explainer invalid-state rejection | PASS locally | Unsupported `Probably Authentic` status returned HTTP 400 instead of reaching Gemini |
 
-## Public judge-flow acceptance — 2026-08-14
+## Public judge-flow acceptance — 2026-08-15 Version 3
 
 Target: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
 | Public flow | Status | Observed result |
 |---|---|---|
 | Anonymous HTTPS load | PASS | Page opened without login and rendered the verifier |
+| Brand rendering | PASS | Homepage, Versions 1/2/3, comparison, mask, ProofCart, and C2PA views show `GUGUPRO`; no `GUGUPROO` or `GUGU PROOF` remains in the new Production captures |
 | Try Demo | PASS | Modified result, valid evidence signature, 3 C2PA versions, Registry match |
 | Modification Mask | PASS | Mask view displayed the measured 4.8% changed region |
 | Version navigation | PASS | Version 1, 2, and 3 controls responded; Version 2 showed the background/badge action |
 | ProofCart Verify Evidence | PASS | Returned to the signed ProofCart evidence result |
-| Registered Evidence ID | PASS | `proofcart-v1` resolved to its registered history |
+| Registered Evidence ID | PASS | Current Version 1/2/3 Event IDs resolved to `Authentic`, `Modified`, and `Modified` respectively |
 | Missing Evidence ID | PASS | Displayed `No registry record found for that Evidence ID.` |
 | Advanced evidence | PASS | Active Manifest, Event ID, parent event, event hash, and raw C2PA link displayed |
 | Signed file upload | PASS | Public verifier showed 3 manifests, matching hash, and signed Registry record |
-| Tampered file upload | PASS | Displayed `Invalid Signature` and `assertion.dataHash.mismatch` |
-| Unsigned file upload | PASS | Displayed `Unknown` and 0 C2PA manifests |
+| Tampered file upload | PASS | Fresh tampered Version 3 displayed `Invalid Signature`, 3 manifests, and `assertion.dataHash.mismatch` |
+| Unsigned file upload | PASS | Fresh Version 3 mask upload displayed `Unknown` and 0 C2PA manifests |
+| Gemini production explanation | PASS | Public Version 3 Evidence ID returned a `gemini-2.5-flash` explanation while the deterministic status remained `Modified` |
 
 The browser upload tests used project-generated fixtures. The verifier processes those files locally; they were not sent to a server upload endpoint.

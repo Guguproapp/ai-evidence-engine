@@ -28,7 +28,7 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 - An append-only event chain preserves version and parent-hash relationships.
 - A deterministic RGB image-diff algorithm generates the Modification Mask, ratio, and bounding box.
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
-- A bounded Cloud Run Evidence Explainer is designed to call Gemini on Vertex AI after cryptographic verification. Production deployment evidence is still required before this sentence may be changed to a completed integration claim.
+- A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; the public Version 3 verifier integration returned HTTP 200 and preserved the deterministic `Modified` status.
 
 ## AI-Native Operations
 
@@ -52,7 +52,7 @@ Input: allowlisted structured verification facts after the deterministic verifie
 
 Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
 
-Current status: PASS. A real `gemini-2.5-flash` call through Vertex AI returned HTTP 200, produced a buyer-facing explanation, and returned the deterministic `Modified` status unchanged. Sanitized evidence is preserved under `docs/evidence/`.
+Current status: PASS. A real `gemini-2.5-flash` call through Vertex AI returned HTTP 200 for Version 3 Evidence ID `b56445dd-1530-4c69-93d1-6977120a9f40`, produced a buyer-facing explanation, and returned the deterministic `Modified` status unchanged. Sanitized evidence is preserved under `docs/evidence/`.
 
 ## C2PA
 
@@ -97,7 +97,8 @@ The Gemini boundary presents a second challenge: a helpful explanation must neve
 - Actual pixel-derived Modification Masks.
 - Working `Modified`, `Unknown`, and `Invalid Signature` flows.
 - Public one-click ProofCart demo.
-- 19/19 Python tests and 3/3 website tests at the current checkpoint.
+- 19/19 Python tests and 4/4 website tests at the current checkpoint.
+- Public Version 3 regression for `Authentic`, `Modified`, `Unknown`, `Invalid Signature`, 4.8% Modification Mask, C2PA parent chain, Registry lookup, ProofCart, and Gemini explanation.
 
 ## What we learned
 
@@ -105,7 +106,6 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 
 ## What's next
 
-- Complete and prove Cloud Run plus Gemini production operation.
 - Obtain external user feedback with informed disclosure.
 - Replace the demo registry bundle with a persistent production registry.
 - Obtain a production C2PA signing certificate and protect the key with KMS/HSM after submission readiness.
@@ -137,8 +137,8 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-PENDING PUBLIC URL — a 2:17.12 English production-demo video with an English
-subtitle track is prepared at
+PENDING PUBLIC URL — a 2:24 English production-demo video with English narration
+and an English subtitle track is prepared at
 `docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4`. It still must be uploaded to
 YouTube or Vimeo and made publicly visible.
 

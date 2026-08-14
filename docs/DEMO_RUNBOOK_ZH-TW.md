@@ -12,6 +12,7 @@
 4. 點一次 `Mask`，確認黑白修改區域正常顯示。
 5. 回到頁首，準備正式展示。
 6. 不要在現場宣稱開發簽章已加入官方 C2PA Trust List。
+7. 確認三張商品圖都顯示 `GUGUPRO`，不得使用舊的 `GUGUPROO`／`GUGU PROOF` 影片素材。
 
 ## 2～3 分鐘正式講稿
 
@@ -81,9 +82,9 @@
 
 ### Evidence ID
 
-- `proofcart-v1`：原始版本。
-- `proofcart-v2`：第一次修改。
-- `proofcart-v3`：第二次修改。
+- Version 1：`0195e702-a549-455b-af94-f187ec416b50`（原始版本）。
+- Version 2：`ae10e9fb-ad94-403b-a150-c3883aa32ef6`（第一次修改）。
+- Version 3：`b56445dd-1530-4c69-93d1-6977120a9f40`（第二次修改）。
 - 輸入不存在的 ID：顯示 `No registry record found for that Evidence ID.`。
 
 ### 上傳圖片
@@ -91,6 +92,14 @@
 - 已簽章的 `version-3.png`：顯示 `Modified`、3 個 Manifest、Registry Match。
 - 內容遭竄改但保留 C2PA 的圖片：顯示 `Invalid Signature` 與 `assertion.dataHash.mismatch`。
 - 沒有 C2PA 的原始圖片：顯示 `Unknown` 與 0 個 Manifest。
+
+## Production Version 3 固定資料
+
+- Version 1 SHA-256：`b49c057203117efc75bde6c8c110641efffc31b415824fd2c39354bdc6fbb952`
+- Version 2 SHA-256：`ab2993c35ddbbcd1aec128b4ee7ff1416ba8c137471275dfc10057f7d030f374`
+- Version 3 SHA-256：`3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9`
+- Version 3 C2PA Active Manifest：`urn:c2pa:da19b9d8-4115-4708-95d1-de5763364a6d`
+- Version 3 Event Hash：`e545c90fcd342fb753e3301509cdc5e048e5645d58e302144a99516b19bdee0d`
 
 ## 必須誠實說明的邊界
 
@@ -107,4 +116,3 @@
 3. 若上傳自己的圖片顯示 Unknown，這是正確結果，代表沒有找到可驗證來源，不代表圖片一定是假。
 4. 若網路不穩，先用首頁已內建的 Try Demo，不要依賴現場上傳。
 5. 不要把 `signingCredential.untrusted` 說成簽章失敗；它代表 Demo 憑證身分尚未進入官方信任名單。
-
