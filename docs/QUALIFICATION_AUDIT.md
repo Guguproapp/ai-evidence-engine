@@ -10,7 +10,7 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Google Cloud Product used | Dedicated project `ai-evidence-engine-gugupro` exists; Cloud Run activation/deployment is blocked until Billing is enabled | FAIL | Google Cloud Usage |
 | Gemini requirement satisfied | Boundary-tested source only; no deployed API call | FAIL | Gemini Usage |
 | Production Demo works | Public verifier anonymously tested | PASS | Public Demo URL |
-| Repository ready | Apache-2.0 and source/secret audit present; no remote URL | FAIL | Repository URL |
+| Repository ready | Public Apache-2.0 repository pushed at `https://github.com/Guguproapp/ai-evidence-engine` | PASS | Repository URL |
 | Video under 3 minutes | 2:35 English script exists; no published video | FAIL | Video URL |
 | English submission | English final draft and testing instructions exist | PASS | Submission text |
 | Revenue disclosed | $0 total and monthly values documented | PASS pending owner confirmation | Revenue evidence |
@@ -20,16 +20,15 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Real user evidence | 0 verified external users | FAIL | User evidence |
 | Production evidence | Public verifier evidence exists; Cloud Run/Gemini evidence absent | FAIL | Production evidence |
 | Testing instructions | Public step-by-step instructions present | PASS | Testing Instructions |
-| Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source present | PASS locally | Repository |
+| Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source are present in the public repository | PASS | Repository |
 | No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material on 2026-08-14; scan again immediately before push | PASS locally | Repository evidence |
 | Public demo available | HTTPS verifier available without login | PASS | Public Demo URL |
-| Video/repository/demo remain accessible through judging | Cannot be established until video and repository exist | FAIL | URLs and testing notes |
+| Video/repository/demo remain accessible through judging | Repository and demo are public; video does not exist yet | FAIL | URLs and testing notes |
 
 ## Blocking owner actions
 
 1. Complete Google Cloud Free Trial terms and any required billing-account enrollment. OAuth is complete and the dedicated project already exists.
 2. Confirm all financial figures against real billing and bank records.
 3. Arrange at least one informed external-user test.
-4. Reauthenticate GitHub and approve repository visibility.
-5. Record and publicly upload the under-three-minute video.
-6. Review and personally accept Devpost Rules and final submission.
+4. Record and publicly upload the under-three-minute video.
+5. Review and personally accept Devpost Rules and final submission.

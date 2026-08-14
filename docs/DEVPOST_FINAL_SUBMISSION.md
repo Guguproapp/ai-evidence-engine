@@ -133,7 +133,7 @@ PENDING — Cloud Run deployment required.
 
 ## Repository URL
 
-PENDING — GitHub authentication and push required.
+https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
@@ -148,4 +148,4 @@ See `docs/PRODUCTION_EVIDENCE.md`. Cloud Run and Gemini records remain pending.
 - Development C2PA certificate, not an official production Trust List identity.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
-- Cloud Run, Gemini production usage, public repository, and video remain mandatory blockers.
+- Cloud Run, Gemini production usage, real-user evidence, and video remain mandatory blockers.
