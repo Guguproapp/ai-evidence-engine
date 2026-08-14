@@ -34,7 +34,7 @@ This event does not require a sponsor challenge selection. The project must inst
 ## Current truth boundary
 
 - The existing public verifier is deployed through Sites, not Google Cloud.
-- No current Cloud Run or Vertex AI production usage has been proven.
+- Google OAuth is complete and the dedicated project `ai-evidence-engine-gugupro` exists, but it has no linked Billing Account.
+- Cloud Run, Cloud Build, and Artifact Registry activation currently fails Google's billing prerequisite; no Cloud Run or Vertex AI production usage has been proven.
 - The Cloud Run + Gemini Evidence Explainer source is implemented and locally tested, but is not production-integrated until a real deployment, Gemini response, and Google Cloud logs are captured.
 - Current status is **not Submission Ready**.
-

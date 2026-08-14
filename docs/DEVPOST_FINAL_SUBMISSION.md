@@ -38,11 +38,11 @@ Current qualification status: the Gemini explainer source is locally tested, but
 
 ## Google Cloud Usage
 
-Planned required production product: Google Cloud Run, hosting the Evidence Explainer API.
+Planned required production product: Google Cloud Run, hosting the Evidence Explainer API in the dedicated project `ai-evidence-engine-gugupro`.
 
 Authentication design: Cloud Run service-account Application Default Credentials. No Gemini API key is shipped to the browser or repository.
 
-Current status: NOT RUN. Insert the Cloud Run service URL, region, revision, and sanitized production log evidence after deployment.
+Current status: BLOCKED. Google OAuth and the dedicated project are complete, but no Billing Account is linked, so Google rejects Cloud Run, Cloud Build, and Artifact Registry API activation. Insert the Cloud Run service URL, region, revision, and sanitized production log evidence after Free Trial billing enrollment and deployment.
 
 ## Gemini Usage
 
@@ -149,4 +149,3 @@ See `docs/PRODUCTION_EVIDENCE.md`. Cloud Run and Gemini records remain pending.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
 - Cloud Run, Gemini production usage, public repository, and video remain mandatory blockers.
-
