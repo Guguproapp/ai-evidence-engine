@@ -35,3 +35,15 @@ Cloud Logging independently recorded:
 - the same request ID, evidence ID `event-3`, deterministic status `Modified`, model, and 4522 ms latency
 
 Gemini explained an already-computed result. It did not determine or overwrite `Authentic`, `Modified`, `Unknown`, or `Invalid Signature`.
+
+## Public Verifier production integration
+
+Sites version 2 deployed commit `362b324ce117ccf53efb1c3db84d31c3608a89f8` to the public verifier. A browser test opened the anonymous HTTPS site, clicked `Explain with Gemini`, and received:
+
+- Explanation: `This image has been modified. Specifically, the product label area was changed.`
+- Model: `gemini-2.5-flash` on Vertex AI
+- Preserved status: `Modified`
+
+Cloud Logging recorded the browser-triggered request at `2026-08-14T14:48:45Z` with request ID `5a1f1616-f75c-4446-8e14-d0ecae94bd60`, ProofCart evidence ID `ee108227-b97c-46ed-89de-19f792b7b2a7`, revision `ai-evidence-explainer-00002-z76`, and 7101 ms latency.
+
+Production browser regression passed `Modified`, `Authentic`, `Unknown`, `Invalid Signature`, Modification Mask, three-version history, ProofCart, Advanced C2PA evidence, and Gemini Explanation. A local cross-origin failure simulation displayed the fallback message and left the cryptographic status unchanged.

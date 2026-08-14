@@ -119,7 +119,7 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 5. Select Versions 1, 2, and 3 to inspect parent-child history.
 6. Open Advanced details to inspect Manifest ID, Event ID, parent, and event hash.
 7. Click ProofCart `Verify Evidence`.
-8. After Gemini deployment, click Evidence Explainer and confirm that its returned `verification_status` exactly matches the deterministic result.
+8. Click `Explain with Gemini` and confirm the plain-language explanation appears while the deterministic status remains unchanged.
 
 No login or payment is required for the public verifier.
 

@@ -10,6 +10,7 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Google Cloud Product used | Production Evidence Explainer is deployed on Cloud Run in project `ai-evidence-engine-gugupro` | PASS | Google Cloud Usage |
 | Gemini requirement satisfied | Production Cloud Run called Vertex AI `gemini-2.5-flash`; HTTP 200 and Cloud Logging evidence preserved | PASS | Gemini Usage |
 | Production Demo works | Public verifier anonymously tested | PASS | Public Demo URL |
+| Public Verifier Gemini integration | Production browser called Cloud Run, displayed a Vertex AI explanation, and preserved deterministic status | PASS | Public Demo URL / Gemini Usage |
 | Repository ready | Public Apache-2.0 repository pushed at `https://github.com/Guguproapp/ai-evidence-engine` | PASS | Repository URL |
 | Video under 3 minutes | 2:35 English script exists; no published video | FAIL | Video URL |
 | English submission | English final draft and testing instructions exist | PASS | Submission text |
@@ -21,7 +22,7 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Production evidence | Public verifier plus sanitized Cloud Run and Vertex AI request evidence exist | PASS | Production evidence |
 | Testing instructions | Public step-by-step instructions present | PASS | Testing Instructions |
 | Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source are present in the public repository | PASS | Repository |
-| No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material on 2026-08-14; scan again immediately before push | PASS locally | Repository evidence |
+| No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material before the latest push; scan again immediately before final submission | PASS | Repository evidence |
 | Public demo available | HTTPS verifier available without login | PASS | Public Demo URL |
 | Video/repository/demo remain accessible through judging | Repository and demo are public; video does not exist yet | FAIL | URLs and testing notes |
 
