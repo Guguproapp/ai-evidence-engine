@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-13T14:50:22.472105+00:00",
+  "generated_at": "2026-08-14T15:24:53.201977+00:00",
   "product": "ProofCart verified product photo",
-  "passport_id": "771e3af8-a2b1-44c7-8f40-d9cc458e80de",
+  "passport_id": "dd66acec-5544-4a89-8ae4-203c40d2c22c",
   "content_id": "proofcart-product-photo",
   "c2pa_tool": "c2patool 0.27.12",
   "versions": [
     {
-      "event_id": "ab359722-7fa9-4585-a8c2-9e1d090f1e43",
-      "passport_id": "771e3af8-a2b1-44c7-8f40-d9cc458e80de",
+      "event_id": "0195e702-a549-455b-af94-f187ec416b50",
+      "passport_id": "dd66acec-5544-4a89-8ae4-203c40d2c22c",
       "parent_event": null,
       "parent_hash": null,
       "content_id": "proofcart-product-photo",
-      "exact_hash": "ea9a30b63e0b0357493f4e746a92daf1557a9298f77f53ea9671680d55399d9d",
+      "exact_hash": "b49c057203117efc75bde6c8c110641efffc31b415824fd2c39354bdc6fbb952",
       "fingerprint": {
         "kind": "sha256",
-        "value": "ea9a30b63e0b0357493f4e746a92daf1557a9298f77f53ea9671680d55399d9d"
+        "value": "b49c057203117efc75bde6c8c110641efffc31b415824fd2c39354bdc6fbb952"
       },
-      "timestamp": "2026-08-13T14:50:22.367753+00:00",
+      "timestamp": "2026-08-14T15:24:53.086189+00:00",
       "issuer": "gugupro-demo-issuer",
       "provider": "gugupro",
       "model": "deterministic-image-demo",
@@ -27,9 +27,9 @@
       "operator_type": "Human",
       "human_approval": true,
       "blackbox_available": true,
-      "event_hash": "028e01b1654945ef3d0e814a74b639129aaf18148bb16be516e74b94a2c8bc25",
+      "event_hash": "d22858133cf91255d3afdd6dee57d3a9d5ab708ffd7c80f5675dd67bc00c6b05",
       "signature_algorithm": "RSA-2048/SHA-256",
-      "signature": "edTYs8+RRO3OYdaZlfg0JSUPRpolpUylqPWxIILNT00HHFAgYM4y8Jna0aeInzgGZSzIyyRFnbsaqznzGj+DshKYqerPIoCmZSG0vRwIN6xo3Z5WMDgnpKHjRQ99HmYf9JsFvKsdP3w+Br9bizeS8h/BhyUeybA5lqMWxNz82LLgeEoWxKiW3hBu/x6FCAP5WsolHbxqj36YJSXbfznbNnmAkJcaeSoApS1yqlpibSwo2pPYIccMAc/mtrsTt4AVxSUMpka/vx0G63GJOSdpzcRfgs6sjlKDDaXifv1HjHv2o7K9iT4KvdKTfbwYEn0mzi8IxEhyXCdSLuErwsEqVA==",
+      "signature": "hkjScI9eTE9nk13+jaOXjF4Pnlkarg1IxnZ8GpWbTOmkxNGEjcKOBs4CUzvmdmzI09lOq9wFFITY05iHlhcMb9FLw+aESfyvOXoMGPlAqgAdTjaBg36XopFHztrfpoh0xpQjrQAfXM/U+/8vV4HbbMi2nAXE/BjZJ42CsU9PYVQBuflei1hv26Q9aCgb677XeJdEEsGjDQ80O1LxknHlbSlbJLV/hHO00TDnxv7w+mbQgx1Q6sNUJR/BWOsBuq3AbuywwfPniYDayeBmiOQccAJGIAiIEbaSx4yzqD/iw2L7oThEw2H2oSt3zb0rTOaoaeCebmtCnXCPTjYXmJwOFw==",
       "version_id": "proofcart-v1",
       "parent_version_id": null,
       "image": "/demo/version-1.png",
@@ -39,11 +39,11 @@
         "tool": "c2patool 0.27.12",
         "embedded": true,
         "manifest_count": 1,
-        "active_manifest": "urn:c2pa:1f07f3e1-1d07-4fff-8f06-8c569da7ecf3",
+        "active_manifest": "urn:c2pa:6713eca2-b0b7-4524-a417-da9b154020b7",
         "validation_status": [
           {
             "code": "signingCredential.untrusted",
-            "url": "self#jumbf=/c2pa/urn:c2pa:1f07f3e1-1d07-4fff-8f06-8c569da7ecf3/c2pa.signature",
+            "url": "self#jumbf=/c2pa/urn:c2pa:6713eca2-b0b7-4524-a417-da9b154020b7/c2pa.signature",
             "explanation": "signing certificate untrusted"
           }
         ],
@@ -52,17 +52,17 @@
       }
     },
     {
-      "event_id": "9f9bc4e1-60c3-43ba-a56f-7128d782fb95",
-      "passport_id": "771e3af8-a2b1-44c7-8f40-d9cc458e80de",
-      "parent_event": "ab359722-7fa9-4585-a8c2-9e1d090f1e43",
-      "parent_hash": "028e01b1654945ef3d0e814a74b639129aaf18148bb16be516e74b94a2c8bc25",
+      "event_id": "ae10e9fb-ad94-403b-a150-c3883aa32ef6",
+      "passport_id": "dd66acec-5544-4a89-8ae4-203c40d2c22c",
+      "parent_event": "0195e702-a549-455b-af94-f187ec416b50",
+      "parent_hash": "d22858133cf91255d3afdd6dee57d3a9d5ab708ffd7c80f5675dd67bc00c6b05",
       "content_id": "proofcart-product-photo",
-      "exact_hash": "bb2c95309590eda590ac89d5c80e8454e9e4d60631e1485db142a1326e6bd764",
+      "exact_hash": "ab2993c35ddbbcd1aec128b4ee7ff1416ba8c137471275dfc10057f7d030f374",
       "fingerprint": {
         "kind": "sha256",
-        "value": "bb2c95309590eda590ac89d5c80e8454e9e4d60631e1485db142a1326e6bd764"
+        "value": "ab2993c35ddbbcd1aec128b4ee7ff1416ba8c137471275dfc10057f7d030f374"
       },
-      "timestamp": "2026-08-13T14:50:22.409722+00:00",
+      "timestamp": "2026-08-14T15:24:53.134212+00:00",
       "issuer": "gugupro-demo-issuer",
       "provider": "gugupro",
       "model": "deterministic-image-demo",
@@ -84,9 +84,9 @@
       "operator_type": "AI/Program",
       "human_approval": true,
       "blackbox_available": true,
-      "event_hash": "537de526ecb4cc7227eac5f1462f92ba5227f5ad9d1ad938b07c1a3ba1b8444f",
+      "event_hash": "1a52989c8d4a42aeb4e7183285d1400778b5c3df43719082c731c863e35d65ba",
       "signature_algorithm": "RSA-2048/SHA-256",
-      "signature": "IkIPOrm6lGLpV2iVRCpALfuvHqXy8EXmAUdrKVvudC6qMjEhwxQB+r5kIPogfefczfwglrbxBlOl+LmqloVNFwZZrhLkcXmE7FshZAMXZgga8Ft9yzsiuCoBzJrsMqrUztcEe64PoSON6VdZJQWTSetxQeses/QxCNR74y7NHjj9sw5nVGOa89VkOpCrSdG+AggOwHWseB1sWnDPlv+y550RHnTBh/mRv+IZFUv8foj9KwF4vmb1GTjphNFex2UYxKh9Eypo5IMcDq82hqDtBzj5RLzcc8yujayHc3KddQ63jeAbhNKeeK5N3KZVpD5GDrsuC0NPLlC+Ap9muTTFrw==",
+      "signature": "xeH87q2jZXiJpy8D1vGJvZHriFnIJDG+NVBSjx2jRQR458aye2LGH4g5QRZBeuDexRa9DVB1ipDKtYzomNNdn9zU4on0+XB2n0JL9XxtZEyUy9CWSXs65IXs8dstuN0BB/Sbk1a1C9cy/Kn8erXj0P8Eps+nbZSzllODgPTiQZZCVd+9NMPSfnZmxNAAXgK/CFbuHOJ6MvvyiSoa5KxcpS0tvCqLEikuAhenW+dH7DLZjtWTyXX/T370/mC9So+s8BQGtMjwcWEx1Um4RUvTPt0wrdLcrILOj/zvtQjDaX+8useBBBD/HFBKOQlB76MUVGBN1vMoM6L1zK22B/zvzQ==",
       "version_id": "proofcart-v2",
       "parent_version_id": "proofcart-v1",
       "image": "/demo/version-2.png",
@@ -96,11 +96,11 @@
         "tool": "c2patool 0.27.12",
         "embedded": true,
         "manifest_count": 2,
-        "active_manifest": "urn:c2pa:96a8da84-24dd-4868-85e9-8f21de37ed3a",
+        "active_manifest": "urn:c2pa:6d68d301-a5f7-4ab8-b81c-5b0bf3ec3023",
         "validation_status": [
           {
             "code": "signingCredential.untrusted",
-            "url": "self#jumbf=/c2pa/urn:c2pa:96a8da84-24dd-4868-85e9-8f21de37ed3a/c2pa.signature",
+            "url": "self#jumbf=/c2pa/urn:c2pa:6d68d301-a5f7-4ab8-b81c-5b0bf3ec3023/c2pa.signature",
             "explanation": "signing certificate untrusted"
           }
         ],
@@ -109,17 +109,17 @@
       }
     },
     {
-      "event_id": "ee108227-b97c-46ed-89de-19f792b7b2a7",
-      "passport_id": "771e3af8-a2b1-44c7-8f40-d9cc458e80de",
-      "parent_event": "9f9bc4e1-60c3-43ba-a56f-7128d782fb95",
-      "parent_hash": "537de526ecb4cc7227eac5f1462f92ba5227f5ad9d1ad938b07c1a3ba1b8444f",
+      "event_id": "b56445dd-1530-4c69-93d1-6977120a9f40",
+      "passport_id": "dd66acec-5544-4a89-8ae4-203c40d2c22c",
+      "parent_event": "ae10e9fb-ad94-403b-a150-c3883aa32ef6",
+      "parent_hash": "1a52989c8d4a42aeb4e7183285d1400778b5c3df43719082c731c863e35d65ba",
       "content_id": "proofcart-product-photo",
-      "exact_hash": "ceb09f9b26bea10c10c4c0ff7d7c502662b6dd7f92f37183ada11adcfab861ea",
+      "exact_hash": "3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9",
       "fingerprint": {
         "kind": "sha256",
-        "value": "ceb09f9b26bea10c10c4c0ff7d7c502662b6dd7f92f37183ada11adcfab861ea"
+        "value": "3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9"
       },
-      "timestamp": "2026-08-13T14:50:22.454413+00:00",
+      "timestamp": "2026-08-14T15:24:53.183555+00:00",
       "issuer": "gugupro-demo-issuer",
       "provider": "gugupro",
       "model": "deterministic-image-demo",
@@ -141,9 +141,9 @@
       "operator_type": "AI/Program",
       "human_approval": true,
       "blackbox_available": true,
-      "event_hash": "210823d73c8eb1a47c487547ff3f0d76e50c47e8d1ca5eb989ca6bbdb85fbed5",
+      "event_hash": "e545c90fcd342fb753e3301509cdc5e048e5645d58e302144a99516b19bdee0d",
       "signature_algorithm": "RSA-2048/SHA-256",
-      "signature": "utEHOPSrgXc0jUGS/Se76OTmd47OY+BDm0tx8VcsAT4Np+sDDs4DWZch0g3n75+gImTpxa+obkG4G+WJsfHsL1SamJzS+H+e9getQaDnly9nonIEa5uliA8eztaR+rvrpmoFP67OkWorxjHJnFPfAH82j/4uqJjQPKID4g7VICxOi+EMsua3bJKHrDw4j/PxtW2bpZ4SuZhNE8XPu0wEvbWHWk646ZmKlwkZDWCxy55LxYIW9FLZcEhIkU8HS2n+vc0ngqNE3DC4JrnTzZEMknLg44tVFeir9zGU1yUQ/+PA9bnszUOn/EQRVP50lqXbm4Np7ouFdmbcGAYw9Kf+3w==",
+      "signature": "RFO1RZn5C5QlfFWAH+AqJCmNNa6tiaFPVlXJnYjtikB3LtsaSTQ290JnyP33mlPgDz4k1KubyG8FeOz/sfn6J+JpR0+CBwz3zRyjLQ9RdBLDeXKkRrvzrLlc9tUF7EnQxt8w74JrXW7aFHZ0srGvzqj1d5CvJnAhApy/EPtLACd5QvTjPL2fTE8h8kOGA57NHUERjZxXWwjN2lZKrCl/PsyLBV8yQWdkEEnj31HPCGoS7QW8j3V4LRUsAoCKrS9xm6aZmKYrn6XF252ma9mnvSBaaznLkyHpVu5AtIXrCCXOLcpeP+5FAhOart+UNFcNPWqZxay3qlAqgV2C6c05ww==",
       "version_id": "proofcart-v3",
       "parent_version_id": "proofcart-v2",
       "image": "/demo/version-3.png",
@@ -153,11 +153,11 @@
         "tool": "c2patool 0.27.12",
         "embedded": true,
         "manifest_count": 3,
-        "active_manifest": "urn:c2pa:f77c2379-528d-4dd8-9fee-4dd4633494ad",
+        "active_manifest": "urn:c2pa:da19b9d8-4115-4708-95d1-de5763364a6d",
         "validation_status": [
           {
             "code": "signingCredential.untrusted",
-            "url": "self#jumbf=/c2pa/urn:c2pa:f77c2379-528d-4dd8-9fee-4dd4633494ad/c2pa.signature",
+            "url": "self#jumbf=/c2pa/urn:c2pa:da19b9d8-4115-4708-95d1-de5763364a6d/c2pa.signature",
             "explanation": "signing certificate untrusted"
           }
         ],
@@ -170,7 +170,7 @@
     {
       "ai_involvement": false,
       "issuer": "gugupro-demo-issuer",
-      "creation_time": "2026-08-13T14:50:22.367753+00:00",
+      "creation_time": "2026-08-14T15:24:53.086189+00:00",
       "modification_status": "digital_capture",
       "parent": null,
       "signature_status": "valid",
@@ -185,9 +185,9 @@
     {
       "ai_involvement": true,
       "issuer": "gugupro-demo-issuer",
-      "creation_time": "2026-08-13T14:50:22.409722+00:00",
+      "creation_time": "2026-08-14T15:24:53.134212+00:00",
       "modification_status": "ai_background_and_badge_edit",
-      "parent": "ab359722-7fa9-4585-a8c2-9e1d090f1e43",
+      "parent": "0195e702-a549-455b-af94-f187ec416b50",
       "signature_status": "valid",
       "blackbox_available": true,
       "confidence_level": "cryptographic",
@@ -200,9 +200,9 @@
     {
       "ai_involvement": true,
       "issuer": "gugupro-demo-issuer",
-      "creation_time": "2026-08-13T14:50:22.454413+00:00",
+      "creation_time": "2026-08-14T15:24:53.183555+00:00",
       "modification_status": "ai_label_and_object_edit",
-      "parent": "9f9bc4e1-60c3-43ba-a56f-7128d782fb95",
+      "parent": "ae10e9fb-ad94-403b-a150-c3883aa32ef6",
       "signature_status": "valid",
       "blackbox_available": true,
       "confidence_level": "cryptographic",

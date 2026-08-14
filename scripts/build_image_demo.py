@@ -25,14 +25,16 @@ def build_pixels(version):
     fill_rect(pixels, WIDTH, HEIGHT, 210, 105, 510, 375, (224, 135, 55))
     fill_rect(pixels, WIDTH, HEIGHT, 230, 125, 490, 355, (244, 165, 73))
     fill_rect(pixels, WIDTH, HEIGHT, 260, 165, 460, 305, (250, 246, 235))
-    draw_text(pixels, WIDTH, HEIGHT, 292, 195, "GUGU", (24, 52, 72), 7)
+    # Keep the public brand literal intact. Splitting it across labels previously
+    # rendered as "GUGU" + "PROO" because the tiny demo font has no F glyph.
+    draw_text(pixels, WIDTH, HEIGHT, 276, 195, "GUGUPRO", (24, 52, 72), 4)
     draw_text(pixels, WIDTH, HEIGHT, 309, 260, "V1" if version == 1 else ("V2" if version == 2 else "V3"), (67, 89, 103), 4)
     if version >= 2:
         fill_ellipse(pixels, WIDTH, HEIGHT, 520, 105, 54, 54, (31, 104, 89))
         draw_text(pixels, WIDTH, HEIGHT, 492, 88, "AI", (255, 255, 255), 5)
     if version >= 3:
         fill_rect(pixels, WIDTH, HEIGHT, 250, 245, 470, 320, (24, 52, 72))
-        draw_text(pixels, WIDTH, HEIGHT, 270, 267, "PROOF", (255, 255, 255), 4)
+        draw_text(pixels, WIDTH, HEIGHT, 270, 267, "EDIT 2", (255, 255, 255), 4)
     return pixels
 
 
@@ -168,4 +170,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
