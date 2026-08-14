@@ -137,15 +137,19 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-PENDING — video must be under three minutes and publicly visible.
+PENDING PUBLIC URL — a 2:17.12 English production-demo video with an English
+subtitle track is prepared at
+`docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4`. It still must be uploaded to
+YouTube or Vimeo and made publicly visible.
 
 ## Production Evidence
 
-See `docs/PRODUCTION_EVIDENCE.md`. Cloud Run and Gemini records remain pending.
+See `docs/PRODUCTION_EVIDENCE.md`. Sanitized Cloud Run, Vertex AI, and public
+verifier request evidence has been preserved without credentials.
 
 ## Known Limitations
 
 - Development C2PA certificate, not an official production Trust List identity.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
-- Real-user evidence and the public under-three-minute video remain mandatory blockers.
+- Real-user evidence and a public URL for the prepared under-three-minute video remain mandatory blockers.

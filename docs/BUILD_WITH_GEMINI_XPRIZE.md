@@ -37,4 +37,4 @@ This event does not require a sponsor challenge selection. The project must inst
 - The dedicated billing-enabled project is `ai-evidence-engine-gugupro`; the ready Cloud Run revision is in `asia-east1`.
 - A real Vertex AI `gemini-2.5-flash` request returned HTTP 200, produced a buyer-facing explanation, and preserved the deterministic verification status.
 - Cloud Run, Vertex AI, and public-browser logs are preserved under `docs/evidence/` without secrets.
-- Current status is **not Submission Ready** because real external-user evidence, the public under-three-minute video, and final entrant acceptance/submission remain incomplete.
+- Current status is **not Submission Ready** because real external-user evidence, a public URL for the completed under-three-minute video, and final entrant acceptance/submission remain incomplete.

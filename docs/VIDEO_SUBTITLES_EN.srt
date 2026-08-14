@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:12,500
+AI-edited product media is everywhere. But buyers usually cannot tell where an image came from, who changed it, what changed, or whether its history was tampered with.
+
+2
+00:00:12,500 --> 00:00:26,700
+AI Evidence Engine verifies recorded evidence instead of guessing an AI percentage. It checks the hash, digital signature, C2PA manifests, Registry record, and version chain.
+
+3
+00:00:26,700 --> 00:00:44,600
+The ProofCart image is Modified. Its overlay and pixel-derived mask show the changed product-label region: 4.8% of the image, not a copyright percentage.
+
+4
+00:00:44,600 --> 00:01:13,600
+Every substantive edit creates a child version. Each version keeps its Event ID, parent, hash, signature, timestamp, and embedded C2PA provenance. The development certificate proves integrity, not official Trust List identity.
+
+5
+00:01:13,600 --> 00:01:30,600
+This prepared file changes the signed bytes. The verifier reports Invalid Signature while preserving the original evidence history.
+
+6
+00:01:30,600 --> 00:01:51,300
+Gemini on Vertex AI explains verified facts in plain language. It never decides the trust state, and cryptographic verification still works if Gemini is unavailable.
+
+7
+00:01:51,300 --> 00:02:08,800
+ProofCart lets a merchant attach verifiable history to a product photo so a buyer can inspect the source, edits, changed region, C2PA evidence, and signature.
+
+8
+00:02:08,800 --> 00:02:17,000
+AI Evidence Engine records what happened. It does not make copyright, infringement, or legal verdicts. Evidence, not guesswork.

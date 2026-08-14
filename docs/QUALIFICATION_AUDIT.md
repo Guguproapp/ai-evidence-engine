@@ -12,7 +12,7 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Production Demo works | Public verifier anonymously tested | PASS | Public Demo URL |
 | Public Verifier Gemini integration | Production browser called Cloud Run, displayed a Vertex AI explanation, and preserved deterministic status | PASS | Public Demo URL / Gemini Usage |
 | Repository ready | Public Apache-2.0 repository pushed at `https://github.com/Guguproapp/ai-evidence-engine` | PASS | Repository URL |
-| Video under 3 minutes | 2:35 English script exists; no published video | FAIL | Video URL |
+| Video under 3 minutes | Production-demo video is 2:17.12, 1920x1080 H.264 with English narration and an English subtitle track; contact-sheet QA passed | PASS | `docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4` |
 | English submission | English final draft and testing instructions exist | PASS | Submission text |
 | Revenue disclosed | $0 total and monthly values documented | PASS pending owner confirmation | Revenue evidence |
 | Expenses disclosed | $0 documented; owner billing confirmation pending | FAIL | Expense evidence |
@@ -24,11 +24,11 @@ Audit date: 2026-08-14. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source are present in the public repository | PASS | Repository |
 | No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material before the latest push; scan again immediately before final submission | PASS | Repository evidence |
 | Public demo available | HTTPS verifier available without login | PASS | Public Demo URL |
-| Video/repository/demo remain accessible through judging | Repository and demo are public; video does not exist yet | FAIL | URLs and testing notes |
+| Video/repository/demo remain accessible through judging | Repository and demo are public; the completed video has no public YouTube/Vimeo URL yet | FAIL | URLs and testing notes |
 
 ## Blocking owner actions
 
 1. Confirm all financial figures against real billing and bank records.
 2. Arrange at least one informed external-user test.
-3. Record and publicly upload the under-three-minute video.
+3. Review the completed under-three-minute video, then publicly upload it to YouTube or Vimeo.
 4. Review and personally accept Devpost Rules and final submission.
