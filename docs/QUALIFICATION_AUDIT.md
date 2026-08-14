@@ -24,11 +24,10 @@ Audit date: 2026-08-15. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source are present in the public repository | PASS | Repository |
 | No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material before the latest push; scan again immediately before final submission | PASS | Repository evidence |
 | Public demo available | HTTPS verifier available without login | PASS | Public Demo URL |
-| Video/repository/demo remain accessible through judging | Repository and demo are public; the completed Version 3 video has no public YouTube/Vimeo URL yet | FAIL | URLs and testing notes |
+| Video/repository/demo remain accessible through judging | Repository, Production demo, and 2:24 YouTube video are public; public playback and English subtitles were verified | PASS | `https://youtu.be/Fwu7yGUTVwo` |
 
 ## Blocking owner actions
 
 1. Confirm all financial figures against real billing and bank records.
 2. Arrange at least one informed external-user test.
-3. Review the completed under-three-minute video, then publicly upload it to YouTube or Vimeo.
-4. Review and personally accept Devpost Rules and final submission.
+3. Review and personally accept Devpost Rules and final submission.

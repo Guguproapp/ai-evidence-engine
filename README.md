@@ -19,7 +19,7 @@ This is not an AI detector and does not produce legal conclusions. It records ve
 - A production Cloud Run Evidence Explainer using Vertex AI `gemini-2.5-flash`, while keeping Gemini outside the deterministic verification decision.
 - Public Production Version 3 with the corrected `GUGUPRO` brand, rebuilt image hashes, C2PA parent ingredients, signed events, Registry records, and Modification Mask.
 
-Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, public YouTube/Vimeo video hosting, real external-user evidence, and production security hardening.
+Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 
 ## Run
 
@@ -60,6 +60,8 @@ npm run dev
 ```
 
 Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+
+Public demo video: https://youtu.be/Fwu7yGUTVwo
 
 - Current ProofCart Version 3 evidence event: `b56445dd-1530-4c69-93d1-6977120a9f40`
 - Current Version 3 SHA-256: `3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9`

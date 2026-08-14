@@ -35,7 +35,7 @@ Live HTTP run on localhost port 8877 returned: `/register` 201; `/passport`, `/h
 | Google SynthID | NOT INTEGRATED | No official unrestricted general verification API confirmed |
 | OpenAI provenance API | NOT INTEGRATED | No public third-party Verify API confirmed |
 | Image history/masks | PASS | Three real signed versions and two generated diff masks |
-| Video prototype | NOT IMPLEMENTED | Deferred behind image/text/black-box core |
+| Public demo video | PASS | 2:24 H.264/AAC Version 3 video, English narration, published English subtitles, public YouTube playback |
 | Evidence Explainer boundary | PASS locally | Gemini output is mocked; deterministic verification status cannot be replaced and non-allowlisted facts are removed |
 | Cloud Run deployment | NOT RUN | No Google Cloud account/project is authenticated yet |
 | Gemini production call | NOT RUN | Local mock test is not represented as a production API call |
@@ -61,5 +61,6 @@ Target: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 | Tampered file upload | PASS | Fresh tampered Version 3 displayed `Invalid Signature`, 3 manifests, and `assertion.dataHash.mismatch` |
 | Unsigned file upload | PASS | Fresh Version 3 mask upload displayed `Unknown` and 0 C2PA manifests |
 | Gemini production explanation | PASS | Public Version 3 Evidence ID returned a `gemini-2.5-flash` explanation while the deterministic status remained `Modified` |
+| Public YouTube video | PASS | `https://youtu.be/Fwu7yGUTVwo` loaded publicly at 2:24 with the published English subtitle track |
 
 The browser upload tests used project-generated fixtures. The verifier processes those files locally; they were not sent to a server upload endpoint.

@@ -2,6 +2,8 @@
 
 公開網址：https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
+正式影片：https://youtu.be/Fwu7yGUTVwo
+
 目標時間：2 分 30 秒。最長不要超過 3 分鐘。
 
 ## Demo 前 3 分鐘檢查

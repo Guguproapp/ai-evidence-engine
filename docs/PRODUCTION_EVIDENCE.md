@@ -15,6 +15,7 @@ Only artifacts that were actually captured may be marked `PASS`. Screenshots and
 | Evidence verification logs | PASS | Automated tests plus fresh public-browser `Authentic`, `Modified`, `Unknown`, and `Invalid Signature` results |
 | Brand correction | PASS | All newly captured public screenshots and image bytes show `GUGUPRO`; old `GUGUPROO` material is excluded from the official video |
 | Version 3 data consistency | PASS | Public image bytes match repository SHA-256 values; Event IDs, parents, C2PA manifest IDs, signatures, and Registry records belong to the rebuilt Version 3 chain |
+| Public demo video | PASS | YouTube published the 2:24 Version 3 video with English subtitles at `https://youtu.be/Fwu7yGUTVwo`; public playback was verified |
 
 Artifacts captured later should be placed under `docs/evidence/` with a date and short description. Binary screenshots should not be committed until checked for account emails, project numbers, billing details, and tokens.
 
@@ -31,6 +32,7 @@ Current Version 3 Production captures:
 - `docs/evidence/2026-08-15-production-v3-unknown.png`
 - `docs/evidence/2026-08-15-production-v3-proofcart.png`
 - `docs/evidence/2026-08-15-production-v3-gemini.png`
+- `docs/evidence/2026-08-15-youtube-public-video.png`
 
 Version 3 identifiers:
 

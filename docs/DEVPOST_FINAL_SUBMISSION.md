@@ -137,10 +137,11 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-PENDING PUBLIC URL — a 2:24 English production-demo video with English narration
-and an English subtitle track is prepared at
-`docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4`. It still must be uploaded to
-YouTube or Vimeo and made publicly visible.
+https://youtu.be/Fwu7yGUTVwo
+
+The public Version 3 production-demo video is 2:24, includes English narration
+and a published English (United States) subtitle track, and passed YouTube's
+initial copyright check without an issue. AI-use disclosure is enabled.
 
 ## Production Evidence
 
@@ -152,4 +153,4 @@ verifier request evidence has been preserved without credentials.
 - Development C2PA certificate, not an official production Trust List identity.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
-- Real-user evidence and a public URL for the prepared under-three-minute video remain mandatory blockers.
+- Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
