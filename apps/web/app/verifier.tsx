@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element -- Direct asset bytes preserve embedded C2PA data; image optimization could transform them. */
 
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import { classifyEvidence } from "./evidence-classification.mjs";
 
 type Verification = {
   verified: boolean;
@@ -22,7 +23,17 @@ type Version = {
   issuer: string;
   model: string;
   action_type: string;
+  involvement_level: string;
   operator_type: string;
+  human_approval: boolean;
+  blackbox_available: boolean;
+  asset_type?: string;
+  media_type?: string;
+  device_id?: string | null;
+  software?: string | null;
+  software_version?: string | null;
+  trust_status?: string;
+  public_disclosure_level?: string;
   image: string;
   mask: string | null;
   comparison: string | null;
@@ -52,7 +63,10 @@ type Demo = {
 type UploadResult = {
   name: string;
   hash: string;
-  result: "Authentic" | "Modified" | "Unknown" | "Invalid Signature";
+  result: "Verified Original" | "Verified Modified" | "Unverified" | "Invalid Evidence";
+  c2paIntegrity: "Valid" | "Invalid" | "Not Present";
+  registryStatus: "Matched" | "Invalid" | "No Match";
+  identityTrust: "Trusted" | "Development" | "Unknown";
   manifestCount: number;
   activeManifest: string | null;
   validation: Array<{ code?: string; explanation?: string }>;
@@ -62,7 +76,7 @@ type UploadResult = {
 
 type ExplanationResult = {
   request_id: string;
-  verification_status: "Authentic" | "Modified" | "Unknown" | "Invalid Signature";
+  verification_status: "Verified Original" | "Verified Modified" | "Unverified" | "Invalid Evidence";
   explanation: string;
   model: string;
   provider: string;
@@ -86,9 +100,16 @@ function humanAction(value: string) {
 }
 
 function verificationLabel(version: Version, verification: Verification) {
-  if (!verification.verified || verification.signature_status !== "valid") return "Invalid Signature";
-  if (!version.parent_version_id) return "Authentic";
-  return "Modified";
+  const validation = version.c2pa.validation_status ?? [];
+  const c2paValid = !validation.some((item) => item.code && !item.code.endsWith(".untrusted"));
+  return classifyEvidence({
+    hasC2pa: version.c2pa.embedded && version.c2pa.manifest_count > 0,
+    c2paValid,
+    registryMatched: true,
+    registryValid: verification.verified && verification.signature_status === "valid",
+    hasParent: Boolean(version.parent_version_id),
+    identityTrust: version.c2pa.development_signer ? "Development" : "Unknown",
+  }).provenanceState;
 }
 
 function StatusPill({ value }: { value: string }) {
@@ -121,7 +142,7 @@ export function EvidenceVerifier() {
 
   const version = demo?.versions[selected] ?? null;
   const verification = demo?.registry_verification[selected] ?? null;
-  const result = version && verification ? verificationLabel(version, verification) : "Unknown";
+  const result = version && verification ? verificationLabel(version, verification) : "Unverified";
   const imageSource = useMemo(() => {
     if (!version) return "";
     if (view === "mask") return version.mask ?? version.image;
@@ -187,12 +208,12 @@ export function EvidenceVerifier() {
       version_id: `uploaded-${upload.hash.slice(0, 16)}`,
       parent_version_id: null,
       evidence_id: null,
-      action: upload.result === "Invalid Signature" ? "Uploaded bytes do not match the signed C2PA claim" : "No matching registry record found",
+      action: upload.result === "Invalid Evidence" ? "Uploaded bytes or evidence do not validate" : "No matching registry record found",
       changed_ratio: 0,
       c2pa_manifest_count: upload.manifestCount,
       c2pa_status: upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "no validation record",
       registry_status: "not found",
-      signature_status: upload.result === "Invalid Signature" ? "invalid" : "unknown",
+      signature_status: upload.result === "Invalid Evidence" ? "invalid" : "unknown",
       signer: null,
     });
   }
@@ -232,13 +253,34 @@ export function EvidenceVerifier() {
       const digest = await crypto.subtle.digest("SHA-256", await file.arrayBuffer());
       const hash = Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
       const matchedVersion = demo?.versions.find((item) => item.exact_hash === hash);
-      if (matchedVersion && demo) setSelected(demo.versions.indexOf(matchedVersion));
+      const matchedIndex = matchedVersion && demo ? demo.versions.indexOf(matchedVersion) : -1;
+      const registryVerification = matchedIndex >= 0 ? demo?.registry_verification[matchedIndex] : undefined;
+      if (matchedIndex >= 0) setSelected(matchedIndex);
       const { createC2pa } = await import("@contentauth/c2pa-web/inline");
       const sdk = await createC2pa();
       const reader = await sdk.reader.fromBlob(file.type, file);
       if (!reader) {
         sdk.dispose();
-        setUpload({ name: file.name, hash, result: "Unknown", manifestCount: 0, activeManifest: null, validation: [], raw: null, matchedVersion });
+        const classification = classifyEvidence({
+          hasC2pa: false,
+          c2paValid: false,
+          registryMatched: Boolean(matchedVersion),
+          registryValid: Boolean(registryVerification?.verified),
+          hasParent: Boolean(matchedVersion?.parent_version_id),
+        });
+        setUpload({
+          name: file.name,
+          hash,
+          result: classification.provenanceState,
+          c2paIntegrity: classification.c2paIntegrity,
+          registryStatus: classification.registryStatus,
+          identityTrust: "Unknown",
+          manifestCount: 0,
+          activeManifest: null,
+          validation: [],
+          raw: null,
+          matchedVersion,
+        });
         return;
       }
       const store = await reader.manifestStore();
@@ -246,13 +288,26 @@ export function EvidenceVerifier() {
       const record = store as unknown as { manifests?: Record<string, unknown>; active_manifest?: string; validation_status?: Array<{ code?: string; explanation?: string }> };
       const validation = record.validation_status ?? [];
       const invalid = validation.some((item) => item.code && !item.code.endsWith(".untrusted"));
+      const manifestCount = Object.keys(record.manifests ?? {}).length;
+      const identityTrust = matchedVersion?.c2pa.development_signer ? "Development" : "Unknown";
+      const classification = classifyEvidence({
+        hasC2pa: manifestCount > 0,
+        c2paValid: !invalid,
+        registryMatched: Boolean(matchedVersion),
+        registryValid: Boolean(registryVerification?.verified),
+        hasParent: Boolean(matchedVersion?.parent_version_id),
+        identityTrust,
+      });
       await reader.free();
       sdk.dispose();
       setUpload({
         name: file.name,
         hash,
-        result: invalid ? "Invalid Signature" : matchedVersion?.parent_version_id ? "Modified" : "Authentic",
-        manifestCount: Object.keys(record.manifests ?? {}).length,
+        result: classification.provenanceState,
+        c2paIntegrity: classification.c2paIntegrity,
+        registryStatus: classification.registryStatus,
+        identityTrust,
+        manifestCount,
         activeManifest: record.active_manifest ?? null,
         validation,
         raw,
@@ -291,9 +346,9 @@ export function EvidenceVerifier() {
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <span className="eyebrow">VERIFIABLE IMAGE HISTORY</span>
-          <h1>See where an image came from.<br /><em>And exactly what changed.</em></h1>
-          <p>Upload an image or try a signed product-photo demo. The verifier checks its content hash, C2PA manifest, signed evidence chain, and changed regions.</p>
+          <span className="eyebrow">UNIVERSAL EVIDENCE PASSPORT</span>
+          <h1>Prove where a creation came from.<br /><em>Without guessing.</em></h1>
+          <p>AI Evidence Engine records verifiable origin, tools, changes, and history across digital and physical creation. Image provenance is the first working modality.</p>
           <div className="hero-actions">
             <button className="primary" onClick={tryDemo}>Try the 60-second demo <span>→</span></button>
             <label className="secondary upload-button">Upload an image<input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFile} /></label>
@@ -302,7 +357,7 @@ export function EvidenceVerifier() {
         </div>
         <div className="hero-proof">
           <div className="proof-card back-card"><span>ORIGINAL</span><img src="/demo/version-1.png" alt="Original ProofCart product" /></div>
-          <div className="proof-card front-card"><span>VERIFIED EDIT</span><img src="/demo/version-3-comparison.png" alt="Detected changed region" /><div className="proof-stamp">✓ Evidence chain verified</div></div>
+          <div className="proof-card front-card"><span>VERIFIED MODIFIED</span><img src="/demo/version-3-comparison.png" alt="Detected changed region" /><div className="proof-stamp">✓ Evidence chain verified</div></div>
         </div>
       </section>
 
@@ -322,13 +377,22 @@ export function EvidenceVerifier() {
       <section className="verification-section" ref={resultRef}>
         <div className="section-heading"><div><span className="section-number">02</span><h2>Verification result</h2></div>{(upload || (version && verification)) && <StatusPill value={upload?.result ?? result} />}</div>
         {upload && !upload.matchedVersion ? <div className="standalone-result">
-          <div><span>Uploaded file</span><h3>{upload.name}</h3><p>{upload.result === "Invalid Signature" ? "C2PA evidence is present, but the asset bytes no longer match the signed claim." : "No matching AI Evidence Registry record was found for this file."}</p></div>
-          <dl><div><dt>Result</dt><dd><StatusPill value={upload.result} /></dd></div><div><dt>Content hash</dt><dd><code>{upload.hash}</code></dd></div><div><dt>C2PA manifests</dt><dd>{upload.manifestCount}</dd></div><div><dt>Active manifest</dt><dd><code>{upload.activeManifest ?? "None"}</code></dd></div><div><dt>Validation</dt><dd>{upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "No C2PA validation record"}</dd></div></dl>
+          <div><span>Uploaded file</span><h3>{upload.name}</h3><p>{upload.result === "Invalid Evidence" ? "Evidence is present, but the asset bytes, C2PA claim, signature, or chain do not validate." : "This file is not proven original or modified because no matching AI Evidence Registry record was found."}</p></div>
+          <dl>
+            <div><dt>Provenance</dt><dd><StatusPill value={upload.result} /></dd></div>
+            <div><dt>C2PA integrity</dt><dd>{upload.c2paIntegrity}</dd></div>
+            <div><dt>Registry</dt><dd>{upload.registryStatus}</dd></div>
+            <div><dt>Identity trust</dt><dd>{upload.identityTrust}</dd></div>
+            <div><dt>Content hash</dt><dd><code>{upload.hash}</code></dd></div>
+            <div><dt>C2PA manifests</dt><dd>{upload.manifestCount}</dd></div>
+            <div><dt>Active manifest</dt><dd><code>{upload.activeManifest ?? "None"}</code></dd></div>
+            <div><dt>Validation</dt><dd>{upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "No C2PA validation record"}</dd></div>
+          </dl>
           <details><summary>Developer JSON</summary><pre>{JSON.stringify(upload.raw, null, 2)}</pre></details>
           <div className="gemini-explainer">
             <span>AI EVIDENCE EXPLANATION</span>
             <h3>Explain the verified facts in plain language</h3>
-            {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · Status remains {explanation.verification_status}</small></> : explanationError ? <p className="explanation-fallback">{explanationError}</p> : <p>Gemini explains the result; it does not decide whether the image is authentic or modified.</p>}
+            {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · Status remains {explanation.verification_status}</small></> : explanationError ? <p className="explanation-fallback">{explanationError}</p> : <p>Gemini explains verified facts; it cannot assign or change the provenance state.</p>}
             <button className="secondary" onClick={explainUpload} disabled={explanationBusy}>{explanationBusy ? "Asking Gemini…" : explanation ? "Explain again" : "Explain with Gemini"}</button>
           </div>
           <button className="secondary" onClick={tryDemo}>Return to signed demo</button>
@@ -363,8 +427,45 @@ export function EvidenceVerifier() {
             </div>
           </div>
 
+          <section className="passport-sections" aria-label="Evidence Passport details">
+            <article>
+              <span>EVIDENCE PASSPORT</span><h3>What this asset is and where it came from</h3>
+              <dl>
+                <div><dt>Asset / media</dt><dd>{version.asset_type ?? "digital-content"} · {version.media_type ?? "image/png"}</dd></div>
+                <div><dt>Creator / agent</dt><dd>{version.operator_type} · {version.provider}</dd></div>
+                <div><dt>Tool / model</dt><dd>{version.software ?? version.model}{version.software_version ? ` ${version.software_version}` : ""}</dd></div>
+                <div><dt>AI involvement</dt><dd>{version.involvement_level}</dd></div>
+                <div><dt>Evidence Event</dt><dd><code>{version.event_id}</code></dd></div>
+                <div><dt>Parent Event</dt><dd><code>{version.parent_event ?? "Recorded original — no parent"}</code></dd></div>
+              </dl>
+            </article>
+            <article>
+              <span>CHANGE METRICS</span><h3>How much changed</h3>
+              <dl>
+                <div><dt>Spatial change</dt><dd>{typeof version.modification_scope === "object" ? `${(100 * (version.modification_scope.changed_ratio ?? 0)).toFixed(1)}%` : "0.0%"}</dd></div>
+                <div><dt>Changed region</dt><dd>{typeof version.modification_scope === "object" ? JSON.stringify(version.modification_scope.bounding_box ?? "Not recorded") : "Original"}</dd></div>
+                <div><dt>Metric meaning</dt><dd>Measured changed pixels — not AI probability, copyright percentage, or truth score.</dd></div>
+              </dl>
+            </article>
+            <article>
+              <span>TRUST</span><h3>Independent trust signals</h3>
+              <dl>
+                <div><dt>Provenance</dt><dd>{result}</dd></div>
+                <div><dt>C2PA integrity</dt><dd>{version.c2pa.embedded ? "Valid bytes / manifest present" : "Not present"}</dd></div>
+                <div><dt>Signature</dt><dd>{verification.signature_status}</dd></div>
+                <div><dt>Signer identity</dt><dd>{version.c2pa.development_signer ? "Development" : version.trust_status ?? "Unknown"}</dd></div>
+                <div><dt>Registry</dt><dd>{verification.verified ? "Matched" : "Invalid"}</dd></div>
+              </dl>
+            </article>
+            <article>
+              <span>PRIVATE EVIDENCE</span><h3>Owner-controlled by default</h3>
+              <p>{version.blackbox_available ? "A private evidence record is available to the owner, but it is not disclosed by this public verifier." : "No complete Private Black Box is attached to this demo event."}</p>
+              <p><b>NEXT:</b> Mobile Authorization will let an owner approve selected fields, expiry, and purpose before any private evidence is released.</p>
+            </article>
+          </section>
+
           <div className="timeline-section">
-            <div><span className="section-number">03</span><h2>Where this image came from</h2><p>Each edit creates a child version. Nothing silently overwrites the original.</p></div>
+            <div><span className="section-number">03</span><h2>History</h2><p>Each edit creates a child version with its own time, tool, Event ID, hash, signature, and C2PA manifest. Nothing silently overwrites the original.</p></div>
             <div className="timeline">
               {demo.versions.map((item, index) => <button key={item.version_id} className={selected === index ? "selected" : ""} onClick={() => { setSelected(index); setView(index === 0 ? "image" : "comparison"); clearExplanation(); }}>
                 <span className="timeline-index">{index + 1}</span><img src={item.image} alt={item.version_id} /><span className="timeline-copy"><b>{index === 0 ? "Original" : `Edit ${index}`}</b><small>{humanAction(item.action_type)}</small><code>{short(item.event_id)}</code></span><span className="timeline-check">✓</span>
@@ -375,6 +476,34 @@ export function EvidenceVerifier() {
           <section className="proofcart" id="proofcart">
             <div className="proofcart-image"><span className="product-badge">Evidence protected</span><img src="/demo/version-3.png" alt="ProofCart verified listing" /></div>
             <div className="proofcart-copy"><span className="eyebrow">PROOFCART · VERTICAL DEMO</span><h2>A buyer can verify the listing photo before trusting it.</h2><p>The seller&apos;s original, both edits, exact changed region, C2PA chain, and registry signature are attached to one product photo.</p><button className="primary" onClick={tryDemo}>Verify Evidence <span>→</span></button><div className="seller-proof"><span>Seller image</span><b>Signed by gugupro demo issuer</b><small>Evidence ID {short(version.event_id, 14)}</small></div></div>
+          </section>
+
+          <section className="universal-architecture" aria-label="Universal Evidence Passport architecture">
+            <div className="architecture-intro"><span className="eyebrow">UNIVERSAL EVIDENCE PASSPORT</span><h2>One evidence foundation. Many creation formats.</h2><p>Images are the first working adapter. Every modality connects to the same signed Passport, Event Chain, Registry, and owner-controlled Private Wallet.</p></div>
+            <div className="adapter-grid">
+              {[
+                ["Text", "Text DNA · source coverage"],
+                ["Image", "C2PA · spatial change"],
+                ["Video", "Timeline · frames · audio"],
+                ["Audio", "Segments · spectral fingerprint"],
+                ["Documents", "PDF · Office · embedded media"],
+                ["2D Design", "Layers · geometry · print lineage"],
+                ["3D Models", "Mesh · topology · dimensions"],
+                ["Manufacturing", "CAD → G-code → physical output"],
+              ].map(([name, detail]) => <div key={name}><b>{name}</b><small>{detail}</small></div>)}
+            </div>
+            <div className="shared-foundation"><b>Shared foundation</b><span>Passport</span><span>Event Chain</span><span>Hash</span><span>Signature</span><span>Registry</span><span>Private Wallet</span></div>
+          </section>
+
+          <section className="next-stage" aria-label="Next stage private evidence authorization">
+            <div><span className="eyebrow">NEXT — NOT YET IMPLEMENTED</span><h2>Private Black Box + Mobile Authorization</h2><p>Private evidence stays encrypted and owner-controlled. A verifier receives only the fields the owner approves, for a limited purpose and time.</p></div>
+            <ol>
+              <li><b>1</b><span>Verifier requests private evidence</span></li>
+              <li><b>2</b><span>Phone shows requester, fields, purpose, and expiry</span></li>
+              <li><b>3</b><span>Owner approves, denies, or selects fields</span></li>
+              <li><b>4</b><span>Phone signs a single-use authorization</span></li>
+              <li><b>5</b><span>Black Box releases only authorized evidence</span></li>
+            </ol>
           </section>
 
           <section className="developer-details" id="details">

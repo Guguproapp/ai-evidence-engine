@@ -1,6 +1,6 @@
 # Evidence Explainer — Cloud Run + Gemini
 
-This bounded service explains an already-computed verification result. It does not determine `Authentic`, `Modified`, `Unknown`, or `Invalid Signature`.
+This bounded service explains an already-computed verification result. It does not determine `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence`.
 
 Production target:
 

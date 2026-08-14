@@ -13,9 +13,8 @@ Default base URL: `http://127.0.0.1:8787`
 | GET | `/issuer/{id}` | Issuer public key and development trust status |
 | POST | `/revoke` | Record a passport revocation reason and time |
 
-`POST /register` accepts `content` plus provider, model, model_version, action_type, involvement_level, modification_scope, operator_type, human_approval, blackbox_available, parent_event, passport_id, and content_id.
+`POST /register` accepts `content` plus provider, model, model_version, action_type, involvement_level, modification_scope, operator_type, human_approval, blackbox_available, parent_event, passport_id, and content_id. The signed public event schema is backward-compatible and can additionally carry `asset_type`, `media_type`, `device_id`, `software`, `software_version`, `model_provider`, `model_id`, `source_assets`, `authorization_id`, `wallet_commitment`, `c2pa_manifest_id`, `trust_status`, `change_metrics`, and `public_disclosure_level`.
 
 `POST /verify` with `event` returns `hash_valid`, `signature_valid`, `parent_valid`, and `verified`. With `source` and `candidate`, it returns provenance similarity evidence, not a legal verdict.
 
 This checkpoint has no authentication or authorization layer. Bind to localhost only; do not expose it to the internet.
-

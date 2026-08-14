@@ -8,7 +8,7 @@ from collections import defaultdict, deque
 from flask import Flask, jsonify, request
 
 
-ALLOWED_STATUSES = {"Authentic", "Modified", "Unknown", "Invalid Signature"}
+ALLOWED_STATUSES = {"Verified Original", "Verified Modified", "Unverified", "Invalid Evidence"}
 MAX_REQUEST_BYTES = 16 * 1024
 RATE_LIMIT_PER_MINUTE = 10
 DEFAULT_MODEL = "gemini-2.5-flash"

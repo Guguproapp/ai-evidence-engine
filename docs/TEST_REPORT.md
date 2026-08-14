@@ -1,66 +1,69 @@
 # Test Report
 
-This file records commands and results. It must be updated from actual execution; planned work is never `PASS`.
+This file records executed results only. Planned work is never `PASS`.
 
-## Automated core tests
+## Local automated tests — 2026-08-15
 
-Command: `PYTHONPATH=src python3 -m unittest discover -s tests -v`
-
-Latest result: **PASS — 19/19 Python tests and 4/4 web tests**.
-
-The generated demo report recorded exact retyping at 1.0000 confidence, the approximately 10% edit at 0.8603 (strong), the approximately 30% edit at 0.6218 (medium), and the heavy rewrite at 0.0503 (weak). These are test-fixture measurements, not universal accuracy claims.
-
-Live HTTP run on localhost port 8877 returned: `/register` 201; `/passport`, `/history`, `/issuer`, `/fingerprint/lookup`, `/verify`, and `/revoke` 200. Event verification returned `verified=true`. The temporary server was stopped after testing. Port 8787 was already occupied by an unrelated local application and was not modified.
-
-## Integration status
-
-| Capability | Status | Evidence |
+| Suite | Command | Result |
 |---|---|---|
-| Text DNA exact/retyping | PASS | Automated test + demo report |
-| Approximate text relationship | PASS | 10%, 30%, heavy-rewrite fixture results descend |
-| Common phrase guard | PASS | Short common phrase is not strong evidence |
-| RSA-2048/SHA-256 sign/verify | PASS | Real OpenSSL signing and verification |
-| Tamper detection | PASS | Modified event fails verification |
-| Parent chain | PASS | Parent event/hash verified |
-| Registry HTTP API | PASS | Seven requested route families returned expected HTTP status |
-| C2PA create/sign/embed/read/verify | PASS | `c2patool 0.27.12`; third image contains 3 manifests |
-| C2PA to Registry event link | PASS | Custom assertion event ID equals signed Registry event ID |
-| Modified asset rejection | PASS | Tampered PNG returns `assertion.dataHash.mismatch`; browser shows Invalid Signature |
-| Image modification mask | PASS | Local object, full background, and noise threshold tests |
-| Verifier website build | PASS | vinext production build and rendered HTML tests |
-| Browser Try Demo | PASS | Modified result, 3-version history, 4.8% mask, C2PA and Registry shown |
-| Browser signed upload | PASS | Signed v3 parsed as 3 manifests and matched `proofcart-v3` |
-| Browser unsigned upload | PASS | Shows Unknown and 0 manifests |
-| Upload security boundary | PASS | Types, 10 MB limit, local SHA-256/C2PA, no upload endpoint, rate limiter |
-| Google SynthID | NOT INTEGRATED | No official unrestricted general verification API confirmed |
-| OpenAI provenance API | NOT INTEGRATED | No public third-party Verify API confirmed |
-| Image history/masks | PASS | Three real signed versions and two generated diff masks |
-| Public demo video | PASS | 2:24 H.264/AAC Version 3 video, English narration, published English subtitles, public YouTube playback |
-| Evidence Explainer boundary | PASS locally | Gemini output is mocked; deterministic verification status cannot be replaced and non-allowlisted facts are removed |
-| Cloud Run deployment | NOT RUN | No Google Cloud account/project is authenticated yet |
-| Gemini production call | NOT RUN | Local mock test is not represented as a production API call |
-| Explainer Gunicorn startup | PASS locally | Gunicorn served `/health` on localhost and returned Cloud Run/Vertex AI target metadata |
-| Explainer invalid-state rejection | PASS locally | Unsupported `Probably Authentic` status returned HTTP 400 instead of reaching Gemini |
+| Python core/integration | `PYTHONPATH=src /tmp/ai-evidence-explainer-venv/bin/python -m unittest discover -s tests -v` | PASS — 20/20 |
+| Web classification/render/security | `npm test` in `apps/web` | PASS — 9/9 |
+| Lint | `npm run lint` in `apps/web` | PASS |
+| Production build | `npm run build` in `apps/web` | PASS |
 
-## Public judge-flow acceptance — 2026-08-15 Version 3
+Python coverage includes hierarchical Text DNA, common-phrase guard, RSA signatures, parent chains, backward-compatible expanded Registry schema, C2PA creation/read/verify, real tampered data-hash mismatch, RGB Modification Masks, and the Gemini decision boundary.
 
-Target: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
+## Required provenance classification matrix
 
-| Public flow | Status | Observed result |
+| Input evidence | Expected | Result |
 |---|---|---|
-| Anonymous HTTPS load | PASS | Page opened without login and rendered the verifier |
-| Brand rendering | PASS | Homepage, Versions 1/2/3, comparison, mask, ProofCart, and C2PA views show `GUGUPRO`; no `GUGUPROO` or `GUGU PROOF` remains in the new Production captures |
-| Try Demo | PASS | Modified result, valid evidence signature, 3 C2PA versions, Registry match |
-| Modification Mask | PASS | Mask view displayed the measured 4.8% changed region |
-| Version navigation | PASS | Version 1, 2, and 3 controls responded; Version 2 showed the background/badge action |
-| ProofCart Verify Evidence | PASS | Returned to the signed ProofCart evidence result |
-| Registered Evidence ID | PASS | Current Version 1/2/3 Event IDs resolved to `Authentic`, `Modified`, and `Modified` respectively |
-| Missing Evidence ID | PASS | Displayed `No registry record found for that Evidence ID.` |
-| Advanced evidence | PASS | Active Manifest, Event ID, parent event, event hash, and raw C2PA link displayed |
-| Signed file upload | PASS | Public verifier showed 3 manifests, matching hash, and signed Registry record |
-| Tampered file upload | PASS | Fresh tampered Version 3 displayed `Invalid Signature`, 3 manifests, and `assertion.dataHash.mismatch` |
-| Unsigned file upload | PASS | Fresh Version 3 mask upload displayed `Unknown` and 0 C2PA manifests |
-| Gemini production explanation | PASS | Public Version 3 Evidence ID returned a `gemini-2.5-flash` explanation while the deterministic status remained `Modified` |
-| Public YouTube video | PASS | `https://youtu.be/Fwu7yGUTVwo` loaded publicly at 2:24 with the published English subtitle track |
+| Valid C2PA + no Registry match | `Unverified` | PASS |
+| Valid Registry + invalid C2PA | `Invalid Evidence` | PASS |
+| No C2PA + no Registry | `Unverified` | PASS |
+| Valid C2PA + valid matching Registry + no parent | `Verified Original` | PASS |
+| Valid C2PA + valid matching Registry + parent | `Verified Modified` | PASS |
 
-The browser upload tests used project-generated fixtures. The verifier processes those files locally; they were not sent to a server upload endpoint.
+The state machine keeps C2PA integrity, Registry match, identity trust, and provenance outcome as separate signals. A single evidence source cannot imply `Verified Original`.
+
+## Rebuilt image Evidence
+
+Command: `PYTHONPATH=src /tmp/ai-evidence-explainer-venv/bin/python scripts/build_image_demo.py`
+
+Result: PASS. Official `c2patool 0.27.12` produced three embedded manifests and a three-version parent ingredient chain. All three rebuilt Registry signatures verify. Version 3 measured 16,500 changed pixels of 345,600, ratio `0.047743`, bounding box `{x:250,y:245,width:220,height:75}`.
+
+The prepared tampered Version 3 was read by the official tool and returned `assertion.dataHash.mismatch`; the previous signed Version 3 remains C2PA-valid but has no match in the rebuilt Registry and is the real browser fixture for `Valid C2PA + no Registry → Unverified`.
+
+## Cloud Run / Gemini — rebuilt four-state contract
+
+| Check | Result | Evidence |
+|---|---|---|
+| Cloud Run deploy | PASS | Revision `ai-evidence-explainer-00003-m75`, 100% traffic |
+| Health | PASS | Production HTTPS returned HTTP 200 |
+| Gemini Production call | PASS | Vertex AI `gemini-2.5-flash`, HTTP 200 |
+| State preservation | PASS | Request and response both `Verified Modified` |
+| Allowlisted facts | PASS | Service rejects unsupported states and removes non-allowlisted facts in tests |
+| Failure fallback | PASS locally | Web retains deterministic verification and presents an explicit explanation failure |
+
+Production request ID: `3da55316-9616-46af-9ab2-39e34a1bdb49`. Cloud Logging records the corresponding Vertex AI upstream HTTP 200 and Version 3 Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`.
+
+## Public Production regression for rebuilt release
+
+| Flow | Status |
+|---|---|
+| Universal Evidence Passport homepage | NOT RUN |
+| Signed Version 1 upload → Verified Original | NOT RUN |
+| Signed Version 3 upload → Verified Modified | NOT RUN |
+| Valid old C2PA + rebuilt Registry miss → Unverified | NOT RUN |
+| Tampered Version 3 → Invalid Evidence + dataHash mismatch | NOT RUN |
+| Version History 1/2/3 | NOT RUN |
+| 4.8% Modification Mask | NOT RUN |
+| Evidence Passport / Change Metrics / Trust / Private Evidence | NOT RUN |
+| ProofCart | NOT RUN |
+| Gemini Production integration | NOT RUN |
+| Universal adapters / Next Stage architecture | NOT RUN |
+
+The prior Production browser results use superseded labels and Evidence IDs. They are retained as historical evidence but are not counted for this rebuilt release.
+
+## Video
+
+Final operation video: `NOT RUN`. The previous 2:24 YouTube video is rejected because its framing and interaction do not satisfy the new acceptance gate. It must not be submitted as the final video.

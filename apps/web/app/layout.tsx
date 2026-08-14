@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AI Evidence Engine",
-  description: "Verify image origin, changes, C2PA provenance, and signed evidence history.",
+  description: "Universal Evidence Passport for digital and physical creation.",
   icons: { icon: "/favicon.svg" },
 };
 

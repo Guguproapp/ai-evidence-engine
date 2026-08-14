@@ -67,6 +67,24 @@ class RegistryTests(unittest.TestCase):
         self.assertTrue(wallet.exists())
         self.assertEqual(wallet.stat().st_mode & 0o777, 0o600)
 
+    def test_extended_provenance_schema_is_signed_and_backward_compatible_by_presence(self):
+        event = self.registry.register_text(
+            ARTICLE,
+            asset_type="document",
+            media_type="text/plain",
+            software="AI Evidence Engine",
+            software_version="0.2.0",
+            source_assets=["source-1"],
+            trust_status="development",
+            public_disclosure_level="minimum",
+        )
+        for field in (
+            "asset_type", "media_type", "software", "software_version", "source_assets",
+            "wallet_commitment", "trust_status", "change_metrics", "public_disclosure_level",
+        ):
+            self.assertIn(field, event)
+        self.assertTrue(self.registry.verify_event(event)["verified"])
+
     def test_revocation_changes_verification_status(self):
         event = self.registry.register_text(ARTICLE, involvement_level="L5", action_type="generate")
         self.registry.revoke(event["passport_id"], "test revocation")

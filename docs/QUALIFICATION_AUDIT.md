@@ -12,7 +12,7 @@ Audit date: 2026-08-15. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Production Demo works | Public verifier anonymously tested | PASS | Public Demo URL |
 | Public Verifier Gemini integration | Production browser called Cloud Run, displayed a Vertex AI explanation, and preserved deterministic status | PASS | Public Demo URL / Gemini Usage |
 | Repository ready | Public Apache-2.0 repository pushed at `https://github.com/Guguproapp/ai-evidence-engine` | PASS | Repository URL |
-| Video under 3 minutes | Version 3 Production-demo video is 2:24, 1920x1080 H.264 with English narration and an English subtitle track; only newly captured `GUGUPRO` Production frames are used | PASS | `docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4` |
+| Video under 3 minutes | Previous 2:24 video is rejected because it does not meet the required real-operation/framing standard; replacement not yet recorded | FAIL | Video URL |
 | English submission | English final draft and testing instructions exist | PASS | Submission text |
 | Revenue disclosed | $0 total and monthly values documented | PASS pending owner confirmation | Revenue evidence |
 | Expenses disclosed | $0 documented; owner billing confirmation pending | FAIL | Expense evidence |
@@ -24,10 +24,11 @@ Audit date: 2026-08-15. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Necessary source in repository | Core, verifier, C2PA adapter, tests, and explainer source are present in the public repository | PASS | Repository |
 | No secrets/private keys in repository | Working tree and Git history pattern scans found no API key, OAuth token, credential JSON, or private-key material before the latest push; scan again immediately before final submission | PASS | Repository evidence |
 | Public demo available | HTTPS verifier available without login | PASS | Public Demo URL |
-| Video/repository/demo remain accessible through judging | Repository, Production demo, and 2:24 YouTube video are public; public playback and English subtitles were verified | PASS | `https://youtu.be/Fwu7yGUTVwo` |
+| Video/repository/demo remain accessible through judging | Repository and demo are public; no accepted final video exists yet | FAIL | Video URL |
 
 ## Blocking owner actions
 
 1. Confirm all financial figures against real billing and bank records.
 2. Arrange at least one informed external-user test.
 3. Review and personally accept Devpost Rules and final submission.
+4. Approve the final public video upload after reviewing the new real-operation recording.

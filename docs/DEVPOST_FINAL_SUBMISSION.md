@@ -12,11 +12,11 @@ Small Business Services
 
 ## Elevator Pitch
 
-AI Evidence Engine gives product media a verifiable history: where it came from, who or what changed it, exactly what changed, and whether the evidence was tampered with.
+AI Evidence Engine is a Universal Evidence Passport for Digital & Physical Creation: it records where a creation came from, who or what changed it, how much changed, and whether the evidence history was tampered with.
 
 ## What it does
 
-AI Evidence Engine helps merchants, platforms, and consumers verify the provenance of digital product content. It combines content hashes, digital signatures, official C2PA manifests, an append-only parent-child evidence chain, and explainable image modification masks. The public verifier presents `Authentic`, `Modified`, `Unknown`, or `Invalid Signature` without requiring judges to read JSON.
+AI Evidence Engine helps merchants, platforms, and consumers verify provenance without guessing whether AI made something. It combines content hashes, digital signatures, C2PA manifests, an append-only parent-child event chain, and modality-specific change metrics. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and manufacturing share the Passport, Registry, and Private Wallet architecture. The public verifier presents `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence` without claiming world truth or a legal verdict.
 
 ProofCart is the first Small Business Services use case. A buyer can inspect a listing photo's original version, edit history, changed region, C2PA provenance, and signed registry evidence before deciding whether to trust the media.
 
@@ -28,7 +28,7 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 - An append-only event chain preserves version and parent-hash relationships.
 - A deterministic RGB image-diff algorithm generates the Modification Mask, ratio, and bounding box.
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
-- A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; the public Version 3 verifier integration returned HTTP 200 and preserved the deterministic `Modified` status.
+- A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; Gemini cannot assign or change the deterministic provenance state.
 
 ## AI-Native Operations
 
@@ -52,7 +52,7 @@ Input: allowlisted structured verification facts after the deterministic verifie
 
 Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
 
-Current status: PASS. A real `gemini-2.5-flash` call through Vertex AI returned HTTP 200 for Version 3 Evidence ID `b56445dd-1530-4c69-93d1-6977120a9f40`, produced a buyer-facing explanation, and returned the deterministic `Modified` status unchanged. Sanitized evidence is preserved under `docs/evidence/`.
+Previous Production status: PASS for the superseded Evidence schema. The new four-state request contract and Version 3 Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33` require a fresh Production call before final submission. Until that live check passes, this item is `NOT RUN` for the rebuilt release.
 
 ## C2PA
 
@@ -95,10 +95,10 @@ The Gemini boundary presents a second challenge: a helpful explanation must neve
 - Three signed image versions with nested C2PA parent ingredients.
 - Shared Event IDs between C2PA assertions and the signed Registry.
 - Actual pixel-derived Modification Masks.
-- Working `Modified`, `Unknown`, and `Invalid Signature` flows.
+- Working local `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence` classification flows.
 - Public one-click ProofCart demo.
-- 19/19 Python tests and 4/4 website tests at the current checkpoint.
-- Public Version 3 regression for `Authentic`, `Modified`, `Unknown`, `Invalid Signature`, 4.8% Modification Mask, C2PA parent chain, Registry lookup, ProofCart, and Gemini explanation.
+- 20/20 Python tests and 9/9 website tests at the current local checkpoint.
+- Formal L0–L5 AI involvement, multimodal adapter metrics, and owner-controlled Private Black Box / Mobile Authorization architecture without representing the next-stage features as complete.
 
 ## What we learned
 
@@ -109,12 +109,13 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 - Obtain external user feedback with informed disclosure.
 - Replace the demo registry bundle with a persistent production registry.
 - Obtain a production C2PA signing certificate and protect the key with KMS/HSM after submission readiness.
+- Implement the owner-controlled Private Black Box and single-use Mobile Authorization design after the hackathon submission.
 
 ## Testing Instructions
 
 1. Open the public demo without signing in.
 2. Click `Try the 60-second demo`.
-3. Confirm `Modified`, valid evidence signature, three C2PA versions, and Registry match.
+3. Confirm `Verified Modified`, valid evidence signature, three C2PA versions, and Registry match.
 4. Click `Change overlay` and `Mask` to inspect the 4.8% changed region.
 5. Select Versions 1, 2, and 3 to inspect parent-child history.
 6. Open Advanced details to inspect Manifest ID, Event ID, parent, and event hash.
@@ -137,11 +138,7 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-https://youtu.be/Fwu7yGUTVwo
-
-The public Version 3 production-demo video is 2:24, includes English narration
-and a published English (United States) subtitle track, and passed YouTube's
-initial copyright check without an issue. AI-use disclosure is enabled.
+`NOT RUN` — the previous YouTube video was rejected for framing and incomplete real-operation coverage. It must not be submitted as the final video.
 
 ## Production Evidence
 

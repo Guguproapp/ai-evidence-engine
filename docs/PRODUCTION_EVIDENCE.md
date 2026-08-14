@@ -1,43 +1,33 @@
 # Production Evidence Index
 
-Only artifacts that were actually captured may be marked `PASS`. Screenshots and logs must not contain API keys, OAuth codes, access tokens, private keys, customer contact details, or unrelated project data.
+Only artifacts actually captured for the rebuilt release may be marked `PASS`. Historical Version 3 screenshots and the old YouTube video use superseded labels/IDs and are not final-submission evidence.
 
-| Evidence | Status | Required capture |
+| Evidence | Status | Current evidence |
 |---|---|---|
-| Public verifier | PASS | Public HTTPS URL and anonymous HTTP/browser result |
-| Try Demo | PASS | Version 3 Production screenshots show `Modified`, 4.8% mask, valid signature, and three-version history |
-| ProofCart | PASS | Version 3 screenshot shows the buyer-facing Verify Evidence flow and current Evidence ID |
-| Google Cloud project | PASS | Dedicated billing-enabled project `ai-evidence-engine-gugupro` |
-| Cloud Run deployment | PASS | Ready revision `ai-evidence-explainer-00002-z76` in `asia-east1`, serving 100% of traffic |
-| Cloud Run production request | PASS | Public health and explanation requests returned HTTP 200; sanitized Cloud Logging record preserved |
-| Gemini API production call | PASS | Vertex AI `gemini-2.5-flash` request returned HTTP 200 and preserved deterministic `Modified` status |
-| Public Verifier Gemini integration | PASS | Anonymous production browser invoked Cloud Run and displayed the Gemini explanation while preserving `Modified` |
-| Evidence verification logs | PASS | Automated tests plus fresh public-browser `Authentic`, `Modified`, `Unknown`, and `Invalid Signature` results |
-| Brand correction | PASS | All newly captured public screenshots and image bytes show `GUGUPRO`; old `GUGUPROO` material is excluded from the official video |
-| Version 3 data consistency | PASS | Public image bytes match repository SHA-256 values; Event IDs, parents, C2PA manifest IDs, signatures, and Registry records belong to the rebuilt Version 3 chain |
-| Public demo video | PASS | YouTube published the 2:24 Version 3 video with English subtitles at `https://youtu.be/Fwu7yGUTVwo`; public playback was verified |
+| Google Cloud project | PASS | Dedicated project `ai-evidence-engine-gugupro` |
+| Cloud Run deployment | PASS | Revision `ai-evidence-explainer-00003-m75` in `asia-east1`, 100% traffic |
+| Cloud Run health | PASS | Public HTTPS HTTP 200 |
+| Gemini Production call | PASS | Vertex AI `gemini-2.5-flash` returned HTTP 200 and preserved `Verified Modified` |
+| Gemini Cloud Logging | PASS | Request ID `3da55316-9616-46af-9ab2-39e34a1bdb49`; upstream Vertex AI HTTP 200; no prompt/secret logged |
+| Rebuilt public verifier deployment | NOT RUN | Awaiting Sites publish |
+| Rebuilt public browser regression | NOT RUN | Must rerun all four states, History, Mask, ProofCart, Gemini, architecture |
+| Final public demo video | NOT RUN | Old `Fwu7yGUTVwo` video rejected; replacement required |
+| Real external user evidence | FAIL | 0 verified external users |
 
-Artifacts captured later should be placed under `docs/evidence/` with a date and short description. Binary screenshots should not be committed until checked for account emails, project numbers, billing details, and tokens.
+## Rebuilt Version 3 identifiers
 
-Current text evidence: `docs/evidence/2026-08-14-cloud-run-gemini.md`.
+- Passport ID: `18b270f8-9937-4d07-b059-010e15fa9264`
+- Version 1 Event: `7fcbfc61-fcdd-482e-98a8-047769747f32`
+- Version 2 Event: `51b90c7b-8bcb-4df9-8e76-8f25f5c6539c`
+- Version 3 Event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
+- Version 3 Parent Event: `51b90c7b-8bcb-4df9-8e76-8f25f5c6539c`
+- Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`
+- Version 3 C2PA Manifest: `urn:c2pa:cd1f092b-94fe-4623-9e51-a8eacd50a762`
+- Version 3 Event Hash: `262c794b7fa3077a52c0166617e6f2cbfedf47e335102fa02fdf8c39a8333ce6`
+- Version 3 Spatial Change: `0.047743` (`4.8%` display)
 
-Current Version 3 Production captures:
+## Sanitization boundary
 
-- `docs/evidence/2026-08-15-production-v3-home.png`
-- `docs/evidence/2026-08-15-production-v3-modified.png`
-- `docs/evidence/2026-08-15-production-v3-mask.png`
-- `docs/evidence/2026-08-15-production-v3-history.png`
-- `docs/evidence/2026-08-15-production-v3-c2pa.png`
-- `docs/evidence/2026-08-15-production-v3-invalid-signature.png`
-- `docs/evidence/2026-08-15-production-v3-unknown.png`
-- `docs/evidence/2026-08-15-production-v3-proofcart.png`
-- `docs/evidence/2026-08-15-production-v3-gemini.png`
-- `docs/evidence/2026-08-15-youtube-public-video.png`
+Screenshots and logs must not contain API keys, OAuth codes, access tokens, private keys, customer contact details, billing details, or unrelated project data. Public evidence may include service URL, revision, model, request ID, deterministic state, Evidence ID, latency, and non-sensitive validation results.
 
-Version 3 identifiers:
-
-- Evidence Event: `b56445dd-1530-4c69-93d1-6977120a9f40`
-- Parent Event: `ae10e9fb-ad94-403b-a150-c3883aa32ef6`
-- SHA-256: `3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9`
-- Active C2PA Manifest: `urn:c2pa:da19b9d8-4115-4708-95d1-de5763364a6d`
-- Event Hash: `e545c90fcd342fb753e3301509cdc5e048e5645d58e302144a99516b19bdee0d`
+Historical evidence remains under `docs/evidence/` for audit history. It must not be described as the current rebuilt release unless a fresh Production check reproduces the result with the identifiers above.

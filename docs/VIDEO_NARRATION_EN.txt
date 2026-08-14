@@ -1,3 +1,5 @@
+SUPERSEDED — DO NOT USE FOR THE FINAL SUBMISSION VIDEO.
+
 AI-edited product media is everywhere. But buyers usually cannot tell where an image came from, who changed it, what changed, or whether its history was tampered with.
 
 AI Evidence Engine verifies recorded evidence instead of guessing an AI percentage. This public demo checks the content hash, digital signature, C2PA manifests, signed Registry record, and the parent-child version chain.

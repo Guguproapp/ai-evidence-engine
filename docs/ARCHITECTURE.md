@@ -21,7 +21,7 @@ The current prototype runs these parts on one machine while preserving the publi
 
 L0 copy/transfer/storage and L1 formatting must not be treated as AI creation. L2 mechanical correction records AI involvement without calling it creative authorship. L3–L5 create a new event and preserve parent-child history whenever content changes materially.
 
-The verifier reports evidence and provenance similarity. It never returns copyright ownership, infringement, plagiarism, or legality decisions.
+The verifier reports evidence and provenance similarity. It never returns copyright ownership, infringement, plagiarism, legality, or world-truth decisions. Its four provenance outcomes are `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence`; C2PA integrity, Registry match, and identity trust remain separate signals.
 
 ## Cryptography
 
@@ -45,4 +45,10 @@ The deployed website contains signed public demo images, raw public C2PA reports
 
 The optional Evidence Explainer is isolated under `services/explainer/` and targets Google Cloud Run plus the Gemini API on Vertex AI. It receives only an allowlisted structured verification result after the hash, signature, C2PA, Registry, and evidence-chain checks have completed.
 
-Gemini is not in the trust path. The service validates one of four deterministic states (`Authentic`, `Modified`, `Unknown`, or `Invalid Signature`), sends the state and facts for plain-language explanation, and returns the original state unchanged. Gemini failures return an explicit service error; no generated fallback is presented as a real model result.
+Gemini is not in the trust path. The service validates one of four deterministic states (`Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence`), sends the state and facts for plain-language explanation, and returns the original state unchanged. Gemini failures return an explicit service error; no generated fallback is presented as a real model result.
+
+## Universal adapter model
+
+Image is the first implemented adapter, not the product boundary. Text, video, audio, documents, 2D design, 3D models, and digital manufacturing use modality-specific fingerprints and change metrics while sharing the Passport, Event Chain, Hash, Signature, Registry, and Private Wallet foundation. See `EVIDENCE_CLASSIFICATION_SPEC.md` and `MULTIMODAL_EVIDENCE_SPEC.md`.
+
+Private evidence remains encrypted and owner-controlled. The future Mobile Authorization path is explicitly architecture-only: a verifier requests selected fields, the owner approves or denies on a phone, a scoped single-use token is signed, and only authorized evidence is released. It is not represented as implemented in the current demo.

@@ -1,120 +1,97 @@
-# AI Evidence Engine｜黑客松 Demo 操作與講稿
+# AI Evidence Engine｜最終操作影片 Runbook
 
 公開網址：https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-正式影片：https://youtu.be/Fwu7yGUTVwo
+正式影片：`NOT RUN`。舊版影片已被否決，不得提交。
 
-目標時間：2 分 30 秒。最長不要超過 3 分鐘。
+目標：1920×1080、完整瀏覽器 Viewport、滑鼠可見、2 分 20 秒至 2 分 45 秒，硬限制低於 3 分鐘。必須真實操作 Production，不可用靜態截圖輪播。
 
-## Demo 前 3 分鐘檢查
+## 錄影前檢查
 
-1. 使用無痕視窗開啟公開網址，確認不需要登入。
-2. 等待首頁的 Verification Result 顯示 `Modified`。
-3. 確認畫面顯示 `4.8% changed`、`3 version(s)` 與 `✓ valid`。
-4. 點一次 `Mask`，確認黑白修改區域正常顯示。
-5. 回到頁首，準備正式展示。
-6. 不要在現場宣稱開發簽章已加入官方 C2PA Trust List。
-7. 確認三張商品圖都顯示 `GUGUPRO`，不得使用舊的 `GUGUPROO`／`GUGU PROOF` 影片素材。
+1. 用公開網址開啟 Production，不使用 localhost。
+2. 瀏覽器完整顯示在 1920×1080 畫布內，四邊不得裁切或留下巨大黑邊。
+3. 準備新版 `version-3.png` 與實際遭竄改、會產生 `assertion.dataHash.mismatch` 的檔案。
+4. 首頁與三個版本圖片都必須顯示 `GUGUPRO`。
+5. 確認 `Explain with Gemini` 可呼叫 Production Cloud Run；Gemini 故障時仍保留密碼學結果。
+6. 不宣稱開發簽章已進入正式 C2PA Trust List。
+7. 不宣稱 Private Black Box 或 Mobile Authorization 已完成；畫面必須標示 `NEXT — NOT YET IMPLEMENTED`。
 
-## 2～3 分鐘正式講稿
+## 低於 3 分鐘正式流程
 
-### 0:00–0:20｜問題
+### 00:00–00:15｜問題與定位
 
-操作：停在首頁。
+畫面：AI Evidence Engine 首頁與 `UNIVERSAL EVIDENCE PASSPORT`。
 
-講稿：
+旁白：
 
-> 現在我們看到一張網路商品照片，通常只能看到最後結果，卻不知道它從哪裡來、誰修改過、改了哪裡。AI Evidence Engine 不是 AI Detector；它保存的是可以驗證的來源與修改證據。
+> How can we prove where digital content came from — without guessing whether AI made it? AI Evidence Engine is a Universal Evidence Passport for digital and physical creation.
 
-### 0:20–0:40｜一鍵開始
+### 00:15–00:45｜真正上傳並驗證
 
-操作：點 `Try the 60-second demo`。
+操作：點 `Upload an image`，在檔案選擇器選擇新版 `version-3.png`，等待結果。
 
-講稿：
+必須看到：`Verified Modified`、Registry `Matched`、C2PA integrity `Valid`，不得只按 Try Demo 或捲動預設資料。
 
-> 評審不需要安裝程式，也不需要先準備圖片。按一次 Try Demo，就能看到一組真實簽章的商品照片證據。
+### 00:45–01:10｜圖片與 4.8% 修改範圍
 
-### 0:40–1:05｜先回答最重要的問題
+操作：依序點 `Current image`、`Change overlay`、`Mask`，讓圖片主體清楚放大。
 
-操作：指向 `Modified`、`Evidence signature ✓ valid`、`C2PA manifest` 與 `Registry`。
+旁白重點：4.8% 是逐像素計算的 Spatial Change，不是 AI probability、copyright percentage 或 truth score。
 
-講稿：
+### 01:10–01:35｜完整履歷
 
-> 系統先給人看得懂的結果：這張圖片修改過。Evidence 簽章有效，圖片內嵌三個 C2PA 版本，Registry 也找到對應的簽章紀錄。技術 JSON 被放在進階區，不會逼評審先讀 JSON。
+操作：依序點 Version 1、Version 2、Version 3，指向 Evidence Passport、History、Change Metrics 與 Trust。
 
-### 1:05–1:25｜改了哪裡
+必須展示：Parent、Timestamp、Tool / Model、Event ID、Hash、Signature、C2PA Manifest、每版修改範圍。
 
-操作：依序點 `Change overlay`、`Mask`。
+### 01:35–01:55｜真實竄改測試
 
-講稿：
+操作：再次點上傳，選擇實際遭竄改的 Version 3。
 
-> 這不是固定畫上去的假框。系統逐像素比較前後版本，再產生 Modification Mask。這一版實際變更約 4.8%，集中在商品標籤區。這個比例只代表變更範圍，不是著作權比例。
+必須看到：`Invalid Evidence` 與 `assertion.dataHash.mismatch`。不得展示預先寫死文字代替操作。
 
-### 1:25–1:50｜從哪裡演變而來
+### 01:55–02:10｜Gemini Evidence Explanation
 
-操作：依序點 Version 1、Version 2、Version 3。
+操作：點 `Explain with Gemini`，等待 Production 回應。
 
-講稿：
+旁白重點：Gemini 只解釋 allowlist 後的驗證事實；`Verified Original`、`Verified Modified`、`Unverified`、`Invalid Evidence` 都由 Hash、Signature、C2PA、Registry 與 Event Chain 決定。
 
-> 每次實質修改都建立 Child Version，不會覆蓋上一版。Version 1 是原始圖；Version 2 調整背景並加入標記；Version 3 修改商品標籤。每一版都有自己的內容雜湊、Event ID、Parent 關係與 C2PA Manifest。
+### 02:10–02:30｜Universal Evidence Passport
 
-### 1:50–2:10｜證據有沒有被竄改
+操作：捲到 `One evidence foundation. Many creation formats.`。
 
-操作：展開 `Advanced / Developer details`。
+展示：Text、Image、Video、Audio、Documents、2D Design、3D Models、Manufacturing adapters，共用 Passport、Event Chain、Hash、Signature、Registry、Private Wallet。
 
-講稿：
+### 02:30–02:45｜下一階段，不冒充完成
 
-> C2PA Event ID 與 AI Evidence Engine Registry 使用同一個事件識別碼。圖片位元、C2PA Claim 或 Event Chain 被修改時，驗證就會失敗。我們也保留原始 C2PA JSON，沒有只轉成自己的格式。
+操作：顯示 `NEXT — NOT YET IMPLEMENTED` 區塊。
 
-### 2:10–2:30｜ProofCart 商業情境
+流程：Verifier requests evidence → phone shows requester/scope/purpose/expiry → owner approves or denies → phone signs single-use authorization → Black Box releases only authorized fields。
 
-操作：捲到 ProofCart，點 `Verify Evidence`。
+## 新版 Production Evidence 固定資料
 
-講稿：
+- Version 1 Event ID：`7fcbfc61-fcdd-482e-98a8-047769747f32`
+- Version 2 Event ID：`51b90c7b-8bcb-4df9-8e76-8f25f5c6539c`
+- Version 3 Event ID：`1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
+- Version 1 SHA-256：`082cc812bb1720f7335e41da823706dc022aae1ded0daa1dfbc20b93717e0fee`
+- Version 2 SHA-256：`02cb6fa502538e12a6f7dec66db75638d32efefe5a60ac2ed5848abc56783954`
+- Version 3 SHA-256：`7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`
+- Version 3 C2PA Active Manifest：`urn:c2pa:cd1f092b-94fe-4623-9e51-a8eacd50a762`
+- Version 3 Event Hash：`262c794b7fa3077a52c0166617e6f2cbfedf47e335102fa02fdf8c39a8333ce6`
+- Version 3 Spatial Change：`4.7743%`，介面顯示 `4.8% changed`
 
-> ProofCart 是第一個垂直應用。買家在商品頁點 Verify Evidence，就能知道賣家照片的原始來源、修改歷史、修改區域與簽章狀態。AI Evidence Engine 是核心平台，ProofCart 證明它能落地到真實交易場景。
+## 驗證狀態說法
 
-### 2:30–2:40｜收尾
+- `Verified Original`：有效 C2PA、有效且匹配的 Registry、有效簽章／鏈，且無 Parent。
+- `Verified Modified`：上述條件成立，且有 Parent。
+- `Unverified`：證據不足，例如 valid C2PA 但 Registry No Match，或兩者皆無。
+- `Invalid Evidence`：C2PA、Registry、簽章或鏈存在衝突／無效。
+- `Trusted / Development / Unknown` 是身分信任狀態，與 Provenance State 分開。
 
-講稿：
+## 誠實邊界
 
-> 我們不替法院判斷著作權，也不猜一個 AI 百分比。我們提供的是：發生過什麼、誰簽了、內容是否一致，以及證據有沒有被竄改。
-
-## 評審追問時的實測項目
-
-### Evidence ID
-
-- Version 1：`0195e702-a549-455b-af94-f187ec416b50`（原始版本）。
-- Version 2：`ae10e9fb-ad94-403b-a150-c3883aa32ef6`（第一次修改）。
-- Version 3：`b56445dd-1530-4c69-93d1-6977120a9f40`（第二次修改）。
-- 輸入不存在的 ID：顯示 `No registry record found for that Evidence ID.`。
-
-### 上傳圖片
-
-- 已簽章的 `version-3.png`：顯示 `Modified`、3 個 Manifest、Registry Match。
-- 內容遭竄改但保留 C2PA 的圖片：顯示 `Invalid Signature` 與 `assertion.dataHash.mismatch`。
-- 沒有 C2PA 的原始圖片：顯示 `Unknown` 與 0 個 Manifest。
-
-## Production Version 3 固定資料
-
-- Version 1 SHA-256：`b49c057203117efc75bde6c8c110641efffc31b415824fd2c39354bdc6fbb952`
-- Version 2 SHA-256：`ab2993c35ddbbcd1aec128b4ee7ff1416ba8c137471275dfc10057f7d030f374`
-- Version 3 SHA-256：`3b00f3ac87e58c5bf5ddb5e2dd021a0236bc3e3c5a02c082c1735867ea81bba9`
-- Version 3 C2PA Active Manifest：`urn:c2pa:da19b9d8-4115-4708-95d1-de5763364a6d`
-- Version 3 Event Hash：`e545c90fcd342fb753e3301509cdc5e048e5645d58e302144a99516b19bdee0d`
-
-## 必須誠實說明的邊界
-
-- C2PA Manifest 與內容完整性是真的，不是自製相似格式。
-- Demo 目前使用開發簽章憑證，因此介面顯示 `Integrity verified; development identity`。
-- 正式商業上線前仍要取得受信任的 C2PA 憑證，並用 KMS／HSM 保護私鑰。
-- 網頁目前在瀏覽器本地驗證圖片，沒有伺服器上傳端點。
-- Modification Mask 是像素變化證據，不等於修改意圖、侵權或法律結論。
-
-## 現場備援
-
-1. 若 C2PA WASM 第一次載入較慢，等待 3～5 秒，不要連續重按。
-2. 若畫面停在 Loading，重新整理一次後點 Try Demo。
-3. 若上傳自己的圖片顯示 Unknown，這是正確結果，代表沒有找到可驗證來源，不代表圖片一定是假。
-4. 若網路不穩，先用首頁已內建的 Try Demo，不要依賴現場上傳。
-5. 不要把 `signingCredential.untrusted` 說成簽章失敗；它代表 Demo 憑證身分尚未進入官方信任名單。
+- C2PA Manifest 與內容完整性是真實官方工具結果，不是自製相似格式。
+- Demo 使用 Development signer，並未宣稱正式 Trust List 身分。
+- Modification Mask 是可解釋像素差異，不代表意圖、著作權比例、侵權或世界真相。
+- Public Verifier 只有最低必要 Public Passport；完整 Prompt、原始私人素材與敏感輸入不公開。
+- Private Black Box 與 Mobile Authorization 本輪只有規格與 Next Stage 畫面，尚未正式實作。

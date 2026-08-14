@@ -12,6 +12,9 @@ PUBLIC_EVENT_FIELDS = {
     "event_id", "passport_id", "parent_event", "parent_hash", "content_id", "exact_hash",
     "fingerprint", "timestamp", "issuer", "provider", "model", "model_version", "action_type",
     "involvement_level", "modification_scope", "operator_type", "human_approval", "blackbox_available",
+    "asset_type", "media_type", "device_id", "software", "software_version", "model_provider",
+    "model_id", "source_assets", "authorization_id", "wallet_commitment", "c2pa_manifest_id",
+    "trust_status", "change_metrics", "public_disclosure_level",
 }
 
 
@@ -73,13 +76,15 @@ class Registry:
         if parent_event and parent is None:
             raise ValueError("parent_event does not exist")
 
+        event_id = metadata.get("event_id") or str(uuid.uuid4())
+        exact_hash = sha256_bytes(content_bytes)
         event = {
-            "event_id": metadata.get("event_id") or str(uuid.uuid4()),
+            "event_id": event_id,
             "passport_id": metadata.get("passport_id") or str(uuid.uuid4()),
             "parent_event": parent_event,
             "parent_hash": parent.get("event_hash") if parent else None,
             "content_id": metadata.get("content_id") or str(uuid.uuid4()),
-            "exact_hash": sha256_bytes(content_bytes),
+            "exact_hash": exact_hash,
             "fingerprint": fingerprint,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "issuer": self.issuer_id,
@@ -92,6 +97,20 @@ class Registry:
             "operator_type": metadata.get("operator_type", "AI"),
             "human_approval": bool(metadata.get("human_approval", False)),
             "blackbox_available": bool(metadata.get("blackbox_available", False)),
+            "asset_type": metadata.get("asset_type", "digital_content"),
+            "media_type": metadata.get("media_type", "text/plain" if wallet_suffix == ".txt" else "application/octet-stream"),
+            "device_id": metadata.get("device_id"),
+            "software": metadata.get("software"),
+            "software_version": metadata.get("software_version"),
+            "model_provider": metadata.get("model_provider", metadata.get("provider", "unknown")),
+            "model_id": metadata.get("model_id", metadata.get("model")),
+            "source_assets": metadata.get("source_assets", []),
+            "authorization_id": metadata.get("authorization_id"),
+            "wallet_commitment": metadata.get("wallet_commitment") or sha256_bytes(("wallet:" + event_id + ":" + exact_hash).encode("utf-8")),
+            "c2pa_manifest_id": metadata.get("c2pa_manifest_id"),
+            "trust_status": metadata.get("trust_status", "development"),
+            "change_metrics": metadata.get("change_metrics", metadata.get("modification_scope") if isinstance(metadata.get("modification_scope"), dict) else {}),
+            "public_disclosure_level": metadata.get("public_disclosure_level", "minimum"),
         }
         payload = canonical_json(event)
         event["event_hash"] = sha256_bytes(payload)

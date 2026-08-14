@@ -19,12 +19,14 @@ test("server-renders the judge-facing verifier", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>AI Evidence Engine/);
-  assert.match(html, /See where an image came from/);
+  assert.match(html, /Prove where a creation came from/);
+  assert.match(html, /UNIVERSAL EVIDENCE PASSPORT/);
   assert.match(html, /Try the 60-second demo/);
   assert.match(html, /Upload an image/);
   assert.match(html, /Official C2PA SDK/);
   assert.match(html, /ProofCart demo/);
   assert.match(html, /Evidence, not legal verdicts/);
+  assert.doesNotMatch(html, />Authentic</);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
@@ -60,6 +62,11 @@ test("declares upload limits and client-side validation", async () => {
 
 test("exposes the bounded Gemini evidence explainer", async () => {
   const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  assert.match(verifier, /EVIDENCE PASSPORT/);
+  assert.match(verifier, /CHANGE METRICS/);
+  assert.match(verifier, /PRIVATE EVIDENCE/);
+  assert.match(verifier, /NEXT — NOT YET IMPLEMENTED/);
+  assert.match(verifier, /One evidence foundation\. Many creation formats\./);
   assert.match(verifier, /Explain with Gemini/);
   assert.match(verifier, /Hashes, signatures, C2PA, and the Registry remain the source of truth/);
   assert.match(verifier, /ai-evidence-explainer-856572888721\.asia-east1\.run\.app/);

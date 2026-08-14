@@ -1,61 +1,79 @@
-# Build with Gemini XPRIZE — Demo Video Script
+# AI Evidence Engine — Final XPRIZE Demo Video Script
 
-Target duration: **2:35**. Hard limit: **under 3:00**. Language: English narration or complete English subtitles. No unlicensed music.
+Target: 2:35–2:45, hard limit under 3:00. Capture the real Production website at 1920×1080 with the full browser viewport and visible pointer. No cropped browser, black borders, or screenshot slideshow.
 
-## 00:00–00:18 — Problem
+## 00:00–00:15 — The question
 
-> AI-edited product media is everywhere. But a buyer usually cannot tell where an image came from, who changed it, what changed, or whether its history was tampered with.
+Action: Show the Production homepage, product name, and `UNIVERSAL EVIDENCE PASSPORT`.
 
-Show the public AI Evidence Engine homepage.
+Voiceover:
 
-## 00:18–00:42 — Try Demo
+> How can we prove where digital content came from — without guessing whether AI made it? AI Evidence Engine is a Universal Evidence Passport for digital and physical creation.
 
-Click `Try the 60-second demo`.
+## 00:15–00:45 — Real upload and verification
 
-> AI Evidence Engine does not guess an AI percentage. It verifies recorded evidence: the content hash, digital signature, C2PA manifests, registry record, and parent-child version chain.
+Action: Click `Upload an image`, select the signed Production `version-3.png`, and wait for `Verified Modified`.
 
-## 00:42–01:05 — Modification Mask
+Voiceover:
 
-Click `Change overlay` and `Mask`.
+> I am uploading a real signed product image. Verification runs locally in the browser. The result is Verified Modified because its C2PA integrity is valid, its exact bytes match a signed Registry record, and its verified history has a parent version.
 
-> The mask is calculated from the real pixel differences between versions. Here, 4.8 percent of the image changed around the product label. This measures the changed region; it is not a copyright percentage.
+## 00:45–01:10 — What changed
 
-## 01:05–01:30 — Version History and C2PA
+Action: Click `Current image`, `Change overlay`, and `Mask`.
 
-Click Versions 1, 2, and 3. Open Advanced details.
+Voiceover:
 
-> Each substantive edit creates a child version instead of overwriting history. Every version has its own event ID, parent, hash, signature, and embedded C2PA provenance.
+> The current image, change overlay, and pixel-derived mask show where this version changed. Four point eight percent is measured spatial change. It is not an AI probability, copyright percentage, or truth score.
 
-## 01:30–01:48 — Tamper Detection
+## 01:10–01:35 — Where it came from
 
-Upload the prepared tampered image.
+Action: Click Version 1, Version 2, and Version 3. Show Evidence Passport, Change Metrics, Trust, and History.
 
-> When the signed image bytes are changed, the verifier reports Invalid Signature and a C2PA data-hash mismatch.
+Voiceover:
 
-## 01:48–02:08 — Gemini Evidence Explainer
+> Each material edit creates a child event instead of overwriting history. Every version records its parent, timestamp, tool, AI involvement level, Event ID, hash, signature, and C2PA manifest.
 
-Show the deployed Evidence Explainer after Cloud Run integration is complete.
+## 01:35–01:55 — Real tamper test
 
-> Gemini turns the structured verification facts into a short explanation for a buyer. Gemini never decides Authentic, Modified, Unknown, or Invalid. Cryptographic evidence remains the source of truth.
+Action: Upload the prepared tampered Version 3. Keep the result and C2PA validation line in view.
 
-Do not record this section until the Cloud Run endpoint has made a real Gemini production call.
+Voiceover:
 
-## 02:08–02:28 — ProofCart
+> Now I upload the same signed asset after its bytes were altered. The live verifier returns Invalid Evidence and assertion dot data hash dot mismatch. This is a real validation failure, not prewritten demo text.
 
-Click ProofCart `Verify Evidence`.
+## 01:55–02:10 — Gemini explains, evidence decides
 
-> ProofCart is the Small Business Services use case. Merchants can attach verifiable media history, while buyers can inspect the source and edits before trusting a listing.
+Action: Click `Explain with Gemini` and wait for the Production Cloud Run response.
 
-## 02:28–02:35 — Close
+Voiceover:
 
-> AI Evidence Engine records what happened. It does not make copyright or legal verdicts. Evidence, not guesswork.
+> Gemini on Vertex AI explains only allowlisted verified facts. It cannot assign or change the result. Hashes, signatures, C2PA, the Registry, and the Event Chain remain the source of truth.
 
-## Publication checklist
+## 02:10–02:30 — Universal adapters
 
-- Final runtime is less than 3:00.
-- Actual product operation is visible.
-- English audio or complete English subtitles are present.
-- No copyrighted music or unauthorized third-party material.
-- Uploaded to public YouTube, Vimeo, or Youku.
-- Public URL tested while signed out.
+Action: Show the `One evidence foundation. Many creation formats.` section.
 
+Voiceover:
+
+> Image is our first working adapter. Text, video, audio, documents, 2D designs, 3D models, and manufacturing records use modality-specific fingerprints while sharing one Passport, Event Chain, Registry, and Private Wallet.
+
+## 02:30–02:45 — Owner-controlled private evidence
+
+Action: Show the `NEXT — NOT YET IMPLEMENTED` Mobile Authorization flow.
+
+Voiceover:
+
+> Next, Private Black Box evidence stays encrypted with the owner. A phone can approve selected fields, purpose, and expiry, then sign a single-use authorization. This is the next-stage architecture, not a completed feature.
+
+## Capture acceptance gate
+
+- Actual rendered file is exactly 1920×1080.
+- Duration is under 3:00.
+- Full browser viewport stays inside frame throughout.
+- No large black bars or cropped content.
+- Mouse pointer and actual clicks are visible.
+- Real upload shows `Verified Modified`.
+- Real tampered upload shows `Invalid Evidence` and `assertion.dataHash.mismatch`.
+- Gemini response is a real Production call.
+- Architecture is shown as the universal product; Black Box/Mobile is visibly labeled next stage.

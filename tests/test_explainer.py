@@ -18,7 +18,7 @@ class EvidenceExplainerTests(unittest.TestCase):
         MODULE.app.config.update(TESTING=True)
         self.client = MODULE.app.test_client()
 
-    def payload(self, status="Modified"):
+    def payload(self, status="Verified Modified"):
         return {
             "status": status,
             "facts": {
@@ -42,13 +42,13 @@ class EvidenceExplainerTests(unittest.TestCase):
         with patch.object(MODULE, "_generate_explanation", return_value=("The signed record is valid and the label area changed.", "gemini-test")) as mocked:
             response = self.client.post("/v1/explain", json=self.payload())
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json["verification_status"], "Modified")
+        self.assertEqual(response.json["verification_status"], "Verified Modified")
         self.assertEqual(response.json["decision_source"], "AI Evidence Engine cryptographic verification")
         forwarded_facts = mocked.call_args.args[1]
         self.assertNotIn("secret", forwarded_facts)
 
     def test_rejects_model_invented_or_unsupported_status(self):
-        response = self.client.post("/v1/explain", json=self.payload("Probably Authentic"))
+        response = self.client.post("/v1/explain", json=self.payload("Probably Verified"))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json["error"], "invalid_request")
 
