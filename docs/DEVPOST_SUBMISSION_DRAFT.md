@@ -77,4 +77,5 @@ https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 - Do not claim a sponsor API challenge until that API is actually integrated and tested.
 - Do not describe `Unknown` as proof that content is fake.
 - Repository: https://github.com/Guguproapp/ai-evidence-engine
-- Final public video: https://youtu.be/HDG1qYo5hUg
+- Final video: `BLOCKED` — `HDG1qYo5hUg` is private pending owner review; add
+  the URL only after public access is re-enabled and externally rechecked.

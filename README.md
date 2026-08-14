@@ -63,9 +63,11 @@ npm run dev
 
 Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-Final demo video: https://youtu.be/HDG1qYo5hUg — **PASS**, 1920×1080, 2:43,
-real Production interaction with burned-in English captions. The superseded
-`Fwu7yGUTVwo` video remains rejected and must not be submitted.
+Final demo recording: `HDG1qYo5hUg` — **PASS**, 1920×1080, 2:43, real
+Production interaction with burned-in English captions. Visibility is
+**PRIVATE — pending owner review**; do not place it in the final submission
+until the owner re-enables public access. The superseded `Fwu7yGUTVwo` video
+remains rejected and must not be submitted.
 
 - Current ProofCart Version 3 evidence event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
 - Current Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`

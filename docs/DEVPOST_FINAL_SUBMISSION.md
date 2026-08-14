@@ -139,7 +139,8 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-https://youtu.be/HDG1qYo5hUg
+`BLOCKED` — recording ID `HDG1qYo5hUg` is private pending owner review. Do not
+submit the URL until the owner re-enables public access.
 
 The accepted replacement is 2:43, 1920×1080, and uses real Production
 interaction with burned-in English captions. It shows signed Version 3 upload,

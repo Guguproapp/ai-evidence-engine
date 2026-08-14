@@ -68,7 +68,8 @@ The checks above were rerun against Sites Version 4 at the public HTTPS URL afte
 
 ## Video
 
-Final operation video: **PASS** — https://youtu.be/HDG1qYo5hUg
+Final operation recording: **PASS** — ID `HDG1qYo5hUg`; visibility is
+**PRIVATE — pending owner review**.
 
 - Duration: 2:42.733 (YouTube display 2:43), below the three-minute limit.
 - Video: H.264, 1920×1080, 30 fps, 16:9, burned-in English captions.
@@ -79,6 +80,8 @@ Final operation video: **PASS** — https://youtu.be/HDG1qYo5hUg
 - Visual QA: complete browser viewport, visible operation cursor, no giant black
   borders, and no cropped website column. Automated crop detection found only
   a four-pixel encoder edge, not the large framing failure in the rejected video.
-- YouTube copyright check: completed with no issue reported at publication.
+- YouTube copyright check: completed with no issue reported during processing.
+- External visibility check after the owner's privacy change: `LOGIN_REQUIRED`
+  with the message `This is a private video`.
 
 The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.

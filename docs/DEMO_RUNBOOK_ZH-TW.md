@@ -2,9 +2,11 @@
 
 公開網址：https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-正式影片：https://youtu.be/HDG1qYo5hUg
+正式錄影ID：`HDG1qYo5hUg`
 
-狀態：`PASS`。1920×1080、2:43、英文字幕直接燒入、公開 Production 真實操作。舊版 `Fwu7yGUTVwo` 已被否決，不得提交。
+錄影狀態：`PASS`。1920×1080、2:43、英文字幕直接燒入、公開 Production 真實操作。
+
+瀏覽權限：`PRIVATE — 待宗億審核`。重新公開前不得提交影片網址。舊版 `Fwu7yGUTVwo` 已被否決，不得提交。
 
 目標：1920×1080、完整瀏覽器 Viewport、滑鼠可見、2 分 20 秒至 2 分 45 秒，硬限制低於 3 分鐘。必須真實操作 Production，不可用靜態截圖輪播。
 
