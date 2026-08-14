@@ -77,8 +77,8 @@ Final operation video: **PASS** — https://youtu.be/HDG1qYo5hUg
   `Invalid Evidence`, `assertion.dataHash.mismatch`, Gemini explanation,
   ProofCart, universal adapters, and labelled Next Stage.
 - Visual QA: complete browser viewport, visible operation cursor, no giant black
-  borders, and no cropped website column. A four-pixel encoder edge was removed
-  before the final 1920×1080 export.
+  borders, and no cropped website column. Automated crop detection found only
+  a four-pixel encoder edge, not the large framing failure in the rejected video.
 - YouTube copyright check: completed with no issue reported at publication.
 
 The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.
