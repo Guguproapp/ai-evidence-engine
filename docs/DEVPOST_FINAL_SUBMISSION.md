@@ -34,15 +34,15 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 
 The evidence decision pipeline is deterministic. Hash, signature, C2PA, registry, and parent-chain validation determine the verification state. Gemini is restricted to explaining the supplied structured facts to a non-technical buyer; it cannot replace or reinterpret the verification state.
 
-Current qualification status: the Gemini explainer source is locally tested, but AI-native production operation is not yet proven.
+Current qualification status: the deployed Cloud Run service made a logged Vertex AI Gemini production call while preserving the deterministic verification result.
 
 ## Google Cloud Usage
 
-Planned required production product: Google Cloud Run, hosting the Evidence Explainer API in the dedicated project `ai-evidence-engine-gugupro`.
+Production product: Google Cloud Run, hosting the Evidence Explainer API in the dedicated project `ai-evidence-engine-gugupro`.
 
 Authentication design: Cloud Run service-account Application Default Credentials. No Gemini API key is shipped to the browser or repository.
 
-Current status: BLOCKED. Google OAuth and the dedicated project are complete, but no Billing Account is linked, so Google rejects Cloud Run, Cloud Build, and Artifact Registry API activation. Insert the Cloud Run service URL, region, revision, and sanitized production log evidence after Free Trial billing enrollment and deployment.
+Current status: PASS. Revision `ai-evidence-explainer-00002-z76` is ready in `asia-east1` and serves 100% of traffic at the public Cloud Run URL.
 
 ## Gemini Usage
 
@@ -52,7 +52,7 @@ Input: allowlisted structured verification facts after the deterministic verifie
 
 Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
 
-Current status: NOT RUN in production. A local mock-based boundary test is not represented as a real Gemini API call.
+Current status: PASS. A real `gemini-2.5-flash` call through Vertex AI returned HTTP 200, produced a buyer-facing explanation, and returned the deterministic `Modified` status unchanged. Sanitized evidence is preserved under `docs/evidence/`.
 
 ## C2PA
 
@@ -129,7 +129,7 @@ https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
 ## Cloud Production URL
 
-PENDING — Cloud Run deployment required.
+https://ai-evidence-explainer-856572888721.asia-east1.run.app
 
 ## Repository URL
 
@@ -148,4 +148,4 @@ See `docs/PRODUCTION_EVIDENCE.md`. Cloud Run and Gemini records remain pending.
 - Development C2PA certificate, not an official production Trust List identity.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
-- Cloud Run, Gemini production usage, real-user evidence, and video remain mandatory blockers.
+- Real-user evidence and the public under-three-minute video remain mandatory blockers.

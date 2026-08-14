@@ -57,3 +57,12 @@ test("declares upload limits and client-side validation", async () => {
   assert.match(verifier, /verificationAttempts\.current\.length >= 8/);
   assert.doesNotMatch(verifier, /fetch\([^)]*file|FormData|innerHTML|eval\(/);
 });
+
+test("exposes the bounded Gemini evidence explainer", async () => {
+  const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  assert.match(verifier, /Explain with Gemini/);
+  assert.match(verifier, /Hashes, signatures, C2PA, and the Registry remain the source of truth/);
+  assert.match(verifier, /ai-evidence-explainer-856572888721\.asia-east1\.run\.app/);
+  assert.match(verifier, /payload\.verification_status !== status/);
+  assert.match(verifier, /cryptographic verification result above is unchanged/);
+});

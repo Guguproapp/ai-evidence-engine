@@ -90,7 +90,7 @@ def _validate_payload(payload):
 
 def _generate_explanation(status, facts):
     from google import genai
-    from google.genai.types import GenerateContentConfig, HttpOptions
+    from google.genai.types import GenerateContentConfig, HttpOptions, ThinkingConfig
 
     model = os.getenv("GEMINI_MODEL", DEFAULT_MODEL)
     client = genai.Client(http_options=HttpOptions(api_version="v1"))
@@ -108,7 +108,8 @@ def _generate_explanation(status, facts):
         contents=prompt,
         config=GenerateContentConfig(
             temperature=0.1,
-            max_output_tokens=180,
+            max_output_tokens=256,
+            thinking_config=ThinkingConfig(thinking_budget=0),
             system_instruction=(
                 "You are the Evidence Explainer. Cryptographic verification is the "
                 "source of truth; you only explain its supplied result."

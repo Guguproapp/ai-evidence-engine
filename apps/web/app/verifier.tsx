@@ -60,8 +60,18 @@ type UploadResult = {
   matchedVersion?: Version;
 };
 
+type ExplanationResult = {
+  request_id: string;
+  verification_status: "Authentic" | "Modified" | "Unknown" | "Invalid Signature";
+  explanation: string;
+  model: string;
+  provider: string;
+  decision_source: string;
+};
+
 const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
 const MAX_UPLOAD = 10 * 1024 * 1024;
+const EXPLAINER_URL = "https://ai-evidence-explainer-856572888721.asia-east1.run.app/v1/explain";
 
 function short(value: string, size = 10) {
   return value ? `${value.slice(0, size)}…${value.slice(-6)}` : "—";
@@ -96,6 +106,9 @@ export function EvidenceVerifier() {
   const [busy, setBusy] = useState(false);
   const [evidenceQuery, setEvidenceQuery] = useState("");
   const [queryMessage, setQueryMessage] = useState("");
+  const [explanation, setExplanation] = useState<ExplanationResult | null>(null);
+  const [explanationError, setExplanationError] = useState("");
+  const [explanationBusy, setExplanationBusy] = useState(false);
   const resultRef = useRef<HTMLElement | null>(null);
   const verificationAttempts = useRef<number[]>([]);
 
@@ -116,10 +129,79 @@ export function EvidenceVerifier() {
     return version.image;
   }, [version, view]);
 
+  function clearExplanation() {
+    setExplanation(null);
+    setExplanationError("");
+  }
+
+  async function requestExplanation(
+    status: ExplanationResult["verification_status"],
+    facts: Record<string, string | number | boolean | null>,
+  ) {
+    clearExplanation();
+    setExplanationBusy(true);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15_000);
+    try {
+      const response = await fetch(EXPLAINER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, facts }),
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json() as ExplanationResult;
+      if (payload.verification_status !== status || !payload.explanation) {
+        throw new Error("Explanation response did not preserve the verified status.");
+      }
+      setExplanation(payload);
+    } catch {
+      setExplanationError("AI explanation is temporarily unavailable. The cryptographic verification result above is unchanged.");
+    } finally {
+      window.clearTimeout(timeout);
+      setExplanationBusy(false);
+    }
+  }
+
+  function explainVersion() {
+    if (!version || !verification) return;
+    const status = (upload?.result ?? result) as ExplanationResult["verification_status"];
+    const changedRatio = typeof version.modification_scope === "object" ? version.modification_scope.changed_ratio ?? 0 : 0;
+    void requestExplanation(status, {
+      version_id: version.version_id,
+      parent_version_id: version.parent_version_id,
+      evidence_id: version.event_id,
+      action: humanAction(version.action_type),
+      changed_ratio: changedRatio,
+      c2pa_manifest_count: version.c2pa.manifest_count,
+      c2pa_status: version.c2pa.development_signer ? "valid development identity" : "valid",
+      registry_status: verification.verified ? "matched" : "not verified",
+      signature_status: verification.signature_status,
+      signer: version.issuer,
+    });
+  }
+
+  function explainUpload() {
+    if (!upload) return;
+    void requestExplanation(upload.result, {
+      version_id: `uploaded-${upload.hash.slice(0, 16)}`,
+      parent_version_id: null,
+      evidence_id: null,
+      action: upload.result === "Invalid Signature" ? "Uploaded bytes do not match the signed C2PA claim" : "No matching registry record found",
+      changed_ratio: 0,
+      c2pa_manifest_count: upload.manifestCount,
+      c2pa_status: upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "no validation record",
+      registry_status: "not found",
+      signature_status: upload.result === "Invalid Signature" ? "invalid" : "unknown",
+      signer: null,
+    });
+  }
+
   function tryDemo() {
     setSelected(2);
     setView("comparison");
     setUpload(null);
+    clearExplanation();
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
 
@@ -129,6 +211,7 @@ export function EvidenceVerifier() {
     if (!file) return;
     setUploadError("");
     setUpload(null);
+    clearExplanation();
     const now = Date.now();
     verificationAttempts.current = verificationAttempts.current.filter((value) => now - value < 60_000);
     if (verificationAttempts.current.length >= 8) {
@@ -191,6 +274,7 @@ export function EvidenceVerifier() {
       return;
     }
     setSelected(demo.versions.indexOf(found));
+    clearExplanation();
     setQueryMessage(`Registry record found: ${found.version_id}`);
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
@@ -241,6 +325,12 @@ export function EvidenceVerifier() {
           <div><span>Uploaded file</span><h3>{upload.name}</h3><p>{upload.result === "Invalid Signature" ? "C2PA evidence is present, but the asset bytes no longer match the signed claim." : "No matching AI Evidence Registry record was found for this file."}</p></div>
           <dl><div><dt>Result</dt><dd><StatusPill value={upload.result} /></dd></div><div><dt>Content hash</dt><dd><code>{upload.hash}</code></dd></div><div><dt>C2PA manifests</dt><dd>{upload.manifestCount}</dd></div><div><dt>Active manifest</dt><dd><code>{upload.activeManifest ?? "None"}</code></dd></div><div><dt>Validation</dt><dd>{upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "No C2PA validation record"}</dd></div></dl>
           <details><summary>Developer JSON</summary><pre>{JSON.stringify(upload.raw, null, 2)}</pre></details>
+          <div className="gemini-explainer">
+            <span>AI EVIDENCE EXPLANATION</span>
+            <h3>Explain the verified facts in plain language</h3>
+            {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · Status remains {explanation.verification_status}</small></> : explanationError ? <p className="explanation-fallback">{explanationError}</p> : <p>Gemini explains the result; it does not decide whether the image is authentic or modified.</p>}
+            <button className="secondary" onClick={explainUpload} disabled={explanationBusy}>{explanationBusy ? "Asking Gemini…" : explanation ? "Explain again" : "Explain with Gemini"}</button>
+          </div>
           <button className="secondary" onClick={tryDemo}>Return to signed demo</button>
         </div> : !demo || !version || !verification ? <div className="loading">Loading signed evidence…</div> : <>
           <div className="verification-grid">
@@ -264,13 +354,19 @@ export function EvidenceVerifier() {
                 <div><dt>Registry</dt><dd className="good">✓ Signed record found</dd></div>
               </dl>
               <div className="trust-note"><b>Integrity verified; development identity</b><p>The C2PA bytes and evidence signature validate. The demo C2PA certificate is a development signer and is not on the official C2PA Trust List.</p></div>
+              <div className="gemini-explainer">
+                <span>AI EVIDENCE EXPLANATION</span>
+                <h3>What this evidence means</h3>
+                {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · Status remains {explanation.verification_status}</small></> : explanationError ? <p className="explanation-fallback">{explanationError}</p> : <p>Gemini can explain these verified facts in plain language. Hashes, signatures, C2PA, and the Registry remain the source of truth.</p>}
+                <button className="secondary" onClick={explainVersion} disabled={explanationBusy}>{explanationBusy ? "Asking Gemini…" : explanation ? "Explain again" : "Explain with Gemini"}</button>
+              </div>
             </div>
           </div>
 
           <div className="timeline-section">
             <div><span className="section-number">03</span><h2>Where this image came from</h2><p>Each edit creates a child version. Nothing silently overwrites the original.</p></div>
             <div className="timeline">
-              {demo.versions.map((item, index) => <button key={item.version_id} className={selected === index ? "selected" : ""} onClick={() => { setSelected(index); setView(index === 0 ? "image" : "comparison"); }}>
+              {demo.versions.map((item, index) => <button key={item.version_id} className={selected === index ? "selected" : ""} onClick={() => { setSelected(index); setView(index === 0 ? "image" : "comparison"); clearExplanation(); }}>
                 <span className="timeline-index">{index + 1}</span><img src={item.image} alt={item.version_id} /><span className="timeline-copy"><b>{index === 0 ? "Original" : `Edit ${index}`}</b><small>{humanAction(item.action_type)}</small><code>{short(item.event_id)}</code></span><span className="timeline-check">✓</span>
               </button>)}
             </div>
