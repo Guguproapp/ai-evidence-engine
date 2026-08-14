@@ -9,7 +9,7 @@ Only artifacts actually captured for the rebuilt release may be marked `PASS`. H
 | Cloud Run health | PASS | Public HTTPS HTTP 200 |
 | Gemini Production call | PASS | Vertex AI `gemini-2.5-flash` returned HTTP 200 and preserved `Verified Modified` |
 | Gemini Cloud Logging | PASS | Request ID `3da55316-9616-46af-9ab2-39e34a1bdb49`; upstream Vertex AI HTTP 200; no prompt/secret logged |
-| Rebuilt public verifier deployment | PASS | Sites Version 4, commit `b0eb08c74c78ca5f6fa271204d8f335d74d850fd` |
+| Rebuilt public verifier deployment | PASS | Sites Version 5, commit `2e8ef3cea3945f8db830ff76fd97e4d45e5cc3c8` |
 | Rebuilt public browser regression | PASS | All four states, valid-C2PA Registry miss, no-C2PA miss, History, Mask, ProofCart, Gemini, adapters, and Next Stage rerun on public HTTPS |
 | Final public demo video | BLOCKED | Replacement `HDG1qYo5hUg`: 2:43, 1920×1080, real Production operation, English captions, but private pending owner review; external check returns `LOGIN_REQUIRED`; old `Fwu7yGUTVwo` remains rejected |
 | Real external user evidence | FAIL | 0 verified external users |
@@ -32,7 +32,7 @@ Screenshots and logs must not contain API keys, OAuth codes, access tokens, priv
 
 Historical evidence remains under `docs/evidence/` for audit history. It must not be described as the current rebuilt release unless a fresh Production check reproduces the result with the identifiers above.
 
-## Sites Version 4 public regression
+## Sites Version 5 public regression
 
 Public URL: `https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site`
 
@@ -42,8 +42,10 @@ Public URL: `https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site`
 - Unsigned Modification Mask: `Unverified`, C2PA Not Present, Registry No Match.
 - Tampered current Version 3: `Invalid Evidence`, `assertion.dataHash.mismatch`.
 - History: all three rebuilt Event IDs rendered and changed state when selected.
-- Modification Mask: `/demo/version-3-mask.png`, `4.8% changed`.
+- Modification Mask: `/demo/version-3-mask.png`, `4.8% measured pixel change`.
 - ProofCart: `Verify Evidence` returned to current signed Version 3.
 - Gemini: real Production response displayed `gemini-2.5-flash on Vertex AI` and `Status remains Verified Modified`; no fallback message.
 - Universal architecture: Text, Image, Video, Audio, Documents, 2D, 3D, and Manufacturing adapters rendered with the shared foundation.
 - Next Stage: Private Black Box + Mobile Authorization visibly labelled `NEXT — NOT YET IMPLEMENTED`.
+- Evidence language: `aee.image.c2pa.v1`, Integrity, Provenance, Identity Trust, signed AI Involvement, Change Metrics, and Private Evidence are displayed as independent fields.
+- Deterministic policy: `Valid C2PA + Registry No Match` remained `Unverified` and never displayed `Verified Original`.

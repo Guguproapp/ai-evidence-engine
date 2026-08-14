@@ -66,7 +66,7 @@ Production request ID: `3da55316-9616-46af-9ab2-39e34a1bdb49`. Cloud Logging rec
 | Gemini Production integration | PASS |
 | Universal adapters / Next Stage architecture | PASS |
 
-The checks above were rerun against Sites Version 4 at the public HTTPS URL after deployment, using actual project-generated files through the page file chooser. The signed image bytes stayed in the browser; no image upload endpoint was used. The old valid C2PA fixture displayed `C2PA integrity: Valid`, `Registry: No Match`, and `Unverified`. The tampered fixture displayed `Invalid Evidence` and `assertion.dataHash.mismatch`. Gemini returned `gemini-2.5-flash on Vertex AI` while preserving `Verified Modified`.
+The checks above were rerun against Sites Version 5 at the public HTTPS URL after deployment, using actual project-generated files through the page file chooser. Version 5 displays the v1 Evidence Profile, Integrity, Provenance, Identity Trust, signed AI Involvement, measured Change Scope, and Private Evidence boundary. The old valid C2PA fixture displayed `C2PA integrity: Valid`, `Registry: No Match`, and `Unverified`. The tampered fixture displayed `Invalid Evidence`, `assertion.dataHash.mismatch`, and `c2pa_integrity_invalid`. Gemini returned `gemini-2.5-flash on Vertex AI` while preserving `Verified Modified`.
 
 ## Video
 
