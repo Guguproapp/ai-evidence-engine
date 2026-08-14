@@ -9,8 +9,8 @@ Audit date: 2026-08-15. Overall status: **FAIL — NOT SUBMISSION READY**.
 | Category relevance explained | ProofCart and content-trust tooling for merchants/platforms | PASS | What it does |
 | Google Cloud Product used | Production Evidence Explainer is deployed on Cloud Run in project `ai-evidence-engine-gugupro` | PASS | Google Cloud Usage |
 | Gemini requirement satisfied | Production Cloud Run called Vertex AI `gemini-2.5-flash`; HTTP 200 and Cloud Logging evidence preserved | PASS | Gemini Usage |
-| Production Demo works | Public verifier anonymously tested | PASS | Public Demo URL |
-| Public Verifier Gemini integration | Production browser called Cloud Run, displayed a Vertex AI explanation, and preserved deterministic status | PASS | Public Demo URL / Gemini Usage |
+| Production Demo works | Sites Version 4 anonymously tested with all four provenance states and actual upload fixtures | PASS | Public Demo URL |
+| Public Verifier Gemini integration | Version 4 browser called Cloud Run revision `00003-m75`, displayed a Vertex AI explanation, and preserved `Verified Modified` | PASS | Public Demo URL / Gemini Usage |
 | Repository ready | Public Apache-2.0 repository pushed at `https://github.com/Guguproapp/ai-evidence-engine` | PASS | Repository URL |
 | Video under 3 minutes | Previous 2:24 video is rejected because it does not meet the required real-operation/framing standard; replacement not yet recorded | FAIL | Video URL |
 | English submission | English final draft and testing instructions exist | PASS | Submission text |

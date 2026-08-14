@@ -52,7 +52,7 @@ Input: allowlisted structured verification facts after the deterministic verifie
 
 Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
 
-Previous Production status: PASS for the superseded Evidence schema. The new four-state request contract and Version 3 Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33` require a fresh Production call before final submission. Until that live check passes, this item is `NOT RUN` for the rebuilt release.
+Current status: PASS. Cloud Run revision `ai-evidence-explainer-00003-m75` made a real `gemini-2.5-flash` Vertex AI call for rebuilt Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`, returned HTTP 200, and preserved `Verified Modified`. Sites Version 4 then reproduced the same result from the public verifier. Sanitized evidence is preserved under `docs/evidence/`.
 
 ## C2PA
 
@@ -114,13 +114,14 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 ## Testing Instructions
 
 1. Open the public demo without signing in.
-2. Click `Try the 60-second demo`.
+2. Use `Upload an image` with the signed Version 3 fixture, or click `Try the 60-second demo`.
 3. Confirm `Verified Modified`, valid evidence signature, three C2PA versions, and Registry match.
 4. Click `Change overlay` and `Mask` to inspect the 4.8% changed region.
 5. Select Versions 1, 2, and 3 to inspect parent-child history.
 6. Open Advanced details to inspect Manifest ID, Event ID, parent, and event hash.
 7. Click ProofCart `Verify Evidence`.
 8. Click `Explain with Gemini` and confirm the plain-language explanation appears while the deterministic status remains unchanged.
+9. Review `One evidence foundation. Many creation formats.` and the explicitly labelled `NEXT — NOT YET IMPLEMENTED` Mobile Authorization architecture.
 
 No login or payment is required for the public verifier.
 

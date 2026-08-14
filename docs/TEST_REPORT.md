@@ -50,19 +50,21 @@ Production request ID: `3da55316-9616-46af-9ab2-39e34a1bdb49`. Cloud Logging rec
 
 | Flow | Status |
 |---|---|
-| Universal Evidence Passport homepage | NOT RUN |
-| Signed Version 1 upload → Verified Original | NOT RUN |
-| Signed Version 3 upload → Verified Modified | NOT RUN |
-| Valid old C2PA + rebuilt Registry miss → Unverified | NOT RUN |
-| Tampered Version 3 → Invalid Evidence + dataHash mismatch | NOT RUN |
-| Version History 1/2/3 | NOT RUN |
-| 4.8% Modification Mask | NOT RUN |
-| Evidence Passport / Change Metrics / Trust / Private Evidence | NOT RUN |
-| ProofCart | NOT RUN |
-| Gemini Production integration | NOT RUN |
-| Universal adapters / Next Stage architecture | NOT RUN |
+| Universal Evidence Passport homepage | PASS |
+| Signed Version 1 upload → Verified Original | PASS |
+| Signed Version 3 upload → Verified Modified | PASS |
+| Valid old C2PA + rebuilt Registry miss → Unverified | PASS |
+| No C2PA + no Registry → Unverified | PASS |
+| Tampered Version 3 → Invalid Evidence + dataHash mismatch | PASS |
+| Version History 1/2/3 | PASS |
+| 4.8% Modification Mask | PASS |
+| Evidence Passport / Change Metrics / Trust / Private Evidence | PASS |
+| ProofCart | PASS |
+| Missing Evidence ID | PASS |
+| Gemini Production integration | PASS |
+| Universal adapters / Next Stage architecture | PASS |
 
-The prior Production browser results use superseded labels and Evidence IDs. They are retained as historical evidence but are not counted for this rebuilt release.
+The checks above were rerun against Sites Version 4 at the public HTTPS URL after deployment, using actual project-generated files through the page file chooser. The signed image bytes stayed in the browser; no image upload endpoint was used. The old valid C2PA fixture displayed `C2PA integrity: Valid`, `Registry: No Match`, and `Unverified`. The tampered fixture displayed `Invalid Evidence` and `assertion.dataHash.mismatch`. Gemini returned `gemini-2.5-flash on Vertex AI` while preserving `Verified Modified`.
 
 ## Video
 
