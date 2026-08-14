@@ -97,7 +97,18 @@ def diff_mask(before, after, width, height, threshold=12):
         xs = [point[0] for point in changed]
         ys = [point[1] for point in changed]
         bbox = {"x": min(xs), "y": min(ys), "width": max(xs) - min(xs) + 1, "height": max(ys) - min(ys) + 1}
-    return mask, {"changed_pixels": len(changed), "total_pixels": width * height, "changed_ratio": round(len(changed) / (width * height), 6), "bounding_box": bbox, "threshold": threshold}
+    ratio = round(len(changed) / (width * height), 6)
+    return mask, {
+        "changed_pixels": len(changed),
+        "total_pixels": width * height,
+        "spatial_change_ratio": ratio,
+        "changed_region": bbox,
+        "pixel_threshold": threshold,
+        # Legacy aliases remain until existing demo consumers migrate.
+        "changed_ratio": ratio,
+        "bounding_box": bbox,
+        "threshold": threshold,
+    }
 
 
 def comparison_image(before, after, mask, width, height):
@@ -109,4 +120,3 @@ def comparison_image(before, after, mask, width, height):
         else:
             output[offset:offset + 3] = bytes(((before[offset] + after[offset]) // 2, (before[offset + 1] + after[offset + 1]) // 2, (before[offset + 2] + after[offset + 2]) // 2))
     return output
-

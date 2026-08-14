@@ -1,9 +1,17 @@
+export const INTEGRITY_STATES = Object.freeze({ VALID: "VALID", INVALID: "INVALID", UNVERIFIED: "UNVERIFIED" });
 export const PROVENANCE_STATES = Object.freeze({
+  VERIFIED_ORIGINAL: "VERIFIED_ORIGINAL",
+  VERIFIED_MODIFIED: "VERIFIED_MODIFIED",
+  UNVERIFIED: "UNVERIFIED",
+  INVALID_EVIDENCE: "INVALID_EVIDENCE",
+});
+export const PROVENANCE_LABELS = Object.freeze({
   VERIFIED_ORIGINAL: "Verified Original",
   VERIFIED_MODIFIED: "Verified Modified",
   UNVERIFIED: "Unverified",
-  INVALID: "Invalid Evidence",
+  INVALID_EVIDENCE: "Invalid Evidence",
 });
+export const IDENTITY_TRUST = Object.freeze({ TRUSTED: "TRUSTED", DEVELOPMENT: "DEVELOPMENT", UNKNOWN: "UNKNOWN", REVOKED: "REVOKED" });
 
 /**
  * Classify provenance without turning any single signal into a truth claim.
@@ -11,27 +19,42 @@ export const PROVENANCE_STATES = Object.freeze({
  * parentage are evaluated separately before a provenance state is returned.
  */
 export function classifyEvidence({
-  hasC2pa,
-  c2paValid,
-  registryMatched,
-  registryValid,
-  hasParent,
-  identityTrust = "Unknown",
+  hasC2pa, c2paValid, registryMatched, registryValid,
+  signatureValid = registryValid, contentHashValid = registryValid,
+  parentChainValid = registryValid, requiredProfileEvidenceValid = registryValid,
+  hasParent, identityTrust = "UNKNOWN",
 }) {
-  const c2paIntegrity = !hasC2pa ? "Not Present" : c2paValid ? "Valid" : "Invalid";
-  const registryStatus = registryMatched ? (registryValid ? "Matched" : "Invalid") : "No Match";
+  const normalizedIdentity = String(identityTrust).toUpperCase();
+  const reasons = [];
+  if (normalizedIdentity === IDENTITY_TRUST.REVOKED) reasons.push("signer_identity_revoked");
+  if (hasC2pa && !c2paValid) reasons.push("c2pa_integrity_invalid");
+  if (registryMatched) {
+    if (!signatureValid) reasons.push("signature_invalid");
+    if (!contentHashValid) reasons.push("content_hash_mismatch");
+    if (!parentChainValid) reasons.push("parent_chain_invalid");
+    if (!requiredProfileEvidenceValid) reasons.push("required_profile_evidence_invalid");
+  }
 
-  let provenanceState = PROVENANCE_STATES.UNVERIFIED;
-  if ((hasC2pa && !c2paValid) || (registryMatched && !registryValid) || (registryMatched && !hasC2pa)) {
-    provenanceState = PROVENANCE_STATES.INVALID;
-  } else if (hasC2pa && c2paValid && registryMatched && registryValid) {
-    provenanceState = hasParent ? PROVENANCE_STATES.VERIFIED_MODIFIED : PROVENANCE_STATES.VERIFIED_ORIGINAL;
+  let integrityState = INTEGRITY_STATES.UNVERIFIED;
+  let provenanceStateCode = PROVENANCE_STATES.UNVERIFIED;
+  if (reasons.length) {
+    integrityState = INTEGRITY_STATES.INVALID;
+    provenanceStateCode = PROVENANCE_STATES.INVALID_EVIDENCE;
+  } else if (registryMatched) {
+    integrityState = INTEGRITY_STATES.VALID;
+    provenanceStateCode = hasParent ? PROVENANCE_STATES.VERIFIED_MODIFIED : PROVENANCE_STATES.VERIFIED_ORIGINAL;
+    reasons.push("registry_and_required_evidence_valid");
+  } else {
+    reasons.push(hasC2pa && c2paValid ? "c2pa_integrity_valid_but_registry_no_match" : "no_verifiable_registry_source");
   }
 
   return {
-    provenanceState,
-    c2paIntegrity,
-    registryStatus,
-    identityTrust,
+    integrityState,
+    provenanceStateCode,
+    provenanceState: PROVENANCE_LABELS[provenanceStateCode],
+    c2paIntegrity: !hasC2pa ? "Not Present" : c2paValid ? "Valid" : "Invalid",
+    registryStatus: registryMatched ? (registryValid ? "Matched" : "Invalid") : "No Match",
+    identityTrust: normalizedIdentity,
+    reasons,
   };
 }

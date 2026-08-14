@@ -27,6 +27,7 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 - RSA-2048/SHA-256 signs canonical evidence events.
 - An append-only event chain preserves version and parent-hash relationships.
 - A deterministic RGB image-diff algorithm generates the Modification Mask, ratio, and bounding box.
+- AEE Evidence Identification & Coding Standard v1.0 separates integrity, provenance, identity trust, signed AI involvement, and change scope; `aee.event.v1` and legacy compatibility are covered by automated tests.
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
 - A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; Gemini cannot assign or change the deterministic provenance state.
 
@@ -97,7 +98,8 @@ The Gemini boundary presents a second challenge: a helpful explanation must neve
 - Actual pixel-derived Modification Masks.
 - Working local `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence` classification flows.
 - Public one-click ProofCart demo.
-- 20/20 Python tests and 9/9 website tests at the current local checkpoint.
+- 34/34 Python tests and 11/11 website tests at the current local checkpoint.
+- Implemented `aee.text.v1` and `aee.image.c2pa.v1` Evidence Profiles, with audio/video/document/2D/3D/manufacturing explicitly marked `SPECIFIED_NOT_IMPLEMENTED`.
 - Formal L0–L5 AI involvement, multimodal adapter metrics, and owner-controlled Private Black Box / Mobile Authorization architecture without representing the next-stage features as complete.
 
 ## What we learned

@@ -6,12 +6,12 @@ This file records executed results only. Planned work is never `PASS`.
 
 | Suite | Command | Result |
 |---|---|---|
-| Python core/integration | `PYTHONPATH=src /tmp/ai-evidence-explainer-venv/bin/python -m unittest discover -s tests -v` | PASS — 20/20 |
-| Web classification/render/security | `npm test` in `apps/web` | PASS — 9/9 |
+| Python core/integration | `PYTHONPATH=src /tmp/ai-evidence-explainer-venv/bin/python -m unittest discover -s tests -v` | PASS — 34/34 |
+| Web classification/render/security | `npm test` in `apps/web` | PASS — 11/11 |
 | Lint | `npm run lint` in `apps/web` | PASS |
 | Production build | `npm run build` in `apps/web` | PASS |
 
-Python coverage includes hierarchical Text DNA, common-phrase guard, RSA signatures, parent chains, backward-compatible expanded Registry schema, C2PA creation/read/verify, real tampered data-hash mismatch, RGB Modification Masks, and the Gemini decision boundary.
+Python coverage includes v1 Identifier/digest formats, canonical JSON stability, Event Schema validation, profile status enforcement, deterministic decisions, legacy Event signature/history/parent compatibility, Wallet commitments, Authorization scope/expiry/revocation/single-use rules, hierarchical Text DNA, RSA signatures, C2PA creation/read/verify, real tampered data-hash mismatch, RGB Modification Masks, and the Gemini decision boundary.
 
 ## Required provenance classification matrix
 
@@ -22,6 +22,8 @@ Python coverage includes hierarchical Text DNA, common-phrase guard, RSA signatu
 | No C2PA + no Registry | `Unverified` | PASS |
 | Valid C2PA + valid matching Registry + no parent | `Verified Original` | PASS |
 | Valid C2PA + valid matching Registry + parent | `Verified Modified` | PASS |
+| Matching Registry + invalid signature | `Invalid Evidence` | PASS |
+| Matching Registry + hash mismatch | `Invalid Evidence` | PASS |
 
 The state machine keeps C2PA integrity, Registry match, identity trust, and provenance outcome as separate signals. A single evidence source cannot imply `Verified Original`.
 

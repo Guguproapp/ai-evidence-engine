@@ -77,11 +77,15 @@ def _result(tier, confidence, source_coverage, continuous, strength, candidate_c
     return {
         "evidence_tier": tier,
         "evidence_strength": strength,
+        "relationship_confidence": round(confidence, 4),
+        "source_coverage": round(source_coverage, 4),
+        "candidate_coverage": round(candidate_coverage, 4),
         "confidence": round(confidence, 4),
         "source_ngram_coverage": round(source_coverage, 4),
         "candidate_ngram_coverage": round(candidate_coverage, 4),
         "longest_continuous_ratio": round(continuous, 4),
         "character_similarity": round(sequence, 4),
         "legal_plagiarism_verdict": None,
-        "notice": "Provenance similarity only; this is not a copyright, infringement, or plagiarism judgment.",
+        "calibration_status": "PROTOTYPE_CALIBRATION",
+        "notice": "Provenance similarity only; prototype thresholds are not universal accuracy and this is not a copyright, infringement, plagiarism, or AI-probability judgment.",
     }

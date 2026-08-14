@@ -1,10 +1,14 @@
 # AI Evidence Engine — Evidence Classification Specification
 
-Status: v1.0 normative product specification. The image adapter is the first working modality. This document does not claim that every listed adapter is implemented.
+Status: v1.0 supporting product specification. Canonical enum values and coding rules are normative in `EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md`.
 
 ## Purpose
 
-AI Evidence Engine verifies recorded provenance evidence. It does not decide whether content is factually true, legal, non-infringing, or human-authored. Results are expressed on three independent axes so that no single signal is promoted into a universal truth claim.
+AI Evidence Engine verifies recorded provenance evidence. It does not decide whether content is factually true, legal, non-infringing, or human-authored. Integrity, provenance, identity trust, AI involvement, and change scope are independent dimensions.
+
+## Integrity State
+
+Canonical values are `VALID`, `INVALID`, and `UNVERIFIED`. Integrity describes evidence completeness only and cannot be used as a world-truth label.
 
 ## Axis A — Provenance State
 
@@ -22,7 +26,7 @@ Decision rules:
 3. No C2PA and no Registry match is `Unverified`.
 4. Valid C2PA plus a valid matching Registry record with no parent is `Verified Original`.
 5. Valid C2PA plus a valid matching Registry record with a parent is `Verified Modified`.
-6. Identity trust is displayed separately as `Trusted`, `Development`, or `Unknown`.
+6. Identity trust is displayed separately as `TRUSTED`, `DEVELOPMENT`, `UNKNOWN`, or `REVOKED`.
 
 ## Axis B — AI Involvement
 
@@ -36,6 +40,7 @@ AI involvement describes recorded process evidence. It is not inferred from styl
 | L3 | AI-assisted partial creative modification; original remains materially recognizable | Crop, color grade, denoise, sentence polish, local retouch | Parent/child, tool/model, affected regions/ranges, change metrics | `L3 — AI-assisted partial creative modification` |
 | L4 | AI performs a major transformation or substantial creative edit | Semantic rewrite, object removal/addition, generative fill, background generation | Parent/child, model/tool, prompt commitment, masks/ranges, approval | `L4 — AI-major transformation` |
 | L5 | Asset or major component is generated as synthetic content | Full article, image, audio, video, code, or 3D generation | Generation event, model/provider/version, input commitments, output hash | `L5 — AI-generated or synthetic content` |
+| UNKNOWN | Insufficient verifiable signed evidence | Unregistered upload | No evidence sufficient to assign a level | `AI involvement unknown` |
 
 Rules:
 

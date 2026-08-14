@@ -19,6 +19,9 @@ class TextDnaTests(unittest.TestCase):
         result = compare_text(ARTICLE, candidate)
         self.assertIn(result["evidence_tier"], {"large_continuous_match", "partial_match", "approximate_rewrite"})
         self.assertGreater(result["confidence"], 0.55)
+        self.assertEqual(result["relationship_confidence"], result["confidence"])
+        self.assertEqual(result["source_coverage"], result["source_ngram_coverage"])
+        self.assertEqual(result["calibration_status"], "PROTOTYPE_CALIBRATION")
 
     def test_heavy_rewrite_lowers_confidence(self):
         result = compare_text(ARTICLE, "科技工具能提高效率。法律責任應由具權限的機構判定。")

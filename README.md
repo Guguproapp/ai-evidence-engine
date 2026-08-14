@@ -20,6 +20,7 @@ This is not an AI detector and does not produce legal conclusions. It records wh
 - Public Production Version 3 with the corrected `GUGUPRO` brand, rebuilt image hashes, C2PA parent ingredients, signed events, Registry records, and Modification Mask.
 - Four independent provenance outcomes: `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence`; identity trust and C2PA integrity are displayed separately.
 - Formal L0–L5 AI involvement, multimodal change metrics, Private Black Box, and Mobile Authorization specifications.
+- **AEE Evidence Identification & Coding Standard v1.0** with versioned identifiers, `aee.event.v1`, implemented Text/Image profiles, deterministic verification policy, legacy signature compatibility, Wallet commitments, and authorization signing/validation foundations.
 
 Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 
@@ -72,4 +73,4 @@ remains rejected and must not be submitted.
 - Current ProofCart Version 3 evidence event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
 - Current Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`
 
-See [architecture](docs/ARCHITECTURE.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).
+See [AEE Coding Standard v1.0](docs/EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md), [architecture](docs/ARCHITECTURE.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).

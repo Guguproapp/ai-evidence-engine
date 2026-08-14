@@ -12,6 +12,9 @@ class ImageDiffTests(unittest.TestCase):
         _, stats = diff_mask(before, after, width, height)
         self.assertEqual(stats["bounding_box"], {"x": 30, "y": 20, "width": 20, "height": 25})
         self.assertAlmostEqual(stats["changed_ratio"], 0.0625)
+        self.assertAlmostEqual(stats["spatial_change_ratio"], 0.0625)
+        self.assertEqual(stats["changed_region"], stats["bounding_box"])
+        self.assertEqual(stats["pixel_threshold"], 12)
 
     def test_background_mask_covers_full_frame(self):
         width, height = 40, 30
@@ -27,4 +30,3 @@ class ImageDiffTests(unittest.TestCase):
         after = solid_canvas(width, height, (106, 106, 106))
         _, stats = diff_mask(before, after, width, height, threshold=12)
         self.assertEqual(stats["changed_pixels"], 0)
-

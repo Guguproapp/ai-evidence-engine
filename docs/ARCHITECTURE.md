@@ -23,6 +23,12 @@ L0 copy/transfer/storage and L1 formatting must not be treated as AI creation. L
 
 The verifier reports evidence and provenance similarity. It never returns copyright ownership, infringement, plagiarism, legality, or world-truth decisions. Its four provenance outcomes are `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence`; C2PA integrity, Registry match, and identity trust remain separate signals.
 
+## Evidence language and coding standard
+
+`EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md` is the normative v1 evidence language. New events use `aee.event.v1`; legacy events are normalized only at read time and continue to verify against their original signed-field set. Passport, Event, content digest, Event hash, integrity, provenance, identity trust, AI involvement, and change scope have distinct responsibilities.
+
+The deterministic Decision Engine lives in `src/ai_evidence/decision.py`; the browser policy in `apps/web/app/evidence-classification.mjs` uses the same matrix. Implemented profile resolution is centralized in `src/ai_evidence/profiles.py`. Reserved audio, video, document, 2D, 3D, and manufacturing profiles return `SPECIFIED_NOT_IMPLEMENTED` and cannot be treated as verified adapters.
+
 ## Cryptography
 
 The development issuer is self-issued and uses RSA-2048 with SHA-256 because this Mac's system OpenSSL lacks Ed25519 support. Its private key remains local with file mode `0600`; the registry publishes the corresponding public key. This proves tamper evidence in the prototype but is not production identity assurance. Production requires protected key storage, certificate policy, rotation, revocation, trust-list governance, and a deliberate algorithm upgrade.
@@ -52,3 +58,5 @@ Gemini is not in the trust path. The service validates one of four deterministic
 Image is the first implemented adapter, not the product boundary. Text, video, audio, documents, 2D design, 3D models, and digital manufacturing use modality-specific fingerprints and change metrics while sharing the Passport, Event Chain, Hash, Signature, Registry, and Private Wallet foundation. See `EVIDENCE_CLASSIFICATION_SPEC.md` and `MULTIMODAL_EVIDENCE_SPEC.md`.
 
 Private evidence remains encrypted and owner-controlled. The future Mobile Authorization path is explicitly architecture-only: a verifier requests selected fields, the owner approves or denies on a phone, a scoped single-use token is signed, and only authorized evidence is released. It is not represented as implemented in the current demo.
+
+The v1 commitment and authorization foundations are now implemented: private bundle commitments are canonical SHA-256 values, and authorization records can be signed and validated for scope, expiry, revocation, denied fields, and single-use state. Complete encrypted Black Box storage, disclosure service, and the mobile application remain not implemented.

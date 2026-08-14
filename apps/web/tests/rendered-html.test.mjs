@@ -72,4 +72,7 @@ test("exposes the bounded Gemini evidence explainer", async () => {
   assert.match(verifier, /ai-evidence-explainer-856572888721\.asia-east1\.run\.app/);
   assert.match(verifier, /payload\.verification_status !== status/);
   assert.match(verifier, /cryptographic verification result above is unchanged/);
+  assert.match(verifier, /measured pixel change/);
+  assert.match(verifier, /Private disclosure architecture — not yet implemented/);
+  assert.match(verifier, /AI involvement/);
 });
