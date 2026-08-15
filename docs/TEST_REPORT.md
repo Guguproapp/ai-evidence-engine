@@ -74,11 +74,12 @@ The checks above were rerun against Sites Version 5 at the public HTTPS URL afte
 
 ## Video
 
-Final operation recording: **PASS** — ID `HDG1qYo5hUg`; visibility is
+Final operation recording: **PASS** — ID `pqRNOvyE3_c`; visibility is
 **PUBLIC — judge-accessible**.
 
 - Duration: 2:42.733 (YouTube display 2:43), below the three-minute limit.
 - Video: H.264, 1920×1080, 30 fps, 16:9, burned-in English captions.
+- Audio: AAC, 48 kHz, mono English narration; measured mean volume -15.6 dB and peak -1.3 dB.
 - Actual Production operations: signed Version 3 upload, `Verified Modified`,
   Current Image, Change Overlay, 4.8% Mask, History 1/2/3, tampered upload,
   `Invalid Evidence`, `assertion.dataHash.mismatch`, Gemini explanation,
@@ -91,3 +92,4 @@ Final operation recording: **PASS** — ID `HDG1qYo5hUg`; visibility is
   YouTube oEmbed returned HTTP 200 with the correct title and video ID.
 
 The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.
+The public but silent `HDG1qYo5hUg` upload is also superseded and must not be submitted.

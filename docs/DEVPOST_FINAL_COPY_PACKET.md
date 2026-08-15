@@ -55,10 +55,10 @@ Owner confirmation: `NOT CONFIRMED`.
 
 ## Final video review
 
-- Public video URL: https://www.youtube.com/watch?v=HDG1qYo5hUg
+- Public video URL: https://www.youtube.com/watch?v=pqRNOvyE3_c
 - Visibility: `PUBLIC`; YouTube Studio saved the change and signed-out oEmbed returned HTTP 200 on 2026-08-15
-- Reviewed local candidate: 2:42.733, 1920×1080, 30fps, 16:9
-- Audio: no audio stream
+- Reviewed local candidate: 2:42.734, 1920×1080, 30fps, 16:9
+- Audio: 48 kHz mono AAC English narration generated with the macOS built-in Samantha voice; no music or cloned human voice
 - Real product operation: shown
 - Complete browser viewport: shown in sampled frames
 - Giant black borders: not observed
@@ -71,7 +71,7 @@ Owner confirmation: `NOT CONFIRMED`.
 - Gemini explanation: shown
 - ProofCart: shown
 - Universal adapter and next-stage architecture: shown
-- Upload identity versus private YouTube copy: `OWNER MUST CONFIRM`
+- Upload identity: YouTube filename and duration match the narrated local candidate; public oEmbed returned HTTP 200
 
 The video is now judge-accessible. Tsing-YI Chen must still confirm the IP declarations and final submission facts personally.
 

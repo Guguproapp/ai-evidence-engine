@@ -31,7 +31,7 @@ Entrant Type: **INDIVIDUAL**.
 | Repository Complete | Public repository contains core, verifier, C2PA adapter, tests, explainer, and submission docs | PASS | Repository URL |
 | Relevant License | Public repository reports Apache-2.0 | PASS | Repository / `LICENSE` |
 | Public / Judge-accessible Demo | Anonymous HTTPS verifier and Cloud Run health both returned HTTP 200 on 2026-08-15 | PASS | Public Demo URL |
-| Video <3 minutes | Final local review candidate is 162.733 seconds, 1920×1080, 30fps, 16:9 | PASS for duration / BLOCKED owner acceptance | Video evidence |
+| Video <3 minutes | Final narrated candidate is 162.734 seconds, 1920×1080, 30fps, 16:9, with a 48 kHz mono AAC track | PASS | Video evidence |
 | Video shows functioning Product | 2:42.733 Production recording and sampled timeline show signed upload, verification, Mask, History, tamper failure, Gemini, ProofCart, and next-stage boundary | PASS technical review | Video URL |
 | English Materials | English submission draft, testing instructions, narration, and subtitles exist | PASS | Submission text / video |
 | Revenue Disclosure | Draft total revenue is $0.00; no bank/revenue evidence or owner confirmation supplied | BLOCKED | Revenue evidence / P&L |
@@ -53,7 +53,7 @@ Entrant Type: **INDIVIDUAL**.
 - Public verifier: `https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site` — no login or payment.
 - Cloud Run explainer: `https://ai-evidence-explainer-856572888721.asia-east1.run.app` — public Production endpoint used by the verifier.
 - Repository: `https://github.com/Guguproapp/ai-evidence-engine` — public, Apache-2.0.
-- Video: public at `https://www.youtube.com/watch?v=HDG1qYo5hUg`; signed-out oEmbed returned HTTP 200.
+- Video: narrated version public at `https://www.youtube.com/watch?v=pqRNOvyE3_c`; signed-out oEmbed returned HTTP 200. Silent `HDG1qYo5hUg` is superseded.
 - Official judging period shown on Devpost: 2026-08-20 09:00 PDT through 2026-09-15 17:00 PDT; winners announced 2026-09-25.
 
 The Entrant must commit not to disable or place a paywall/login restriction on judge-required services before judging and verification are complete. If any endpoint becomes private, direct judge credentials and instructions must be supplied before the deadline.

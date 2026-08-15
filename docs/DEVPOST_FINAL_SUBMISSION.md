@@ -161,16 +161,16 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-https://www.youtube.com/watch?v=HDG1qYo5hUg
+https://www.youtube.com/watch?v=pqRNOvyE3_c
 
 Visibility: `PUBLIC`. A signed-out YouTube oEmbed request returned HTTP 200 on 2026-08-15, confirming judge-accessible playback metadata.
 
-The matching local final candidate measures 2:42.733, 1920×1080, 30fps, 16:9, and has no audio stream. Its visuals use real Production
+The matching local final candidate measures 2:42.734, 1920×1080, 30fps, 16:9, and contains a 48 kHz mono AAC English narration track. Its visuals use real Production
 interaction with burned-in English captions. It shows signed Version 3 upload,
 all three image views, version history, a real tampered upload,
 `assertion.dataHash.mismatch`, Gemini explanation, ProofCart, the universal
 adapter architecture, and the explicitly labelled next stage. The superseded
-`Fwu7yGUTVwo` video must not be submitted.
+`Fwu7yGUTVwo` and silent `HDG1qYo5hUg` videos must not be submitted.
 
 Frame sampling found no giant black borders or cropped browser column. The Entrant must still confirm the IP declarations and final submission facts personally.
 
