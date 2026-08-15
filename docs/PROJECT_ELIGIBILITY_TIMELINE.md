@@ -47,3 +47,9 @@ Before Final Submission, Tsing-YI Chen must confirm all three statements:
 1. The AI Evidence Engine business/project began on or after 2026-05-19.
 2. No product or business with substantially the same AI Evidence Engine operations existed before that date.
 3. The pre-existing-work disclosure above is complete, or has been amended to include every omitted source.
+
+Exact English attestation for owner confirmation:
+
+> I, Tsing-YI Chen, confirm that the AI Evidence Engine business/project was created after May 19, 2026. No substantially identical AI Evidence Engine business existed before the hackathon period. Any reused pre-existing components were generic tools, frameworks, standards, boilerplate, or otherwise disclosed in the submission.
+
+Status: **BLOCKED — awaiting Tsing-YI Chen's personal confirmation.**

@@ -4,6 +4,8 @@ Current verified external-user count: **0**.
 
 No user, testimonial, customer, order, or revenue has been fabricated. Internal developer/browser acceptance tests are not counted as external users.
 
+The copy-ready invitation, seven-step test, and response form are in `docs/REAL_USER_TEST_PACKET.md`.
+
 ## Minimum external test protocol
 
 Before the user starts, tell them:

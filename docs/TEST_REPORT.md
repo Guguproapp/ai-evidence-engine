@@ -15,6 +15,8 @@ Python coverage includes v1 Identifier/digest formats, canonical JSON stability,
 
 The final eligibility-document audit reran the same suites after adding the project timeline, Google Cloud evidence index, IP/license audit, financial/user evidence boundaries, and final qualification gate: Python 34/34, Web 11/11 including Production build, and Lint all remained PASS. No product source or Production deployment changed in that audit.
 
+The Individual-entrant and owner-closeout document update reran the suites on 2026-08-15: Python 34/34, Web 11/11 including Production build, and Lint all PASS. The public verifier returned HTTP 200 and the Cloud Run `/health` endpoint returned HTTP 200 with `gemini-2.5-flash` on Vertex AI. The Cloud Run service root returned HTTP 404 by design because the health resource is `/health`; this is not a failed service check. No product source or Production deployment changed.
+
 ## Required provenance classification matrix
 
 | Input evidence | Expected | Result |

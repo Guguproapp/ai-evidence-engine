@@ -24,16 +24,16 @@ The project source is published under Apache-2.0 and the core demo images are de
 | Product screenshots | Captures of the project’s own public verifier | Project UI is the primary subject; avoid exposing private account information | PASS |
 | Google Cloud/Gemini screenshots | Screenshots required as submission evidence | Use descriptively, do not imply Google endorsement, and redact account/payment/private data | PASS if redacted |
 | C2PA, Google Cloud, Gemini, GitHub, Devpost, XPRIZE names | Descriptive references to standards/services/event | Do not alter logos or imply sponsorship, certification, Trust List status, or endorsement beyond documented facts | PASS with trademark boundary |
-| Tracked local demo video | `docs/evidence/AI-Evidence-Engine-XPRIZE-Demo.mp4` | Contains H.264 video, AAC audio, and subtitle track; measured duration is 144 seconds. Rights to the narration voice/audio need owner confirmation | BLOCKED — owner attestation |
-| Private YouTube replacement | Video ID `HDG1qYo5hUg` | Prior record says 2:43 and private. The tracked 2:24 file is not sufficient proof that it is byte-identical to the private upload | BLOCKED — owner review and identity check |
+| Final local review candidate | `/private/tmp/ai-evidence-engine-final-demo-clean.mp4` (not tracked) | H.264, 1920×1080, 30fps, 162.733 seconds, no audio stream; sampled frames show complete browser views and burned-in text | PASS technical inspection / BLOCKED owner acceptance |
+| Private YouTube replacement | Video ID `HDG1qYo5hUg` | Prior YouTube record says Private; a signed-out public oEmbed check returned HTTP 403, consistent with non-public access. Owner must confirm it matches the reviewed 162.733-second local candidate | BLOCKED — owner review and identity check |
 | Music | No separate music file was found in the repository | Absence from Git does not prove the private YouTube upload contains no third-party music | BLOCKED — owner attestation |
 
 ## Required owner attestations
 
 Before making the video public or submitting:
 
-1. Confirm that Tsing-YI Chen/gugupro owns or is authorized to use the GUGUPRO name, logo, product graphics, and narration.
-2. Confirm that the final uploaded video contains no unlicensed music, stock footage, image, voice clone, trademark graphic, or third-party screen capture.
+1. Confirm that Tsing-YI Chen/GUGUPRO owns or is authorized to use the GUGUPRO name, logo, and product graphics.
+2. Confirm that the final uploaded video contains no unlicensed music, stock footage, image, voice, voice clone, trademark graphic, or third-party screen capture. The reviewed local candidate has no audio stream, but the actual private upload still requires owner confirmation.
 3. Confirm that any AI-generated or externally generated asset is permitted for commercial/hackathon submission under the applicable service terms.
 4. If the submitted video differs from the tracked local evidence video, audit the actual uploaded file, not merely the local file.
 

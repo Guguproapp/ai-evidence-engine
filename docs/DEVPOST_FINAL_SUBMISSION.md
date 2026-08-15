@@ -4,11 +4,15 @@ Status: **DRAFT — NOT SUBMISSION READY**
 
 ## Entrant
 
-Entrant Type: `BLOCKED — owner must select INDIVIDUAL, TEAM, or ORGANIZATION`.
+Entrant Type: `INDIVIDUAL`.
 
-Representative: `BLOCKED — required for TEAM or ORGANIZATION; Tsing-YI Chen is proposed but not recorded as authorized`.
+Entrant: `Tsing-YI Chen / 陳宗億`.
 
-Corporate ID: `CONDITIONAL — not required for an Individual under the current audit; required/available entity information must be supplied if entering as an Organization`.
+Product/brand: `AI Evidence Engine by GUGUPRO`. GUGUPRO is not the Organization Entrant.
+
+Representative: `NOT REQUIRED`.
+
+Corporate ID: `NOT REQUIRED`, unless the actual Individual submission form explicitly asks for an available identifier.
 
 ## Project Name
 
@@ -79,7 +83,7 @@ Potential model: verification and provenance infrastructure sold to merchants an
 
 ## Users
 
-Verified external users: 0. Internal developer and automated browser tests are not counted. Real external testing remains required.
+Verified external users: 0 at this checkpoint. Internal developer and automated browser tests are not counted. Use `docs/REAL_USER_TEST_PACKET.md` and replace this sentence only after a consenting external user actually completes the flow.
 
 ## Revenue
 
@@ -157,19 +161,16 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-`BLOCKED` — recording ID `HDG1qYo5hUg` is private pending owner review. Do not
-submit the URL until the owner re-enables public access.
+`BLOCKED` — https://www.youtube.com/watch?v=HDG1qYo5hUg is private pending owner review. Do not submit it until the owner explicitly says `影片核可` and judge access is externally verified.
 
-The private-upload record describes a 2:43, 1920×1080 replacement using real Production
+The matching local final candidate measures 2:42.733, 1920×1080, 30fps, 16:9, and has no audio stream. Its visuals use real Production
 interaction with burned-in English captions. It shows signed Version 3 upload,
 all three image views, version history, a real tampered upload,
 `assertion.dataHash.mismatch`, Gemini explanation, ProofCart, the universal
 adapter architecture, and the explicitly labelled next stage. The superseded
 `Fwu7yGUTVwo` video must not be submitted.
 
-The tracked local MP4 measures 2:24. The Entrant must confirm whether it is the
-same content as the 2:43 private upload before either file is treated as the
-final evidence video.
+Frame sampling found no giant black borders or cropped browser column. The Entrant must still confirm that the private upload is the reviewed 2:42.733 candidate before it is treated as final evidence.
 
 ## Production Evidence
 
@@ -184,4 +185,4 @@ Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google C
 - No persistent cloud registry yet.
 - No external users or revenue yet.
 - Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
-- Entrant type, eligibility attestation, Google billing evidence, IP/audio attestations, judge-accessible video, and Final Submission remain owner-controlled blockers.
+- Eligibility attestation, Google billing evidence, IP/video attestations, judge-accessible video, and Final Submission remain owner-controlled blockers.
