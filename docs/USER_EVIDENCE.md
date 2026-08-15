@@ -29,3 +29,4 @@ Ask the user to:
 
 Never record passwords, identity documents, financial data, or unrelated personal information here.
 
+Customer contact details requested for judging evidence must be stored in a private submission package, not this public repository. If the tester permits only an anonymous summary, record the consent boundary and redact the identity. Do not convert internal developer tests, browser automation, relatives who did not actually operate the product, or fabricated feedback into a user count.

@@ -9,6 +9,8 @@ Only artifacts actually captured for the rebuilt release may be marked `PASS`. H
 | Cloud Run health | PASS | Public HTTPS HTTP 200 |
 | Gemini Production call | PASS | Vertex AI `gemini-2.5-flash` returned HTTP 200 and preserved `Verified Modified` |
 | Gemini Cloud Logging | PASS | Request ID `3da55316-9616-46af-9ab2-39e34a1bdb49`; upstream Vertex AI HTTP 200; no prompt/secret logged |
+| Gemini Observability screenshot | PASS | Sanitized two-day dashboard shows `gemini-2.5-flash` model invocations and token count in `docs/evidence/2026-08-15-gemini-observability.jpg` |
+| Cloud Run Console screenshot | PASS | Sanitized service/region/URL and request metrics in `docs/evidence/2026-08-15-cloud-run-observability.jpg` |
 | Rebuilt public verifier deployment | PASS | Sites Version 5, commit `2e8ef3cea3945f8db830ff76fd97e4d45e5cc3c8` |
 | Rebuilt public browser regression | PASS | All four states, valid-C2PA Registry miss, no-C2PA miss, History, Mask, ProofCart, Gemini, adapters, and Next Stage rerun on public HTTPS |
 | Final public demo video | BLOCKED | Replacement `HDG1qYo5hUg`: 2:43, 1920×1080, real Production operation, English captions, but private pending owner review; external check returns `LOGIN_REQUIRED`; old `Fwu7yGUTVwo` remains rejected |

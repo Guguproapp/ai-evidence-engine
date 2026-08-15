@@ -2,6 +2,14 @@
 
 Status: **DRAFT — NOT SUBMISSION READY**
 
+## Entrant
+
+Entrant Type: `BLOCKED — owner must select INDIVIDUAL, TEAM, or ORGANIZATION`.
+
+Representative: `BLOCKED — required for TEAM or ORGANIZATION; Tsing-YI Chen is proposed but not recorded as authorized`.
+
+Corporate ID: `CONDITIONAL — not required for an Individual under the current audit; required/available entity information must be supplied if entering as an Organization`.
+
 ## Project Name
 
 AI Evidence Engine
@@ -31,6 +39,8 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
 - A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; Gemini cannot assign or change the deterministic provenance state.
 
+The AI Evidence Engine business and repository were created during the Submission Period. The first Git commit is dated 2026-08-14. Generic language/runtime facilities, React/vinext tooling, open-source packages, C2PA tooling, generic starter assets, and standard cryptographic primitives are pre-existing building blocks and are not claimed as newly created project IP. See `docs/PROJECT_ELIGIBILITY_TIMELINE.md`.
+
 ## AI-Native Operations
 
 The evidence decision pipeline is deterministic. Hash, signature, C2PA, registry, and parent-chain validation determine the verification state. Gemini is restricted to explaining the supplied structured facts to a non-technical buyer; it cannot replace or reinterpret the verification state.
@@ -43,7 +53,7 @@ Production product: Google Cloud Run, hosting the Evidence Explainer API in the 
 
 Authentication design: Cloud Run service-account Application Default Credentials. No Gemini API key is shipped to the browser or repository.
 
-Current status: PASS. Revision `ai-evidence-explainer-00002-z76` is ready in `asia-east1` and serves 100% of traffic at the public Cloud Run URL.
+Current status: PASS. Revision `ai-evidence-explainer-00003-m75` is ready in `asia-east1` and serves 100% of traffic at the public Cloud Run URL.
 
 ## Gemini Usage
 
@@ -53,7 +63,7 @@ Input: allowlisted structured verification facts after the deterministic verifie
 
 Output: a two-sentence buyer-facing explanation. The deterministic status is returned unchanged alongside the explanation.
 
-Current status: PASS. Cloud Run revision `ai-evidence-explainer-00003-m75` made a real `gemini-2.5-flash` Vertex AI call for rebuilt Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`, returned HTTP 200, and preserved `Verified Modified`. Sites Version 4 then reproduced the same result from the public verifier. Sanitized evidence is preserved under `docs/evidence/`.
+Current status: PASS. Cloud Run revision `ai-evidence-explainer-00003-m75` made a real `gemini-2.5-flash` Vertex AI call for rebuilt Evidence ID `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`, returned HTTP 200, and preserved `Verified Modified`. Sites Version 5 then reproduced the same result from the public verifier. Sanitized evidence is preserved under `docs/evidence/`.
 
 ## C2PA
 
@@ -75,15 +85,19 @@ Verified external users: 0. Internal developer and automated browser tests are n
 
 Total Revenue: $0.00 USD.
 
-Monthly revenue: May $0.00; June $0.00; July $0.00; August $0.00 as of 2026-08-14.
+Monthly revenue: May $0.00; June $0.00; July $0.00; August $0.00 as of 2026-08-15.
 
 Related-Party Revenue: $0.00.
+
+Status: draft pending owner reconciliation against bank, payment, and customer records.
 
 ## Expenses
 
 Total documented expenses: $0.00 pending Entrant confirmation against all billing records.
 
 Marketing Spend: $0.00. Customer Acquisition Spend: $0.00.
+
+Status: draft pending owner reconciliation against Google Cloud, API, hosting, labor, contractor, marketing, and acquisition records.
 
 ## Challenges
 
@@ -127,6 +141,8 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 
 No login or payment is required for the public verifier.
 
+The Entrant must keep the public verifier, Cloud Run explainer, repository, and judge-accessible video operational without payment through the official judging period ending 2026-09-15 17:00 PDT and any announced verification window.
+
 ## Public Demo URL
 
 https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
@@ -144,17 +160,23 @@ https://github.com/Guguproapp/ai-evidence-engine
 `BLOCKED` — recording ID `HDG1qYo5hUg` is private pending owner review. Do not
 submit the URL until the owner re-enables public access.
 
-The accepted replacement is 2:43, 1920×1080, and uses real Production
+The private-upload record describes a 2:43, 1920×1080 replacement using real Production
 interaction with burned-in English captions. It shows signed Version 3 upload,
 all three image views, version history, a real tampered upload,
 `assertion.dataHash.mismatch`, Gemini explanation, ProofCart, the universal
 adapter architecture, and the explicitly labelled next stage. The superseded
 `Fwu7yGUTVwo` video must not be submitted.
 
+The tracked local MP4 measures 2:24. The Entrant must confirm whether it is the
+same content as the 2:43 private upload before either file is treated as the
+final evidence video.
+
 ## Production Evidence
 
 See `docs/PRODUCTION_EVIDENCE.md`. Sanitized Cloud Run, Vertex AI, and public
 verifier request evidence has been preserved without credentials.
+
+Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google Cloud monthly invoice/zero-dollar Cost Table evidence remains blocked on owner account access. See `docs/GOOGLE_CLOUD_SUBMISSION_EVIDENCE.md`.
 
 ## Known Limitations
 
@@ -162,3 +184,4 @@ verifier request evidence has been preserved without credentials.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
 - Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
+- Entrant type, eligibility attestation, Google billing evidence, IP/audio attestations, judge-accessible video, and Final Submission remain owner-controlled blockers.
