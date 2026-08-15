@@ -32,7 +32,7 @@ Entrant Type: **INDIVIDUAL**.
 | Relevant License | Public repository reports Apache-2.0 | PASS | Repository / `LICENSE` |
 | Public / Judge-accessible Demo | Anonymous HTTPS verifier and Cloud Run health both returned HTTP 200 on 2026-08-15 | PASS | Public Demo URL |
 | Video <3 minutes | Final local review candidate is 162.733 seconds, 1920×1080, 30fps, 16:9 | PASS for duration / BLOCKED owner acceptance | Video evidence |
-| Video shows functioning Product | Prior record describes real Production operation; actual private upload requires final owner review | BLOCKED | Video URL |
+| Video shows functioning Product | 2:42.733 Production recording and sampled timeline show signed upload, verification, Mask, History, tamper failure, Gemini, ProofCart, and next-stage boundary | PASS technical review | Video URL |
 | English Materials | English submission draft, testing instructions, narration, and subtitles exist | PASS | Submission text / video |
 | Revenue Disclosure | Draft total revenue is $0.00; no bank/revenue evidence or owner confirmation supplied | BLOCKED | Revenue evidence / P&L |
 | Monthly Revenue | May, June, July, August each drafted as $0.00; owner confirmation required | BLOCKED | Revenue evidence / P&L |
@@ -44,16 +44,16 @@ Entrant Type: **INDIVIDUAL**.
 | Google Cloud Billing Evidence | Current official FAQ says the minimum evidence includes monthly billing PDFs, or a zero-dollar invoice/Cost Table when using credits; no export has been supplied | BLOCKED — required submission evidence, not Entrant-type eligibility | Private/redacted evidence upload |
 | Gemini Dashboard Evidence | Sanitized two-day dashboard screenshot shows `gemini-2.5-flash` model invocations and token usage | PASS | `docs/evidence/2026-08-15-gemini-observability.jpg` |
 | Testing Instructions | Anonymous, no-payment test procedure exists in English | PASS | Testing Instructions |
-| IP Ownership / Licensing | Source/dependencies audited; GUGUPRO, narration/audio, private upload, and no-unlicensed-music attestations remain | BLOCKED | IP / License Audit |
+| IP Ownership / Licensing | Source/dependencies audited; GUGUPRO and final-video rights attestations remain owner-controlled | BLOCKED | IP / License Audit |
 | No Secrets | Working tree and Git-history signature scan found no key/token/private-key patterns at this checkpoint | PASS | Repository evidence |
-| Demo available through Judging Period | Demo, Cloud Run, and repository work now; video is private and owner maintenance commitment through 2026-09-15 is not recorded | BLOCKED | Testing Availability statement |
+| Demo available through Judging Period | Demo, Cloud Run, repository, and video are publicly accessible now; owner maintenance commitment through 2026-09-15 is not recorded | BLOCKED owner commitment | Testing Availability statement |
 
 ## Testing availability statement
 
 - Public verifier: `https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site` — no login or payment.
 - Cloud Run explainer: `https://ai-evidence-explainer-856572888721.asia-east1.run.app` — public Production endpoint used by the verifier.
 - Repository: `https://github.com/Guguproapp/ai-evidence-engine` — public, Apache-2.0.
-- Video: private pending review; judges cannot rely on it until visibility is changed and externally verified.
+- Video: public at `https://www.youtube.com/watch?v=HDG1qYo5hUg`; signed-out oEmbed returned HTTP 200.
 - Official judging period shown on Devpost: 2026-08-20 09:00 PDT through 2026-09-15 17:00 PDT; winners announced 2026-09-25.
 
 The Entrant must commit not to disable or place a paywall/login restriction on judge-required services before judging and verification are complete. If any endpoint becomes private, direct judge credentials and instructions must be supplied before the deadline.
@@ -64,5 +64,5 @@ The Entrant must commit not to disable or place a paywall/login restriction on j
 2. Export and redact Google Cloud monthly billing PDF, zero-dollar invoice, or Cost Table evidence required by the current FAQ.
 3. Reconcile and confirm revenue, monthly revenue, expenses, Marketing/CAC spend, and related-party revenue against real records.
 4. Complete at least one informed real external-user test and retain consent/evidence privately.
-5. Confirm IP/brand/video rights; review the actual private YouTube upload, then make the accepted video judge-accessible.
+5. Confirm IP/brand/video rights and the final submission facts for the now-public YouTube video.
 6. Keep the demo, Cloud Run, repository, and video available through judging; personally perform Join/Rules/Final Submission steps.

@@ -161,7 +161,9 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-`BLOCKED` — https://www.youtube.com/watch?v=HDG1qYo5hUg is private pending owner review. Do not submit it until the owner explicitly says `影片核可` and judge access is externally verified.
+https://www.youtube.com/watch?v=HDG1qYo5hUg
+
+Visibility: `PUBLIC`. A signed-out YouTube oEmbed request returned HTTP 200 on 2026-08-15, confirming judge-accessible playback metadata.
 
 The matching local final candidate measures 2:42.733, 1920×1080, 30fps, 16:9, and has no audio stream. Its visuals use real Production
 interaction with burned-in English captions. It shows signed Version 3 upload,
@@ -170,7 +172,7 @@ all three image views, version history, a real tampered upload,
 adapter architecture, and the explicitly labelled next stage. The superseded
 `Fwu7yGUTVwo` video must not be submitted.
 
-Frame sampling found no giant black borders or cropped browser column. The Entrant must still confirm that the private upload is the reviewed 2:42.733 candidate before it is treated as final evidence.
+Frame sampling found no giant black borders or cropped browser column. The Entrant must still confirm the IP declarations and final submission facts personally.
 
 ## Production Evidence
 
@@ -185,4 +187,4 @@ Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google C
 - No persistent cloud registry yet.
 - No external users or revenue yet.
 - Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
-- Eligibility attestation, Google billing evidence, IP/video attestations, judge-accessible video, and Final Submission remain owner-controlled blockers.
+- Eligibility attestation, Google billing evidence, IP/video attestations, real-user evidence, financial confirmation, and Final Submission remain owner-controlled blockers.

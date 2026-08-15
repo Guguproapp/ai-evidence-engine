@@ -13,7 +13,7 @@ Only artifacts actually captured for the rebuilt release may be marked `PASS`. H
 | Cloud Run Console screenshot | PASS | Sanitized service/region/URL and request metrics in `docs/evidence/2026-08-15-cloud-run-observability.jpg` |
 | Rebuilt public verifier deployment | PASS | Sites Version 5, commit `2e8ef3cea3945f8db830ff76fd97e4d45e5cc3c8` |
 | Rebuilt public browser regression | PASS | All four states, valid-C2PA Registry miss, no-C2PA miss, History, Mask, ProofCart, Gemini, adapters, and Next Stage rerun on public HTTPS |
-| Final public demo video | BLOCKED | Replacement `HDG1qYo5hUg`: 2:43, 1920×1080, real Production operation, English captions, but private pending owner review; external check returns `LOGIN_REQUIRED`; old `Fwu7yGUTVwo` remains rejected |
+| Final public demo video | PASS — judge-accessible | Replacement `HDG1qYo5hUg`: 2:43, 1920×1080, real Production operation and English captions; YouTube Studio reports Public and signed-out oEmbed returned HTTP 200 on 2026-08-15. Old `Fwu7yGUTVwo` remains rejected |
 | Real external user evidence | FAIL | 0 verified external users |
 
 ## Rebuilt Version 3 identifiers

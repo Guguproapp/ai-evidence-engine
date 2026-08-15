@@ -55,8 +55,8 @@ Owner confirmation: `NOT CONFIRMED`.
 
 ## Final video review
 
-- Private review URL: https://www.youtube.com/watch?v=HDG1qYo5hUg
-- Visibility: `PRIVATE` according to the prior YouTube record; a signed-out public oEmbed check returned HTTP 403 on 2026-08-15, consistent with non-public access
+- Public video URL: https://www.youtube.com/watch?v=HDG1qYo5hUg
+- Visibility: `PUBLIC`; YouTube Studio saved the change and signed-out oEmbed returned HTTP 200 on 2026-08-15
 - Reviewed local candidate: 2:42.733, 1920×1080, 30fps, 16:9
 - Audio: no audio stream
 - Real product operation: shown
@@ -73,7 +73,7 @@ Owner confirmation: `NOT CONFIRMED`.
 - Universal adapter and next-stage architecture: shown
 - Upload identity versus private YouTube copy: `OWNER MUST CONFIRM`
 
-Do not change visibility until Tsing-YI Chen says `影片核可`. After approval, make it judge-accessible and verify it from a signed-out browser.
+The video is now judge-accessible. Tsing-YI Chen must still confirm the IP declarations and final submission facts personally.
 
 ## Real user evidence
 
@@ -95,7 +95,7 @@ Owner confirmation: `NOT CONFIRMED`.
 2. Confirm Entrant Type is Individual and name is Tsing-YI Chen.
 3. Review and personally accept the official Rules and Terms.
 4. Confirm financial amounts and real-user evidence.
-5. Approve the reviewed video and make it judge-accessible.
+5. Confirm the public video and its IP declarations.
 6. Paste the English submission copy from `docs/DEVPOST_FINAL_SUBMISSION.md`.
 7. Perform the irreversible Final Submission personally.
 

@@ -75,7 +75,7 @@ The checks above were rerun against Sites Version 5 at the public HTTPS URL afte
 ## Video
 
 Final operation recording: **PASS** — ID `HDG1qYo5hUg`; visibility is
-**PRIVATE — pending owner review**.
+**PUBLIC — judge-accessible**.
 
 - Duration: 2:42.733 (YouTube display 2:43), below the three-minute limit.
 - Video: H.264, 1920×1080, 30 fps, 16:9, burned-in English captions.
@@ -87,7 +87,7 @@ Final operation recording: **PASS** — ID `HDG1qYo5hUg`; visibility is
   borders, and no cropped website column. Automated crop detection found only
   a four-pixel encoder edge, not the large framing failure in the rejected video.
 - YouTube copyright check: completed with no issue reported during processing.
-- External visibility check after the owner's privacy change: `LOGIN_REQUIRED`
-  with the message `This is a private video`.
+- External visibility check after the owner's publication instruction: signed-out
+  YouTube oEmbed returned HTTP 200 with the correct title and video ID.
 
 The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.

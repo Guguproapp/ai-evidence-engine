@@ -25,7 +25,7 @@ The project source is published under Apache-2.0 and the core demo images are de
 | Google Cloud/Gemini screenshots | Screenshots required as submission evidence | Use descriptively, do not imply Google endorsement, and redact account/payment/private data | PASS if redacted |
 | C2PA, Google Cloud, Gemini, GitHub, Devpost, XPRIZE names | Descriptive references to standards/services/event | Do not alter logos or imply sponsorship, certification, Trust List status, or endorsement beyond documented facts | PASS with trademark boundary |
 | Final local review candidate | `/private/tmp/ai-evidence-engine-final-demo-clean.mp4` (not tracked) | H.264, 1920×1080, 30fps, 162.733 seconds, no audio stream; sampled frames show complete browser views and burned-in text | PASS technical inspection / BLOCKED owner acceptance |
-| Private YouTube replacement | Video ID `HDG1qYo5hUg` | Prior YouTube record says Private; a signed-out public oEmbed check returned HTTP 403, consistent with non-public access. Owner must confirm it matches the reviewed 162.733-second local candidate | BLOCKED — owner review and identity check |
+| Public YouTube replacement | Video ID `HDG1qYo5hUg` | YouTube Studio reports Public and signed-out oEmbed returned HTTP 200. Owner must still confirm the final IP declarations | PASS accessibility / BLOCKED owner IP attestation |
 | Music | No separate music file was found in the repository | Absence from Git does not prove the private YouTube upload contains no third-party music | BLOCKED — owner attestation |
 
 ## Required owner attestations
