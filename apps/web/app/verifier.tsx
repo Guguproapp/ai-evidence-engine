@@ -151,8 +151,8 @@ export function EvidenceVerifier() {
   const t = (key: string) => translate(locale, key);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(LOCALE_STORAGE_KEY);
     const timer = window.setTimeout(() => {
+      const saved = window.localStorage.getItem(LOCALE_STORAGE_KEY);
       setLocale(isLocale(saved) ? saved : DEFAULT_LOCALE);
       setLocaleReady(true);
     }, 0);
@@ -171,6 +171,12 @@ export function EvidenceVerifier() {
       .then(setDemo)
       .catch(() => setUploadError("Demo evidence could not be loaded."));
   }, []);
+
+  function changeLocale(nextLocale: Locale) {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
+    document.documentElement.lang = htmlLang(nextLocale);
+    setLocale(nextLocale);
+  }
 
   const version = demo?.versions[selected] ?? null;
   const verification = demo?.registry_verification[selected] ?? null;
@@ -385,9 +391,9 @@ export function EvidenceVerifier() {
         <div className="topbar-actions">
           <nav aria-label={t("Main navigation")}><a href="#verify">{t("Verify")}</a><a href="#proofcart">{t("ProofCart demo")}</a><a href="#details">{t("How it works")}</a></nav>
           <div className="language-switch" role="group" aria-label="Language / 語言">
-            <button className={locale === "zh-TW" ? "active" : ""} onClick={() => setLocale("zh-TW")} aria-pressed={locale === "zh-TW"}>繁中</button>
+            <button className={locale === "zh-TW" ? "active" : ""} onClick={() => changeLocale("zh-TW")} aria-pressed={locale === "zh-TW"}>繁中</button>
             <span aria-hidden="true">|</span>
-            <button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")} aria-pressed={locale === "en"}>EN</button>
+            <button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")} aria-pressed={locale === "en"}>EN</button>
           </div>
         </div>
       </header>

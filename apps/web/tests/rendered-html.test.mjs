@@ -83,8 +83,9 @@ test("uses a static bilingual dictionary and persistent locale without changing 
   assert.match(dictionary, /"Invalid Evidence": "證據無效"/);
   assert.match(verifier, /localStorage\.getItem\(LOCALE_STORAGE_KEY\)/);
   assert.match(verifier, /localStorage\.setItem\(LOCALE_STORAGE_KEY, locale\)/);
-  assert.match(verifier, /setLocale\("en"\)/);
-  assert.match(verifier, /setLocale\("zh-TW"\)/);
+  assert.match(verifier, /changeLocale\("en"\)/);
+  assert.match(verifier, /changeLocale\("zh-TW"\)/);
+  assert.match(verifier, /localStorage\.setItem\(LOCALE_STORAGE_KEY, nextLocale\)/);
   assert.match(decision, /VERIFIED_ORIGINAL: "VERIFIED_ORIGINAL"/);
   assert.match(decision, /VERIFIED_MODIFIED: "VERIFIED_MODIFIED"/);
   assert.match(decision, /INVALID_EVIDENCE: "INVALID_EVIDENCE"/);
