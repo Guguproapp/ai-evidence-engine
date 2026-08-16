@@ -117,3 +117,30 @@ The public but silent `HDG1qYo5hUg` upload is also superseded and must not be su
 | Real Android screenshots | NOT RUN — no store screenshots fabricated before full runtime test |
 
 The first launch exposed and fixed a real Android Browser Helper integration failure: `ManageDataLauncherActivity` was missing from the app manifest. The repaired APK launched and bound to the Android Chrome TWA provider. Testing stopped at Chrome's first-run Terms screen; Codex did not accept it on behalf of the owner.
+
+## Remote Black Box Development/Test API — 2026-08-16
+
+| Check | Result |
+|---|---|
+| Python core/integration including 5 new Black Box tests | PASS — 39/39 |
+| Dedicated runtime identity | PASS — `aee-blackbox-test@ai-evidence-engine-gugupro.iam.gserviceaccount.com` |
+| Project-level roles for runtime identity | PASS — none |
+| Test-Bucket permissions | PASS — Object Creator + Object Viewer only |
+| Anonymous Cloud Run request | PASS — HTTP 403 |
+| New synthetic Passport/Event seal through API | PASS |
+| Server-side pre-upload SHA-256 | PASS |
+| Google Object generation and retention metadata | PASS |
+| API retrieval and server-side SHA-256 recheck | PASS — `hash_match=true` |
+| Wrong SHA-256 creates no Object | PASS — HTTP 400 then retrieve HTTP 404 |
+| Duplicate Event seal | PASS — HTTP 409; original generation unchanged |
+| Invalid Passport/Event identifiers | PASS — HTTP 400 |
+| Client-controlled Object path | PASS — rejected HTTP 400 |
+| Cloud Run audit log allowlist | PASS — request, operation, IDs, generation, timestamp, result, hash match only |
+
+Real E2E Test Event: `f562e4d8-f633-4e4c-883a-3092a1f2e133`; Passport:
+`ff23831f-4950-44ab-ac90-82847e96d464`; Object generation:
+`1786895306215137`; SHA-256:
+`7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`.
+The retrieved digest matched exactly. This is a Development/Test service, not a
+Production Black Box or remote Event Ledger. `VIDEO READY = NO` pending Public
+Demo integration, local-to-remote continuity, and a complete rehearsal.

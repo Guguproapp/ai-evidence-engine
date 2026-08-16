@@ -23,8 +23,9 @@ This is not an AI detector and does not produce legal conclusions. It records wh
 - **AEE Evidence Identification & Coding Standard v1.0** with versioned identifiers, `aee.event.v1`, implemented Text/Image profiles, deterministic verification policy, legacy signature compatibility, Wallet commitments, and authorization signing/validation foundations.
 - Traditional Chinese default UI with a persistent English switch and a bilingual Privacy Policy.
 - Android API 36 TWA source foundation, PWA manifest, Google Play listings, Data Safety draft, permission audit, signing plan, and closed-test plan.
+- An IAM-protected **Development/Test** Remote Black Box API that seals synthetic evidence to the isolated Test Bucket with `ifGenerationMatch=0`, returns real retention metadata, retrieves it, and deterministically reverifies SHA-256. This is not the Production Black Box.
 
-Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
+Not yet complete: Production Remote Black Box integration, remote Event Ledger, encrypted local queue/sync, production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 
 ## Run
 
@@ -66,10 +67,12 @@ npm run dev
 
 Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-Final demo recording: https://www.youtube.com/watch?v=pqRNOvyE3_c — **PASS**,
-1920×1080, 2:43, real Production interaction with English narration and
-captions. The superseded `Fwu7yGUTVwo` and silent `HDG1qYo5hUg` uploads must
-not be submitted.
+Previous public operation recording: https://www.youtube.com/watch?v=pqRNOvyE3_c —
+1920×1080, 2:43, real image-verifier Production interaction. It predates the
+Remote Black Box Test API and is **not the final submission video**. Board gate:
+`VIDEO READY = NO` until Public Demo integration, local-to-remote continuity,
+and a complete recordable rehearsal pass. The older `Fwu7yGUTVwo` and silent
+`HDG1qYo5hUg` uploads are also superseded.
 
 - Current ProofCart Version 3 evidence event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
 - Current Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`

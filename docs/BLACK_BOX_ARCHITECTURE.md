@@ -1,6 +1,6 @@
 # Private Black Box Architecture
 
-Status: next-stage architecture. The repository currently has a local Evidence Wallet that preserves asset bytes with owner-only file permissions. A complete encrypted Black Box, authorization service, and disclosure UI are not implemented.
+Status: partial Development/Test implementation. The repository has a local Evidence Wallet and an isolated IAM-protected Remote Black Box Test API for synthetic public demo evidence. A complete encrypted Production Black Box, automatic local-to-remote sync, remote Event Ledger, authorization service, and disclosure UI are not implemented.
 
 ## Principles
 
@@ -43,6 +43,7 @@ The disclosure service verifies a signed authorization token, reads only the app
 
 ## Current truth boundary
 
-- Implemented: local Wallet asset bytes, `0600` permissions, public/private architecture boundary, event field for a Wallet commitment.
-- Not implemented: complete encrypted schema, prompt/tool-call capture, mobile approval, selective disclosure service, enterprise recovery, and disclosure UI.
+- Implemented: local Wallet asset bytes, `0600` permissions, public/private architecture boundary, event field for a Wallet commitment, and a Development/Test `sealEvidence` / `retrieveEvidence` Cloud Run service. The Test API validates identifiers, MIME signatures, size, and server-side SHA-256; derives a fixed Object path; uploads with `ifGenerationMatch=0`; returns Google retention metadata; retrieves the Object; and recomputes SHA-256. Its dedicated service account has Test-Bucket-level Object Creator and Object Viewer only.
+- Test-only boundary: `aee-blackbox-test-856572888721` in `ASIA-EAST1`, 600-second unlocked bucket retention, Public Access Prevention enforced, Cloud Run IAM authentication required. No private user data is authorized for this environment.
+- Not implemented: Production Evidence Bucket/API, automatic encrypted local-to-remote queue/sync, remote Event Ledger, complete encrypted schema, prompt/tool-call capture, mobile approval, selective disclosure service, enterprise recovery, and disclosure UI.
 - Demo events must set `blackbox_available=false` until a complete corresponding private record is actually available.
