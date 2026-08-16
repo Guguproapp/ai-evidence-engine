@@ -176,3 +176,30 @@ Cloud Run audit logs recorded seal, retrieval, rejected mismatches, and duplicat
 seal without recording evidence bytes, credentials, tokens, or private keys.
 This remains Development/Test; `VIDEO READY = NO` pending a controlled
 user-operable Demo path and complete no-edit rehearsal.
+
+## Development Evidence Continuity Demo UI — 2026-08-17
+
+| Check | Result |
+|---|---|
+| Public Development Demo UI | PASS — `https://aee-continuity-demo-856572888721.asia-east1.run.app` |
+| Built-in evidence selection | PASS — only bundled synthetic ProofCart Version 3 accepted |
+| Existing AEE Registry signing | PASS — real `aee.event.v1`, RSA signature valid before seal |
+| Browser credential boundary | PASS — no Google token or credential exposed to browser |
+| Backend service identity | PASS — dedicated `aee-continuity-demo` identity |
+| Black Box IAM boundary | PASS — demo identity has only service-level Cloud Run Invoker |
+| Project/Test-Bucket role for demo identity | PASS — none |
+| Google Cloud seal | PASS — real Object created in existing Development/Test Bucket |
+| Generation and retention display | PASS — real Google values rendered in UI |
+| Retrieval and SHA-256 reverification | PASS — `hash_match=true` |
+| Post-seal Signed Event verification | PASS — signature/Event Hash valid and Event unchanged |
+| Evidence Continuity | PASS — UI and API both returned PASS |
+| Desktop browser interaction | PASS — real button click and complete result inspected |
+| Mobile 390 px layout | PASS — no horizontal overflow; evidence image and action visible |
+
+Browser-operated evidence: Passport `a91dc2a0-36df-4a58-bb12-97aa4e94bba4`,
+Event `1532be92-f70a-4c3f-a3fc-42226a524ceb`, Object generation
+`1786904222644809`, and content SHA-256
+`7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`.
+An independent Google Storage metadata read confirmed the same identifiers,
+digest, Signed Event Hash reference, generation, and retention expiration.
+This remains Development/Test and does not change `VIDEO READY = NO`.

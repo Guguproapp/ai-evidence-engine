@@ -1,0 +1,11 @@
+**
+!src/
+!src/**
+!services/
+!services/continuity_demo/
+!services/continuity_demo/**
+!apps/
+!apps/web/
+!apps/web/public/
+!apps/web/public/demo/
+!apps/web/public/demo/version-3.png

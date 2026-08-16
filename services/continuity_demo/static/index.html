@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AEE Evidence Continuity Demo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="mark">AE</span>
+        <div><strong>AI Evidence Engine</strong><small>Development / Test Evidence Continuity</small></div>
+      </header>
+      <section class="hero">
+        <div>
+          <span class="eyebrow">SIGNED EVENT → GOOGLE CLOUD → REVERIFICATION</span>
+          <h1>同一筆證據，從本地簽章一路驗證到遠端封存。</h1>
+          <p>本頁只使用AEE內建合成Evidence。瀏覽器不會取得Google憑證，也不能指定Bucket、Object Path或Retention。</p>
+        </div>
+        <span class="test-badge">DEVELOPMENT / TEST</span>
+      </section>
+      <section class="demo-card">
+        <label class="asset-select" for="asset"><span>選擇AEE內建合成Evidence</span><select id="asset"><option value="proofcart-version-3">ProofCart Version 3（內建合成圖片）</option></select></label>
+        <div class="asset">
+          <img src="/static/version-3.png" alt="AEE built-in synthetic ProofCart Version 3">
+          <div><small>內建合成Evidence</small><h2>ProofCart Version 3</h2><p>image/png · C2PA development evidence</p></div>
+        </div>
+        <button id="run" type="button">執行完整Evidence Continuity測試</button>
+        <p id="message" role="status">尚未執行</p>
+      </section>
+      <section id="result" class="result" hidden>
+        <div class="result-title"><div><small>FINAL RESULT</small><h2>Evidence Continuity</h2></div><strong id="final-status">—</strong></div>
+        <div id="stages" class="stages"></div>
+        <div class="facts">
+          <article><small>Passport ID</small><code id="passport">—</code></article>
+          <article><small>Event ID</small><code id="event">—</code></article>
+          <article><small>Object Generation</small><code id="generation">—</code></article>
+          <article><small>Retention Expiration</small><code id="retention">—</code></article>
+          <article class="wide"><small>Content SHA-256</small><code id="hash">—</code></article>
+        </div>
+        <p class="boundary">PASS只代表Passport、Event、簽章、Hash、Google Object與取回結果在這次Development/Test流程中一致；不代表世界真實、法律結論或Production Black Box。</p>
+      </section>
+      <section class="privacy-notice"><h2>資料處理邊界</h2><p>本Demo不接受或上傳使用者檔案，只處理容器內建合成圖片。每次執行會在Development/Test Bucket建立新的合成Evidence Object，套用既有約10分鐘Retention；Google Cloud標準請求Log可能包含時間、HTTP狀態與網路技術資料。本流程不把資料傳給Gemini。</p></section>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

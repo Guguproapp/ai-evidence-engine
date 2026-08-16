@@ -24,6 +24,7 @@ This is not an AI detector and does not produce legal conclusions. It records wh
 - Traditional Chinese default UI with a persistent English switch and a bilingual Privacy Policy.
 - Android API 36 TWA source foundation, PWA manifest, Google Play listings, Data Safety draft, permission audit, signing plan, and closed-test plan.
 - An IAM-protected **Development/Test** Remote Black Box API that binds an existing local `aee.event.v1` Signed Event one-to-one to synthetic evidence, seals it to the isolated Test Bucket with `ifGenerationMatch=0`, returns real retention metadata, retrieves it, deterministically reverifies SHA-256, and leaves the original Signed Event unchanged. This is not the Production Black Box.
+- A public, rate-limited **Development/Test Evidence Continuity Demo** that accepts only the bundled synthetic ProofCart asset. Its AEE Backend creates and verifies a real Signed Event, calls the IAM-protected Remote Black Box with a dedicated service identity, displays Google Object generation and retention metadata, retrieves the Object, reverifies SHA-256, and verifies the unchanged Event again. Demo: https://aee-continuity-demo-856572888721.asia-east1.run.app
 
 Not yet complete: Production Remote Black Box integration, remote Event Ledger, encrypted local queue/sync, production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 

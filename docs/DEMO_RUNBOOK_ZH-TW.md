@@ -20,6 +20,24 @@
 6. 不宣稱開發簽章已進入正式 C2PA Trust List。
 7. 不宣稱 Private Black Box 或 Mobile Authorization 已完成；畫面必須標示 `NEXT — NOT YET IMPLEMENTED`。
 
+## Development Evidence Continuity Demo
+
+網址：https://aee-continuity-demo-856572888721.asia-east1.run.app
+
+狀態：可公開操作的Development / Test流程，不是Production Black Box，也不是正式影片。
+
+實際操作：
+
+1. 選擇唯一允許的AEE內建合成Evidence：ProofCart Version 3。
+2. 點「執行完整Evidence Continuity測試」。
+3. Backend使用既有Registry建立並驗證Signed `aee.event.v1`。
+4. Backend以專用Service Account呼叫IAM保護的Remote Black Box；瀏覽器不取得Google Token。
+5. 等待畫面顯示Object Generation與Retention Expiration。
+6. 確認Retrieval、SHA-256 Reverification、封存後Signed Event Verification全部PASS。
+7. 最終畫面必須顯示`Evidence Continuity = PASS`。
+
+此頁不接受使用者檔案、任意Object Path、Bucket、Retention或Credential。正式影片仍須等待完整無剪輯彩排Gate，不能只憑此頁宣告`VIDEO READY = YES`。
+
 ## 低於 3 分鐘正式流程
 
 ### 00:00–00:15｜問題與定位
