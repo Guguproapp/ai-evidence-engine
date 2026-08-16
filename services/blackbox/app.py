@@ -23,6 +23,7 @@ FORBIDDEN_STORAGE_FIELDS = {
 }
 MAX_FILE_BYTES = 10 * 1024 * 1024
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+EVENT_HASH_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = MAX_FILE_BYTES + (1024 * 1024)
@@ -95,6 +96,34 @@ def _validate_content_type(content_type, data):
         raise ValueError("evidence_file bytes do not match content_type")
 
 
+def _parse_signed_event(value):
+    try:
+        event = json.loads(str(value or ""))
+    except json.JSONDecodeError:
+        raise ValueError("signed_event must be valid JSON") from None
+    if not isinstance(event, dict):
+        raise ValueError("signed_event must be a JSON object")
+    if event.get("schema_version") not in ALLOWED_SCHEMA_VERSIONS:
+        raise ValueError("signed_event has an unsupported schema_version")
+    event_hash = str(event.get("event_hash") or "").lower()
+    if not EVENT_HASH_RE.fullmatch(event_hash):
+        raise ValueError("signed_event event_hash is invalid")
+    if not str(event.get("signature") or "").strip():
+        raise ValueError("signed_event signature is required")
+    if not str(event.get("signature_algorithm") or "").strip():
+        raise ValueError("signed_event signature_algorithm is required")
+    return event
+
+
+def _event_content_sha256(event):
+    content_digest = event.get("content_digest")
+    exact_hash = event.get("exact_hash")
+    digest = _normalize_sha256(content_digest if content_digest is not None else exact_hash)
+    if content_digest is not None and exact_hash is not None and digest != _normalize_sha256(exact_hash):
+        raise ValueError("signed_event content_digest and exact_hash do not match")
+    return digest
+
+
 def _forbidden_fields(values):
     return sorted(FORBIDDEN_STORAGE_FIELDS.intersection(values.keys()))
 
@@ -152,6 +181,16 @@ def seal_evidence():
         passport_id = _normalize_identifier(request.form.get("passport_id"), "passport")
         event_id = _normalize_identifier(request.form.get("event_id"), "event")
         expected_sha256 = _normalize_sha256(request.form.get("content_sha256"))
+        signed_event = _parse_signed_event(request.form.get("signed_event"))
+        signed_passport_id = _normalize_identifier(signed_event.get("passport_id"), "passport")
+        signed_event_id = _normalize_identifier(signed_event.get("event_id"), "event")
+        signed_content_sha256 = _event_content_sha256(signed_event)
+        if passport_id != signed_passport_id:
+            raise ValueError("passport_id does not match signed_event")
+        if event_id != signed_event_id:
+            raise ValueError("event_id does not match signed_event")
+        if expected_sha256 != signed_content_sha256:
+            raise ValueError("content_sha256 does not match signed_event")
         content_type = str(request.form.get("content_type") or "").strip().lower()
         uploaded = request.files.get("evidence_file")
         if uploaded is None:
@@ -163,8 +202,8 @@ def seal_evidence():
             raise ValueError("evidence_file exceeds 10 MB")
         _validate_content_type(content_type, data)
         actual_sha256 = hashlib.sha256(data).hexdigest()
-        if actual_sha256 != expected_sha256:
-            raise ValueError("content_sha256 does not match evidence_file")
+        if actual_sha256 != signed_content_sha256:
+            raise ValueError("evidence_file SHA-256 does not match signed_event")
 
         object_path = _object_path(passport_id, event_id)
         blob = _storage_client().bucket(_bucket_name()).blob(object_path)
@@ -174,7 +213,12 @@ def seal_evidence():
             "passport_id": passport_id,
             "event_id": event_id,
             "content_sha256": expected_sha256,
+            "signed_event_hash": signed_event["event_hash"].lower(),
         }
+        if signed_event.get("parent_event"):
+            blob.metadata["parent_event_id"] = _normalize_identifier(signed_event["parent_event"], "event")
+        if signed_event.get("action_type"):
+            blob.metadata["event_type"] = str(signed_event["action_type"])[:128]
         blob.upload_from_string(data, content_type=content_type, if_generation_match=0)
         blob.reload()
         _audit(request_id, "sealEvidence", "PASS", passport_id, event_id, blob.generation, True)
@@ -190,6 +234,7 @@ def seal_evidence():
                     "generation": str(blob.generation),
                     "metageneration": int(blob.metageneration),
                     "content_sha256": expected_sha256,
+                    "signed_event_hash": signed_event["event_hash"].lower(),
                     "size": int(blob.size),
                     "content_type": blob.content_type or content_type,
                     "created_at": _iso(blob.time_created),
@@ -227,8 +272,19 @@ def retrieve_evidence():
         event_id = _normalize_identifier(payload.get("event_id"), "event")
         blob = _storage_client().bucket(_bucket_name()).blob(_object_path(passport_id, event_id))
         blob.reload()
+        metadata = blob.metadata or {}
+        stored_schema_version = str(metadata.get("schema_version") or "")
+        stored_passport_id = _normalize_identifier(metadata.get("passport_id"), "passport")
+        stored_event_id = _normalize_identifier(metadata.get("event_id"), "event")
+        if stored_schema_version not in ALLOWED_SCHEMA_VERSIONS:
+            raise ValueError("stored schema_version is invalid")
+        if stored_passport_id != passport_id or stored_event_id != event_id:
+            raise ValueError("stored continuity identifiers do not match request")
         data = blob.download_as_bytes()
-        stored_sha256 = _normalize_sha256((blob.metadata or {}).get("content_sha256"))
+        stored_sha256 = _normalize_sha256(metadata.get("content_sha256"))
+        signed_event_hash = str(metadata.get("signed_event_hash") or "").lower()
+        if not EVENT_HASH_RE.fullmatch(signed_event_hash):
+            raise ValueError("stored signed_event_hash is invalid")
         retrieved_sha256 = hashlib.sha256(data).hexdigest()
         hash_match = stored_sha256 == retrieved_sha256
         _audit(request_id, "retrieveEvidence", "PASS" if hash_match else "HASH_MISMATCH", passport_id, event_id, blob.generation, hash_match)
@@ -239,9 +295,11 @@ def retrieve_evidence():
                 "environment": "Development / Test",
                 "passport_id": passport_id,
                 "event_id": event_id,
+                "schema_version": stored_schema_version,
                 "generation": str(blob.generation),
                 "stored_sha256": stored_sha256,
                 "retrieved_sha256": retrieved_sha256,
+                "signed_event_hash": signed_event_hash,
                 "hash_match": hash_match,
                 "size": int(blob.size),
                 "content_type": blob.content_type,

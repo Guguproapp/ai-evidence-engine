@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import io
+import json
 import os
 import sys
 import unittest
@@ -102,6 +103,18 @@ class BlackBoxApiTests(unittest.TestCase):
         self.client = MODULE.app.test_client()
         self.passport_id = str(uuid.uuid4())
         self.event_id = str(uuid.uuid4())
+        self.signed_event = {
+            "schema_version": "aee.event.v1",
+            "passport_id": self.passport_id,
+            "event_id": self.event_id,
+            "exact_hash": self.digest,
+            "content_digest": "sha256:" + self.digest,
+            "event_hash": "sha256:" + "a" * 64,
+            "signature_algorithm": "RSA-2048/SHA-256",
+            "signature": "unit-test-signature",
+            "parent_event": None,
+            "action_type": "remote_seal_test",
+        }
 
     def seal(self, **overrides):
         fields = {
@@ -110,6 +123,7 @@ class BlackBoxApiTests(unittest.TestCase):
             "event_id": self.event_id,
             "content_sha256": self.digest,
             "content_type": "image/png",
+            "signed_event": json.dumps(self.signed_event),
             "evidence_file": (io.BytesIO(self.png), "evidence.png"),
         }
         fields.update(overrides)
@@ -132,9 +146,47 @@ class BlackBoxApiTests(unittest.TestCase):
         self.assertTrue(retrieved.json["hash_match"])
         self.assertEqual(retrieved.json["stored_sha256"], self.digest)
         self.assertEqual(retrieved.json["retrieved_sha256"], self.digest)
+        self.assertEqual(retrieved.json["signed_event_hash"], self.signed_event["event_hash"])
+        record = next(iter(self.storage.records.values()))
+        self.assertEqual(record.metadata["passport_id"], self.passport_id)
+        self.assertEqual(record.metadata["event_id"], self.event_id)
+        self.assertEqual(record.metadata["content_sha256"], self.digest)
+        self.assertEqual(record.metadata["signed_event_hash"], self.signed_event["event_hash"])
 
     def test_wrong_sha256_is_rejected_without_object(self):
         response = self.seal(content_sha256="0" * 64)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(self.storage.records, {})
+
+    def test_client_passport_must_match_signed_event(self):
+        response = self.seal(passport_id=str(uuid.uuid4()))
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("passport_id does not match", response.json["message"])
+        self.assertEqual(self.storage.records, {})
+
+    def test_client_event_must_match_signed_event(self):
+        response = self.seal(event_id=str(uuid.uuid4()))
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("event_id does not match", response.json["message"])
+        self.assertEqual(self.storage.records, {})
+
+    def test_signed_event_hash_must_match_file(self):
+        event = dict(self.signed_event)
+        event["exact_hash"] = "0" * 64
+        event["content_digest"] = "sha256:" + "0" * 64
+        response = self.seal(content_sha256="0" * 64, signed_event=json.dumps(event))
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("evidence_file SHA-256", response.json["message"])
+        self.assertEqual(self.storage.records, {})
+
+    def test_client_hash_must_match_signed_event(self):
+        response = self.seal(content_sha256="0" * 64)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("content_sha256 does not match signed_event", response.json["message"])
+        self.assertEqual(self.storage.records, {})
+
+    def test_signed_event_is_required(self):
+        response = self.seal(signed_event="")
         self.assertEqual(response.status_code, 400)
         self.assertEqual(self.storage.records, {})
 

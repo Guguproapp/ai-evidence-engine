@@ -23,7 +23,7 @@ This is not an AI detector and does not produce legal conclusions. It records wh
 - **AEE Evidence Identification & Coding Standard v1.0** with versioned identifiers, `aee.event.v1`, implemented Text/Image profiles, deterministic verification policy, legacy signature compatibility, Wallet commitments, and authorization signing/validation foundations.
 - Traditional Chinese default UI with a persistent English switch and a bilingual Privacy Policy.
 - Android API 36 TWA source foundation, PWA manifest, Google Play listings, Data Safety draft, permission audit, signing plan, and closed-test plan.
-- An IAM-protected **Development/Test** Remote Black Box API that seals synthetic evidence to the isolated Test Bucket with `ifGenerationMatch=0`, returns real retention metadata, retrieves it, and deterministically reverifies SHA-256. This is not the Production Black Box.
+- An IAM-protected **Development/Test** Remote Black Box API that binds an existing local `aee.event.v1` Signed Event one-to-one to synthetic evidence, seals it to the isolated Test Bucket with `ifGenerationMatch=0`, returns real retention metadata, retrieves it, deterministically reverifies SHA-256, and leaves the original Signed Event unchanged. This is not the Production Black Box.
 
 Not yet complete: Production Remote Black Box integration, remote Event Ledger, encrypted local queue/sync, production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 

@@ -143,4 +143,36 @@ Real E2E Test Event: `f562e4d8-f633-4e4c-883a-3092a1f2e133`; Passport:
 `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`.
 The retrieved digest matched exactly. This is a Development/Test service, not a
 Production Black Box or remote Event Ledger. `VIDEO READY = NO` pending Public
-Demo integration, local-to-remote continuity, and a complete rehearsal.
+Demo integration and a complete rehearsal.
+
+## Signed Event to Remote Evidence Continuity — 2026-08-17
+
+| Check | Result |
+|---|---|
+| Existing Registry signing flow | PASS — `Registry.register_file` created a new `aee.event.v1` Signed Event |
+| Pre-seal local Event verification | PASS — Event Hash and RSA signature valid |
+| Passport ID continuity | PASS — client, Signed Event, Object metadata, and retrieval matched |
+| Event ID continuity | PASS — client, Signed Event, Object metadata, and retrieval matched |
+| Content SHA-256 continuity | PASS — Signed Event, server upload calculation, stored metadata, and retrieval matched |
+| Remote Object creation | PASS — Cloud Run revision `aee-blackbox-test-00002-9d5` |
+| Generation precondition | PASS — duplicate seal HTTP 409; original generation unchanged |
+| Retention metadata | PASS — real Google Object retention expiration returned and independently read |
+| Signed Event mutation check | PASS — canonical Event bytes unchanged after seal/retrieval |
+| Post-seal local Event verification | PASS — Event Hash and RSA signature remained valid |
+| Passport mismatch | PASS — HTTP 400; no Object created at mismatched path |
+| Event mismatch | PASS — HTTP 400; no Object created at mismatched path |
+| Signed Event/file SHA mismatch | PASS — HTTP 400; no Object created |
+| Client/Signed Event SHA mismatch | PASS — HTTP 400 |
+| Tampered signed field | PASS — existing Registry verification rejected modified `action_type` |
+
+Real continuity evidence used only the public synthetic Version 3 demo image.
+Passport `e234b162-6ad7-460f-9795-089f5bf4d807`, Event
+`6064588b-b2f6-4119-bd74-8a531977f607`, Event Hash
+`sha256:3fa0419494892c28f2ab2984b8d8b8ba24bd63318ce07742c7b95e566be49f77`,
+content SHA-256
+`7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`,
+and Google Object generation `1786898417902863` matched across the full flow.
+Cloud Run audit logs recorded seal, retrieval, rejected mismatches, and duplicate
+seal without recording evidence bytes, credentials, tokens, or private keys.
+This remains Development/Test; `VIDEO READY = NO` pending a controlled
+user-operable Demo path and complete no-edit rehearsal.
