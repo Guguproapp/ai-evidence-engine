@@ -5,11 +5,13 @@
 Development/Test Evidence Black Box：https://aee-continuity-demo-856572888721.asia-east1.run.app  
 測試方法：以瀏覽器實際點擊、選擇檔案、等待畫面結果並保存完整 viewport 截圖。未以 API、Log 或程式碼推論取代使用者畫面驗收。
 
+> 2026-08-17 實體裝置規則追加更正：本報告原「手機 390 × 844」內容是桌面瀏覽器的響應式尺寸模擬，不是實體手機。該段只能作為版面檢查證據，不得作為正式手機實測 PASS。正式實體手機驗收目前為 **BLOCKED**。
+
 ## 結論
 
 - 真人操作測試：**FAIL**。既有簽署 Demo 與 Black Box 流程可完成，但公開 Verifier 對錯誤檔案仍保留預設 Demo 的「已驗證修改版本」，可能造成誤解。
 - 桌機完整操作：**PASS**。
-- 手機完整操作：**PASS（有 P1 UX 問題）**。
+- 手機響應式模擬：**PASS（有 P1 UX 問題）**；實體手機操作：**BLOCKED，尚無可操作的實體手機連線**。
 - 未知來源圖片：**PASS**，均顯示「尚未驗證」，AI 參與程度為未知。
 - 錯誤檔案：**FAIL**，錯誤訊息正確，但公開結果區仍顯示 Demo 的成功狀態。
 - Evidence Black Box：**PASS**，畫面實際顯示 Generation、Retention、Retrieval、SHA-256、Signed Event 再驗證與 Continuity PASS。
@@ -64,7 +66,7 @@ Development/Test Evidence Black Box：https://aee-continuity-demo-856572888721.a
 
 未知圖片沒有被宣稱為 AI、非 AI、真實、虛假或驗證成功。畫面使用的安全說法是：「因找不到相符的 AI Evidence Registry 紀錄，無法證明此檔案是原始版本或修改版本。」
 
-## 手機 390 × 844 真人操作
+## 手機 390 × 844 響應式模擬（非實體手機驗收）
 
 | 步驟 | 操作 | 結果 | 狀態 | 截圖 | 問題 |
 |---|---|---|---|---|---|
@@ -82,7 +84,7 @@ Development/Test Evidence Black Box：https://aee-continuity-demo-856572888721.a
 | M12 | 查看 Retrieval／Hash | Hash結果可讀 | PASS | `mobile/12-blackbox-retrieval-hash.png` | 64字元Hash換行 |
 | M13 | 查看最終 PASS | Continuity與邊界文字可見 | PASS | `mobile/13-blackbox-final-pass.png` | 全頁高度約2,823px |
 
-手機頁面寬度 390px、文件寬度 390px，未發現水平溢出或主要按鈕被裁切。
+此段使用桌面瀏覽器設定為 390 × 844，並非實體手機。頁面寬度 390px、文件寬度 390px，未發現水平溢出或主要按鈕被裁切；此結果不得寫成實體手機 PASS。
 
 ## 錯誤證據
 
@@ -145,4 +147,9 @@ P0最小修正已在 Commit `764089dfcaf7a4f2bb853345b1326f3e73804638` 完成並
 
 **NO**
 
-阻塞正式錄影的必要問題：公開Production尚未取得並部署P0修正。P1手機自動定位問題不阻止桌機影片，但必須由產品驗收決定是否另行修正。
+阻塞正式錄影的必要問題：
+
+1. 公開Production尚未取得並部署P0修正。
+2. 實體手機尚未建立可操作連線，正式手機流程尚未執行。
+
+P1手機自動定位問題目前僅由響應式模擬發現，仍須實體手機重現確認。
