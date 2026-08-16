@@ -2,32 +2,45 @@ import assert from "node:assert/strict";
 import { access, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
   return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
+    new Request(`http://localhost${path}`, { headers: { accept: "text/html" } }),
     { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
     { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
-test("server-renders the judge-facing verifier", async () => {
+test("server-renders the Traditional Chinese default verifier", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>AI Evidence Engine/);
-  assert.match(html, /Prove where a creation came from/);
-  assert.match(html, /UNIVERSAL EVIDENCE PASSPORT/);
-  assert.match(html, /Try the 60-second demo/);
-  assert.match(html, /Upload an image/);
-  assert.match(html, /Official C2PA SDK/);
-  assert.match(html, /ProofCart demo/);
-  assert.match(html, /Evidence, not legal verdicts/);
+  assert.match(html, /<html lang="zh-Hant-TW"/);
+  assert.match(html, /看見內容從哪裡來/);
+  assert.match(html, /通用證據護照/);
+  assert.match(html, /試用 60 秒示範/);
+  assert.match(html, /上傳圖片/);
+  assert.match(html, /官方 C2PA SDK/);
+  assert.match(html, /ProofCart 示範/);
+  assert.match(html, /記錄證據，不代替法律判決/);
+  assert.match(html, />繁中</);
+  assert.match(html, />EN</);
   assert.doesNotMatch(html, />Authentic</);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+});
+
+test("ships a bilingual privacy policy", async () => {
+  const response = await render("/privacy");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /隱私權政策/);
+  assert.match(html, /不會把原始圖片傳送/);
+  assert.match(html, /Vertex AI Gemini/);
+  assert.match(html, /OWNER INPUT REQUIRED/);
 });
 
 test("ships signed demo evidence and preserved C2PA reports", async () => {
@@ -58,6 +71,24 @@ test("declares upload limits and client-side validation", async () => {
   assert.match(verifier, /@contentauth\/c2pa-web\/inline/);
   assert.match(verifier, /verificationAttempts\.current\.length >= 8/);
   assert.doesNotMatch(verifier, /fetch\([^)]*file|FormData|innerHTML|eval\(/);
+});
+
+test("uses a static bilingual dictionary and persistent locale without changing canonical enums", async () => {
+  const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  const dictionary = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
+  const decision = await readFile(new URL("../app/evidence-classification.mjs", import.meta.url), "utf8");
+  assert.match(dictionary, /DEFAULT_LOCALE: Locale = "zh-TW"/);
+  assert.match(dictionary, /LOCALE_STORAGE_KEY = "aee_locale"/);
+  assert.match(dictionary, /"Verified Original": "已驗證原始版本"/);
+  assert.match(dictionary, /"Invalid Evidence": "證據無效"/);
+  assert.match(verifier, /localStorage\.getItem\(LOCALE_STORAGE_KEY\)/);
+  assert.match(verifier, /localStorage\.setItem\(LOCALE_STORAGE_KEY, locale\)/);
+  assert.match(verifier, /setLocale\("en"\)/);
+  assert.match(verifier, /setLocale\("zh-TW"\)/);
+  assert.match(decision, /VERIFIED_ORIGINAL: "VERIFIED_ORIGINAL"/);
+  assert.match(decision, /VERIFIED_MODIFIED: "VERIFIED_MODIFIED"/);
+  assert.match(decision, /INVALID_EVIDENCE: "INVALID_EVIDENCE"/);
+  assert.doesNotMatch(decision, /已驗證原始版本|已驗證修改版本|證據無效/);
 });
 
 test("exposes the bounded Gemini evidence explainer", async () => {

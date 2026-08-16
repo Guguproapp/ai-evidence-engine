@@ -60,3 +60,9 @@ Image is the first implemented adapter, not the product boundary. Text, video, a
 Private evidence remains encrypted and owner-controlled. The future Mobile Authorization path is explicitly architecture-only: a verifier requests selected fields, the owner approves or denies on a phone, a scoped single-use token is signed, and only authorized evidence is released. It is not represented as implemented in the current demo.
 
 The v1 commitment and authorization foundations are now implemented: private bundle commitments are canonical SHA-256 values, and authorization records can be signed and validated for scope, expiry, revocation, denied fields, and single-use state. Complete encrypted Black Box storage, disclosure service, and the mobile application remain not implemented.
+
+## Web localization and Android delivery
+
+The public web UI defaults to Traditional Chinese and uses a static `zh-TW` / `en` dictionary. Only display labels are translated; canonical Evidence enums, API payloads, Event records, Registry data, signatures, C2PA, and Decision Engine outputs remain unchanged. The selected locale is stored locally as `aee_locale`.
+
+Android V1 uses a Trusted Web Activity around the same HTTPS PWA. It is not a WebView rewrite. Chrome handles the secure browser context, file picker, Web Crypto, and existing C2PA WASM while the original image remains on device. Android Browser Helper provides the shell. Digital Asset Links will be published only after the owner enables Play App Signing and the final public certificate fingerprint is known; before that, the shell must be treated as a Custom Tab fallback rather than a verified fullscreen TWA.

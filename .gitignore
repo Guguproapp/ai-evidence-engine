@@ -7,3 +7,12 @@ data/*.json
 keys/*.pem
 demo-output/
 
+# Android local build and signing material
+apps/android-twa/.gradle/
+apps/android-twa/local.properties
+apps/android-twa/**/build/
+*.apk
+*.aab
+*.jks
+*.keystore
+keystore.properties

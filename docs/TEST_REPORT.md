@@ -93,3 +93,27 @@ Final operation recording: **PASS** — ID `pqRNOvyE3_c`; visibility is
 
 The previous 2:24 `Fwu7yGUTVwo` video remains rejected and must not be submitted.
 The public but silent `HDG1qYo5hUg` upload is also superseded and must not be submitted.
+
+## Bilingual web and Android preparation — 2026-08-16
+
+| Check | Result |
+|---|---|
+| Traditional Chinese SSR default | PASS |
+| Visible Traditional Chinese / English switch | PASS in source/render tests; live browser deployment pending |
+| `aee_locale` localStorage persistence | PASS in source contract test; interactive reload pending deployment |
+| Canonical Evidence enums unchanged | PASS |
+| Bilingual `/privacy` page | PASS in server-render test |
+| Web tests | PASS — 13/13 |
+| Web lint | PASS |
+| Web production build | PASS |
+| Android API / package | PASS — compile/target 36, min 23, `com.gugupro.aievidence` |
+| Android build | PASS — Gradle 8.11.1, AGP 8.9.1, Android Browser Helper 2.7.2 |
+| Debug APK signature | PASS — Android debug certificate, APK v1/v2 signatures verify |
+| Android 16 install | PASS — installed on API 36 emulator |
+| Android launch regression | PASS after adding required `ManageDataLauncherActivity`; no AEE fatal exception |
+| Android full verifier flow | BLOCKED — clean emulator shows Chrome first-run Terms; owner action required |
+| Release AAB | PASS build, intentionally unsigned; NOT READY for Play upload |
+| Digital Asset Links / fullscreen TWA | BLOCKED — final Play App Signing public fingerprint not yet available |
+| Real Android screenshots | NOT RUN — no store screenshots fabricated before full runtime test |
+
+The first launch exposed and fixed a real Android Browser Helper integration failure: `ManageDataLauncherActivity` was missing from the app manifest. The repaired APK launched and bound to the Android Chrome TWA provider. Testing stopped at Chrome's first-run Terms screen; Codex did not accept it on behalf of the owner.

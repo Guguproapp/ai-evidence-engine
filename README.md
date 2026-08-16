@@ -1,6 +1,6 @@
 # AI Evidence Engine
 
-Local-first **Universal Evidence Passport for Digital & Physical Creation** by **gugupro**.
+Local-first **Universal Evidence Passport for Digital & Physical Creation** by **GUGUPRO**.
 
 This is not an AI detector and does not produce legal conclusions. It records where a creation came from, which tools or agents changed it, how much changed, and whether its signed history was tampered with. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and digital manufacturing share the same Passport, Event Chain, Registry, and Private Wallet architecture.
 
@@ -21,6 +21,8 @@ This is not an AI detector and does not produce legal conclusions. It records wh
 - Four independent provenance outcomes: `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence`; identity trust and C2PA integrity are displayed separately.
 - Formal L0–L5 AI involvement, multimodal change metrics, Private Black Box, and Mobile Authorization specifications.
 - **AEE Evidence Identification & Coding Standard v1.0** with versioned identifiers, `aee.event.v1`, implemented Text/Image profiles, deterministic verification policy, legacy signature compatibility, Wallet commitments, and authorization signing/validation foundations.
+- Traditional Chinese default UI with a persistent English switch and a bilingual Privacy Policy.
+- Android API 36 TWA source foundation, PWA manifest, Google Play listings, Data Safety draft, permission audit, signing plan, and closed-test plan.
 
 Not yet complete: production PKI/C2PA Trust List identity, Black Box authorization UI, desktop agent, persistent cloud registry, real external-user evidence, and production security hardening.
 
@@ -64,13 +66,12 @@ npm run dev
 
 Public verifier: https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site
 
-Final demo recording: `HDG1qYo5hUg` — **PASS**, 1920×1080, 2:43, real
-Production interaction with burned-in English captions. Visibility is
-**PRIVATE — pending owner review**; do not place it in the final submission
-until the owner re-enables public access. The superseded `Fwu7yGUTVwo` video
-remains rejected and must not be submitted.
+Final demo recording: https://www.youtube.com/watch?v=pqRNOvyE3_c — **PASS**,
+1920×1080, 2:43, real Production interaction with English narration and
+captions. The superseded `Fwu7yGUTVwo` and silent `HDG1qYo5hUg` uploads must
+not be submitted.
 
 - Current ProofCart Version 3 evidence event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
 - Current Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`
 
-See [AEE Coding Standard v1.0](docs/EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md), [architecture](docs/ARCHITECTURE.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).
+See [AEE Coding Standard v1.0](docs/EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md), [architecture](docs/ARCHITECTURE.md), [Android audit](docs/ANDROID_APP_AUDIT.md), [Google Play account checklist](docs/GOOGLE_PLAY_ACCOUNT_REQUIREMENTS.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).
