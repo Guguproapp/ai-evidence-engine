@@ -261,6 +261,7 @@ export function EvidenceVerifier() {
     setSelected(2);
     setView("comparison");
     setUpload(null);
+    setUploadError("");
     clearExplanation();
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
@@ -429,8 +430,8 @@ export function EvidenceVerifier() {
       </section>
 
       <section className="verification-section" ref={resultRef}>
-        <div className="section-heading"><div><span className="section-number">02</span><h2>{t("Verification result")}</h2></div>{(upload || (version && verification)) && <StatusPill value={upload?.result ?? result} locale={locale} />}</div>
-        {upload && !upload.matchedVersion ? <div className="standalone-result">
+        <div className="section-heading"><div><span className="section-number">02</span><h2>{t("Verification result")}</h2></div>{!uploadError && (upload || (version && verification)) && <StatusPill value={upload?.result ?? result} locale={locale} />}</div>
+        {uploadError ? <div className="loading">{t("No verification result is shown because the selected file could not be processed.")}</div> : upload && !upload.matchedVersion ? <div className="standalone-result">
           <div><span>{t("Uploaded file")}</span><h3>{upload.name}</h3><p>{t(upload.result === "Invalid Evidence" ? "Evidence is present, but the asset bytes, C2PA claim, signature, or chain do not validate." : "This file is not proven original or modified because no matching AI Evidence Registry record was found.")}</p></div>
           <dl>
             <div><dt>{t("Provenance")}</dt><dd><StatusPill value={upload.result} locale={locale} /></dd></div>

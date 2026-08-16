@@ -63,6 +63,7 @@ test("ships signed demo evidence and preserved C2PA reports", async () => {
 
 test("declares upload limits and client-side validation", async () => {
   const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  const dictionary = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
   assert.match(verifier, /MAX_UPLOAD = 10 \* 1024 \* 1024/);
   assert.match(verifier, /image\/png/);
   assert.match(verifier, /image\/jpeg/);
@@ -70,6 +71,10 @@ test("declares upload limits and client-side validation", async () => {
   assert.match(verifier, /crypto\.subtle\.digest\("SHA-256"/);
   assert.match(verifier, /@contentauth\/c2pa-web\/inline/);
   assert.match(verifier, /verificationAttempts\.current\.length >= 8/);
+  assert.match(verifier, /!uploadError && \(upload \|\| \(version && verification\)\)/);
+  assert.match(verifier, /uploadError \? <div className="loading">/);
+  assert.match(verifier, /setUploadError\(""\)/);
+  assert.match(dictionary, /所選檔案無法處理，因此不顯示任何驗證結果。/);
   assert.doesNotMatch(verifier, /fetch\([^)]*file|FormData|innerHTML|eval\(/);
 });
 

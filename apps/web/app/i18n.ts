@@ -34,6 +34,7 @@ const zhTW: Record<string, string> = {
   "Only PNG, JPEG, and WebP images are accepted.": "只接受 PNG、JPEG 與 WebP 圖片。",
   "File is larger than the 10 MB safety limit.": "檔案超過 10 MB 安全上限。",
   "Verification failed.": "驗證失敗。",
+  "No verification result is shown because the selected file could not be processed.": "所選檔案無法處理，因此不顯示任何驗證結果。",
   "No registry record found for that Evidence ID.": "找不到這個 Evidence ID 的 Registry 紀錄。",
   "Registry record found:": "已找到 Registry 紀錄：",
   "Registry match:": "Registry 符合：",
