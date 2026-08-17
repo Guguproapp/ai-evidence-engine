@@ -459,6 +459,8 @@ export function EvidenceVerifier() {
     setFirstSeenError("");
     const form = new FormData();
     form.append("bridge_id", firstSeen.bridge_id);
+    form.append("passport_id", firstSeen.signed_event.passport_id);
+    form.append("event_id", firstSeen.signed_event.event_id);
     form.append("evidence_file", file, file.name);
     try {
       const response = await fetch(`${LEGACY_BRIDGE_URL}/v1/demo/first-seen/version`, { method: "POST", body: form });

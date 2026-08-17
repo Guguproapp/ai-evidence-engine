@@ -1,3 +1,4 @@
+import base64
 import copy
 import hashlib
 import json
@@ -15,8 +16,11 @@ from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image, UnidentifiedImageError
 
 from ai_evidence.canonical import canonical_json
+from ai_evidence.crypto import public_key_pem, verify_bytes
 from ai_evidence.image_diff import diff_mask
-from ai_evidence.registry import Registry
+from ai_evidence.identifiers import digest_identifier
+from ai_evidence.registry import EVENT_V1_FIELDS, Registry
+from ai_evidence.schema import validate_event_v1
 
 
 APP_ROOT = Path(__file__).resolve().parent
@@ -89,7 +93,7 @@ class RemoteBlackBoxClient:
             raise RuntimeError(f"Remote Black Box HTTP {response.status_code}: {payload.get('error', 'unknown_error')}")
         return payload
 
-    def seal(self, event, evidence_path, content_type="image/png"):
+    def seal(self, event, evidence_path, content_type="image/png", issuer_public_key=None):
         data = evidence_path.read_bytes()
         fields = {
             "schema_version": event["schema_version"],
@@ -98,6 +102,7 @@ class RemoteBlackBoxClient:
             "content_sha256": event["exact_hash"],
             "content_type": content_type,
             "signed_event": canonical_json(event).decode("utf-8"),
+            "issuer_public_key": str(issuer_public_key or ""),
         }
         return self._post(
             "/v1/evidence/seal",
@@ -108,6 +113,18 @@ class RemoteBlackBoxClient:
     def retrieve(self, passport_id, event_id):
         return self._post(
             "/v1/evidence/retrieve",
+            json={"passport_id": passport_id, "event_id": event_id},
+        )
+
+    def history(self, passport_id, anchor_event_id):
+        return self._post(
+            "/v1/evidence/history",
+            json={"passport_id": passport_id, "event_id": anchor_event_id},
+        )
+
+    def download(self, passport_id, event_id):
+        return self._post(
+            "/v1/evidence/download",
             json={"passport_id": passport_id, "event_id": event_id},
         )
 
@@ -184,7 +201,7 @@ def _seal_and_retrieve(registry, event, evidence_path, content_type):
     if not (before["signature_valid"] and before["hash_valid"] and before["parent_valid"]):
         raise RuntimeError("Local Signed Event verification failed before seal")
     remote = _remote_client()
-    sealed = remote.seal(event, evidence_path, content_type)
+    sealed = remote.seal(event, evidence_path, content_type, public_key_pem(registry.public_key))
     retrieved = remote.retrieve(event["passport_id"], event["event_id"])
     after = registry.verify_event(event)
     event_unchanged = event == snapshot and canonical_json(event) == canonical_before
@@ -217,6 +234,97 @@ def _history(registry, content_id):
         _event_summary(event, registry.verify_event(event))
         for event in registry.history(content_id)
     ]
+
+
+def _verify_persistent_history(records, passport_id, anchor_event_id):
+    if not records:
+        raise RuntimeError("Persistent Evidence history is empty")
+    events_by_id = {}
+    verified_records = []
+    for record in records:
+        event = record.get("signed_event")
+        public_key = str(record.get("issuer_public_key") or "")
+        if not isinstance(event, dict):
+            raise RuntimeError("Persistent Evidence contains an invalid Signed Event")
+        validate_event_v1(event)
+        if event.get("passport_id") != passport_id:
+            raise RuntimeError("Persistent Evidence passport continuity failed")
+        unsigned = {key: event[key] for key in EVENT_V1_FIELDS if key in event}
+        payload = canonical_json(unsigned)
+        calculated_hash = digest_identifier(hashlib.sha256(payload).hexdigest())
+        hash_valid = calculated_hash == event.get("event_hash")
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".pem", encoding="utf-8") as key_file:
+            key_file.write(public_key)
+            key_file.flush()
+            signature_valid = verify_bytes(Path(key_file.name), payload, event.get("signature", ""))
+        parent_valid = True
+        if event.get("parent_event"):
+            parent = events_by_id.get(event["parent_event"])
+            parent_valid = parent is not None and parent.get("event_hash") == event.get("parent_hash")
+        if not (hash_valid and signature_valid and parent_valid):
+            raise RuntimeError("Persistent Signed Event verification failed")
+        events_by_id[event["event_id"]] = event
+        verification = {
+            "integrity_state": "VALID",
+            "provenance_state": "UNVERIFIED" if event.get("action_type") == "first_seen_registration" else "VERIFIED_MODIFIED",
+            "signature_valid": True,
+            "hash_valid": True,
+        }
+        verified_records.append({**record, "summary": _event_summary(event, verification)})
+    if anchor_event_id not in events_by_id:
+        raise RuntimeError("Persistent Evidence anchor Event was not found")
+    return verified_records
+
+
+def _persistent_history(remote, passport_id, anchor_event_id):
+    response = remote.history(passport_id, anchor_event_id)
+    return _verify_persistent_history(response.get("events", []), passport_id, anchor_event_id)
+
+
+def _recover_bridge(passport_id, anchor_event_id):
+    try:
+        passport_id = str(uuid.UUID(str(passport_id)))
+        anchor_event_id = str(uuid.UUID(str(anchor_event_id)))
+    except (ValueError, AttributeError, TypeError):
+        raise ValueError("invalid_persistent_history_locator") from None
+    remote = _remote_client()
+    records = _persistent_history(remote, passport_id, anchor_event_id)
+    first = records[0]
+    first_event = first["signed_event"]
+    downloaded = remote.download(passport_id, first_event["event_id"])
+    try:
+        data = base64.b64decode(downloaded.get("evidence_base64") or "", validate=True)
+    except ValueError:
+        raise RuntimeError("Persistent Evidence download is invalid") from None
+    if hashlib.sha256(data).hexdigest() != first_event["exact_hash"]:
+        raise RuntimeError("Persistent Evidence recovery SHA-256 mismatch")
+    content_type = str(downloaded.get("content_type") or first.get("content_type") or "")
+    _validate_image(data, content_type)
+    bridge_id = str(uuid.uuid4())
+    bridge_dir = BRIDGE_ROOT / bridge_id
+    bridge_dir.mkdir(parents=True, mode=0o700)
+    original_path = bridge_dir / ("version-1" + CONTENT_SUFFIX[content_type])
+    _write_private_file(original_path, data)
+    registry = Registry(bridge_dir / "registry", bridge_dir / "keys", issuer_id=f"gugupro-legacy-bridge-recovered-{bridge_id}")
+    registry.events_path.write_text(
+        "".join(json.dumps(record["signed_event"], ensure_ascii=False, sort_keys=True) + "\n" for record in records),
+        encoding="utf-8",
+    )
+    state = {
+        "bridge_id": bridge_id,
+        "content_type": content_type,
+        "original_path": original_path.name,
+        "passport_id": passport_id,
+        "content_id": first_event["content_id"],
+        "first_event_id": first_event["event_id"],
+        "latest_event_id": records[-1]["signed_event"]["event_id"],
+        "first_seen_time": first_event["timestamp"],
+        "recovered_from_persistent_evidence": True,
+    }
+    state_path = bridge_dir / "state.json"
+    state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+    state_path.chmod(0o600)
+    return bridge_id, bridge_dir, state, registry, records
 
 
 def start_first_seen(data, content_type):
@@ -263,11 +371,13 @@ def start_first_seen(data, content_type):
         "passport_id": event["passport_id"],
         "content_id": event["content_id"],
         "first_event_id": event["event_id"],
+        "latest_event_id": event["event_id"],
         "first_seen_time": server_received_time,
     }
     state_path = bridge_dir / "state.json"
     state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
     state_path.chmod(0o600)
+    persistent_records = _persistent_history(_remote_client(), event["passport_id"], event["event_id"])
     return {
         "ok": True,
         "environment": "Development / Test",
@@ -283,7 +393,7 @@ def start_first_seen(data, content_type):
         "retrieval": retrieved,
         "event_unchanged": unchanged,
         "evidence_continuity": "PASS",
-        "history": _history(registry, event["content_id"]),
+        "history": [record["summary"] for record in persistent_records],
         "soft_binding": {
             "type": "sha256",
             "value": "sha256:" + digest,
@@ -294,11 +404,18 @@ def start_first_seen(data, content_type):
     }
 
 
-def add_recorded_version(bridge_id, data, content_type):
+def add_recorded_version(bridge_id, data, content_type, passport_id=None, anchor_event_id=None):
     _validate_image(data, content_type)
-    bridge_dir = _bridge_path(bridge_id)
-    state = json.loads((bridge_dir / "state.json").read_text(encoding="utf-8"))
-    registry = Registry(bridge_dir / "registry", bridge_dir / "keys", issuer_id="gugupro-legacy-bridge-dev")
+    recovered = False
+    try:
+        bridge_dir = _bridge_path(bridge_id)
+        state = json.loads((bridge_dir / "state.json").read_text(encoding="utf-8"))
+        registry = Registry(bridge_dir / "registry", bridge_dir / "keys", issuer_id="gugupro-legacy-bridge-dev")
+    except ValueError as error:
+        if str(error) != "bridge_not_found" or not passport_id or not anchor_event_id:
+            raise
+        bridge_id, bridge_dir, state, registry, _records = _recover_bridge(passport_id, anchor_event_id)
+        recovered = True
     parent = registry.all_events()[-1]
     evidence_path = bridge_dir / (f"version-{len(registry.all_events()) + 1}" + CONTENT_SUFFIX[content_type])
     _write_private_file(evidence_path, data)
@@ -347,10 +464,14 @@ def add_recorded_version(bridge_id, data, content_type):
         }],
     )
     _, after, sealed, retrieved, unchanged = _seal_and_retrieve(registry, event, evidence_path, content_type)
+    state["latest_event_id"] = event["event_id"]
+    (bridge_dir / "state.json").write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+    persistent_records = _persistent_history(_remote_client(), event["passport_id"], event["event_id"])
     return {
         "ok": True,
         "environment": "Development / Test",
         "bridge_id": bridge_id,
+        "recovered_from_persistent_evidence": recovered,
         "registration_status": "FIRST_SEEN_SEALED",
         "prior_provenance": "unknown",
         "message": "This version is verifiably linked to the AEE first-seen record; history before that first record remains unknown.",
@@ -360,7 +481,7 @@ def add_recorded_version(bridge_id, data, content_type):
         "event_unchanged": unchanged,
         "evidence_continuity": "PASS",
         "change_metrics": change_metrics,
-        "history": _history(registry, state["content_id"]),
+        "history": [record["summary"] for record in persistent_records],
     }
 
 
@@ -397,7 +518,7 @@ def run_continuity(asset_path=DEMO_ASSET):
             raise RuntimeError("Local Signed Event content SHA-256 mismatch")
 
         remote = _remote_client()
-        sealed = remote.seal(event, asset_path)
+        sealed = remote.seal(event, asset_path, "image/png", public_key_pem(registry.public_key))
         retrieved = remote.retrieve(event["passport_id"], event["event_id"])
         post_verify = registry.verify_event(event)
         event_unchanged = event == event_snapshot and canonical_json(event) == event_bytes_before
@@ -581,13 +702,56 @@ def first_seen_version():
         return jsonify({"ok": False, "error": "rate_limit_exceeded"}), 429
     try:
         data, content_type = _uploaded_image()
-        return jsonify(add_recorded_version(request.form.get("bridge_id"), data, content_type)), 201
+        return jsonify(
+            add_recorded_version(
+                request.form.get("bridge_id"),
+                data,
+                content_type,
+                request.form.get("passport_id"),
+                request.form.get("event_id"),
+            )
+        ), 201
     except ValueError as error:
         return jsonify({"ok": False, "error": str(error)}), 400
     except Exception:
         request_id = str(uuid.uuid4())
         logger.exception("first_seen version failed request_id=%s", request_id)
         return jsonify({"ok": False, "error": "recorded_version_failed", "request_id": request_id}), 503
+
+
+@app.route("/v1/demo/first-seen/recover", methods=["POST", "OPTIONS"])
+def first_seen_recover():
+    if request.method == "OPTIONS":
+        return ("", 204)
+    client = request.headers.get("X-Forwarded-For", request.remote_addr or "unknown").split(",")[0].strip()
+    if _rate_limited(client):
+        return jsonify({"ok": False, "error": "rate_limit_exceeded"}), 429
+    try:
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            raise ValueError("json_object_required")
+        bridge_id, _bridge_dir, state, _registry, records = _recover_bridge(
+            payload.get("passport_id"), payload.get("event_id")
+        )
+        return jsonify(
+            {
+                "ok": True,
+                "environment": "Development / Test",
+                "bridge_id": bridge_id,
+                "registration_status": "FIRST_SEEN_SEALED",
+                "prior_provenance": "unknown",
+                "recovered_from_persistent_evidence": True,
+                "passport_id": state["passport_id"],
+                "latest_event_id": state["latest_event_id"],
+                "history": [record["summary"] for record in records],
+            }
+        )
+    except ValueError as error:
+        return jsonify({"ok": False, "error": str(error)}), 400
+    except Exception:
+        request_id = str(uuid.uuid4())
+        logger.exception("first_seen recovery failed request_id=%s", request_id)
+        return jsonify({"ok": False, "error": "persistent_history_recovery_failed", "request_id": request_id}), 503
 
 
 @app.errorhandler(413)

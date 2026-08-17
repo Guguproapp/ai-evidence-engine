@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import importlib.util
 import os
@@ -16,20 +17,29 @@ SPEC.loader.exec_module(MODULE)
 
 class FakeRemoteClient:
     def __init__(self):
-        self.event = None
+        self.records = {}
 
-    def seal(self, event, evidence_path, content_type="image/png"):
+    def seal(self, event, evidence_path, content_type="image/png", issuer_public_key=None):
         digest = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
         if event["exact_hash"] != digest:
             raise AssertionError("event and file digest differ")
-        self.event = event
+        key = (event["passport_id"], event["event_id"])
+        if key in self.records:
+            raise RuntimeError("evidence_already_sealed")
+        self.records[key] = {
+            "event": event,
+            "data": evidence_path.read_bytes(),
+            "content_type": content_type,
+            "issuer_public_key": issuer_public_key,
+            "generation": str(123456 + len(self.records)),
+        }
         return {
             "passport_id": event["passport_id"],
             "event_id": event["event_id"],
             "content_sha256": digest,
             "signed_event_hash": event["event_hash"],
             "object_path": f"evidence/{event['passport_id']}/{event['event_id']}",
-            "generation": "123456",
+            "generation": self.records[key]["generation"],
             "metageneration": 1,
             "retention_expiration": "2026-08-17T01:00:00+00:00",
             "storage_location": "ASIA-EAST1",
@@ -37,14 +47,41 @@ class FakeRemoteClient:
         }
 
     def retrieve(self, passport_id, event_id):
+        record = self.records[(passport_id, event_id)]
         return {
             "passport_id": passport_id,
             "event_id": event_id,
-            "generation": "123456",
-            "stored_sha256": self.event["exact_hash"],
-            "retrieved_sha256": self.event["exact_hash"],
-            "signed_event_hash": self.event["event_hash"],
+            "generation": record["generation"],
+            "stored_sha256": record["event"]["exact_hash"],
+            "retrieved_sha256": record["event"]["exact_hash"],
+            "signed_event_hash": record["event"]["event_hash"],
             "hash_match": True,
+        }
+
+    def history(self, passport_id, anchor_event_id):
+        events = []
+        for (stored_passport, _event_id), record in self.records.items():
+            if stored_passport == passport_id:
+                events.append({
+                    "signed_event": record["event"],
+                    "issuer_public_key": record["issuer_public_key"],
+                    "generation": record["generation"],
+                    "content_type": record["content_type"],
+                })
+        events.sort(key=lambda item: item["signed_event"]["timestamp"])
+        if not any(item["signed_event"]["event_id"] == anchor_event_id for item in events):
+            raise RuntimeError("evidence_not_found")
+        return {"ok": True, "passport_id": passport_id, "events": events}
+
+    def download(self, passport_id, event_id):
+        record = self.records[(passport_id, event_id)]
+        return {
+            "ok": True,
+            "passport_id": passport_id,
+            "event_id": event_id,
+            "content_type": record["content_type"],
+            "content_sha256": record["event"]["exact_hash"],
+            "evidence_base64": base64.b64encode(record["data"]).decode("ascii"),
         }
 
 
@@ -54,7 +91,8 @@ class ContinuityDemoTests(unittest.TestCase):
         cls.asset = ROOT / "apps" / "web" / "public" / "demo" / "version-3.png"
 
     def setUp(self):
-        MODULE.remote_client_factory = FakeRemoteClient
+        self.remote = FakeRemoteClient()
+        MODULE.remote_client_factory = lambda: self.remote
         MODULE.attempts.clear()
         self.bridge_temp = MODULE.tempfile.TemporaryDirectory()
         MODULE.BRIDGE_ROOT = Path(self.bridge_temp.name)
@@ -116,6 +154,41 @@ class ContinuityDemoTests(unittest.TestCase):
         self.assertEqual(len(v2["history"]), 2)
         self.assertGreater(v2["change_metrics"]["spatial_change_ratio"], 0)
         self.assertTrue(v2["retrieval"]["hash_match"])
+
+    def test_first_seen_history_recovers_after_local_state_loss(self):
+        import shutil
+        first = (ROOT / "apps" / "web" / "public" / "demo" / "version-1.png").read_bytes()
+        modified = (ROOT / "apps" / "web" / "public" / "demo" / "version-2.png").read_bytes()
+        v1 = MODULE.start_first_seen(first, "image/png")
+        shutil.rmtree(MODULE.BRIDGE_ROOT / v1["bridge_id"])
+        v2 = MODULE.add_recorded_version(
+            v1["bridge_id"],
+            modified,
+            "image/png",
+            v1["signed_event"]["passport_id"],
+            v1["signed_event"]["event_id"],
+        )
+        self.assertTrue(v2["recovered_from_persistent_evidence"])
+        self.assertEqual(v2["signed_event"]["passport_id"], v1["signed_event"]["passport_id"])
+        self.assertEqual(v2["signed_event"]["parent_event"], v1["signed_event"]["event_id"])
+        self.assertEqual(len(v2["history"]), 2)
+        self.assertTrue(v2["retrieval"]["hash_match"])
+
+    def test_recovery_endpoint_rebuilds_cache_from_persistent_evidence(self):
+        import shutil
+        first = (ROOT / "apps" / "web" / "public" / "demo" / "version-1.png").read_bytes()
+        v1 = MODULE.start_first_seen(first, "image/png")
+        shutil.rmtree(MODULE.BRIDGE_ROOT / v1["bridge_id"])
+        response = self.client.post(
+            "/v1/demo/first-seen/recover",
+            json={
+                "passport_id": v1["signed_event"]["passport_id"],
+                "event_id": v1["signed_event"]["event_id"],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json["recovered_from_persistent_evidence"])
+        self.assertEqual(len(response.json["history"]), 1)
 
     def test_first_seen_http_upload_and_invalid_file(self):
         from io import BytesIO

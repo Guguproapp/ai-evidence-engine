@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import importlib.util
 import io
@@ -88,6 +89,9 @@ class FakeStorageClient:
     def bucket(self, _name):
         return FakeBucket(self.records)
 
+    def list_blobs(self, _name, prefix):
+        return [FakeBlob(self.records, name) for name in sorted(self.records) if name.startswith(prefix)]
+
 
 class BlackBoxApiTests(unittest.TestCase):
     @classmethod
@@ -115,6 +119,7 @@ class BlackBoxApiTests(unittest.TestCase):
             "parent_event": None,
             "action_type": "remote_seal_test",
         }
+        self.public_key = "-----BEGIN PUBLIC KEY-----\ndW5pdC10ZXN0\n-----END PUBLIC KEY-----\n"
 
     def seal(self, **overrides):
         fields = {
@@ -124,6 +129,7 @@ class BlackBoxApiTests(unittest.TestCase):
             "content_sha256": self.digest,
             "content_type": "image/png",
             "signed_event": json.dumps(self.signed_event),
+            "issuer_public_key": self.public_key,
             "evidence_file": (io.BytesIO(self.png), "evidence.png"),
         }
         fields.update(overrides)
@@ -152,6 +158,24 @@ class BlackBoxApiTests(unittest.TestCase):
         self.assertEqual(record.metadata["event_id"], self.event_id)
         self.assertEqual(record.metadata["content_sha256"], self.digest)
         self.assertEqual(record.metadata["signed_event_hash"], self.signed_event["event_hash"])
+        self.assertEqual(json.loads(record.metadata["signed_event"])["event_id"], self.event_id)
+
+    def test_history_and_download_reconstruct_persistent_record(self):
+        self.assertEqual(self.seal().status_code, 201)
+        history = self.client.post(
+            "/v1/evidence/history",
+            json={"passport_id": self.passport_id, "event_id": self.event_id},
+        )
+        self.assertEqual(history.status_code, 200)
+        self.assertEqual(history.json["events"][0]["signed_event"]["event_id"], self.event_id)
+        self.assertEqual(history.json["events"][0]["issuer_public_key"], self.public_key)
+        downloaded = self.client.post(
+            "/v1/evidence/download",
+            json={"passport_id": self.passport_id, "event_id": self.event_id},
+        )
+        self.assertEqual(downloaded.status_code, 200)
+        self.assertEqual(base64.b64decode(downloaded.json["evidence_base64"]), self.png)
+        self.assertEqual(downloaded.json["content_sha256"], self.digest)
 
     def test_wrong_sha256_is_rejected_without_object(self):
         response = self.seal(content_sha256="0" * 64)

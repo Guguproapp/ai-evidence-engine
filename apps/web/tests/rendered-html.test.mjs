@@ -151,6 +151,8 @@ test("offers an opt-in First-Seen bridge without changing canonical provenance s
   assert.match(verifier, /Provenance before this AEE record is unknown/);
   assert.match(verifier, /This is not proof of originality, authorship, copyright, or earlier history/);
   assert.match(verifier, /\/v1\/demo\/first-seen/);
+  assert.match(verifier, /form\.append\("passport_id", firstSeen\.signed_event\.passport_id\)/);
+  assert.match(verifier, /form\.append\("event_id", firstSeen\.signed_event\.event_id\)/);
   assert.match(dictionary, /從現在開始建立證據履歷/);
   assert.match(dictionary, /不是原創、作者、著作權或先前歷史的證明/);
   assert.doesNotMatch(decision, /FIRST_SEEN_SEALED/);

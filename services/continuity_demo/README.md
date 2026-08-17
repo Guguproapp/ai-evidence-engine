@@ -27,8 +27,15 @@ Endpoints:
 
 - `POST /v1/demo/continuity` — bundled synthetic asset only.
 - `POST /v1/demo/first-seen` — explicit multipart image First-Seen seal.
-- `POST /v1/demo/first-seen/version` — child version for an existing in-memory Development/Test bridge.
+- `POST /v1/demo/first-seen/version` — child version for an existing bridge;
+  when the local cache is gone, Passport and anchor Event locators trigger
+  reconstruction from persistent Evidence.
+- `POST /v1/demo/first-seen/recover` — reconstruct a local cache from the
+  sealed Signed Events and evidence stored in the Development/Test bucket.
 
-The V1 to V2 bridge state is held on ephemeral Cloud Run local storage. The
-service is limited to one instance for the bounded test flow, but a restart can
-remove that local state. This is not a Production durability design.
+Cloud Run local storage is only a temporary cache. The persistent source for
+the bounded V1-to-V2 history is the sealed Google Cloud Storage Evidence Object:
+its unchanged Signed Event, public verification key, Passport/Event/Parent
+identifiers, and content SHA-256 are used to rebuild and verify the chain after
+a restart. This remains a Development/Test Black Box, not a claim of permanent
+or judicial storage.

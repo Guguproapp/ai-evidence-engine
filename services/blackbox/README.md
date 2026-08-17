@@ -15,8 +15,10 @@ Event Ledger, deletion service, or retention administrator.
 - Every seal carries an existing `aee.event.v1` Signed Event. The server requires
   its Passport ID, Event ID, and content SHA-256 to match the client request and
   the uploaded bytes before creating an object.
-- The server stores only the Signed Event Hash reference in object metadata. It
-  does not store a private key, modify the event, or create a second event.
+- The server stores the unchanged Signed Event, its hash, and its public
+  verification key in object metadata so Passport history can be reconstructed
+  after an orchestrator restart. It never stores a private key, modifies the
+  event, or creates a second event.
 - The server recalculates SHA-256 before upload and after retrieval. The
   controlled client verifies the original event with the existing AEE Registry
   before and after remote storage operations.
@@ -30,6 +32,10 @@ Event Ledger, deletion service, or retention administrator.
   `event_id`, `content_sha256`, `content_type`, `signed_event`, and
   `evidence_file`.
 - `POST /v1/evidence/retrieve` — JSON fields `passport_id` and `event_id`.
+- `POST /v1/evidence/history` — controlled Passport history lookup requiring a
+  Passport ID and an anchor Event ID.
+- `POST /v1/evidence/download` — deterministic evidence download requiring the
+  matching Passport ID and Event ID; arbitrary object paths are not accepted.
 
 Run the controlled end-to-end client after deploying:
 
