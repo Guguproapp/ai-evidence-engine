@@ -113,3 +113,7 @@ An earlier physical-device V2 test used a different-size derivative. AEE
 correctly returned `comparison_status=different_dimensions` and did not invent
 a change percentage. The measurable chain above is the conforming same-size
 V1/V2 acceptance case.
+
+Final regression after physical-device evidence capture: Python `55/55`, Web
+`15/15`, lint, Production build, `git diff --check`, secret scan, and private-key
+scan all passed.
