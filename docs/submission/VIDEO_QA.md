@@ -1,6 +1,6 @@
 # Final Video QA
 
-Status: **OWNER INPUT REQUIRED / SUBMISSION BLOCKER**
+Status: **READY FOR JUDGES**
 
 | Field | Result |
 |---|---|
@@ -13,9 +13,9 @@ Status: **OWNER INPUT REQUIRED / SUBMISSION BLOCKER**
 | Music | None — READY |
 | Voice clone | None — READY |
 | Product footage | Real Production plus clearly labelled Development/Test prototype — READY |
-| Private review URL | https://youtu.be/LJh42-gYD4U |
-| Visibility | Private — MISSING for submission |
-| Signed-out oEmbed | HTTP 403 on 2026-08-18 — confirms not judge-accessible |
+| Public URL | https://youtu.be/LJh42-gYD4U |
+| Visibility | Public — READY |
+| External playback | YouTube watch page HTTP 200 and oEmbed HTTP 200 on 2026-08-18 |
 | Rights | OWNER CONFIRMED on 2026-08-18 |
 
-The superseded `pqRNOvyE3_c` video must not be submitted. Rights to the AEE-created material and the absence of unauthorized music, voice clone, and intentional unauthorized stock footage were owner-confirmed on 2026-08-18. Changing YouTube visibility still requires a separate action-time confirmation immediately before publication.
+The superseded `pqRNOvyE3_c` video must not be submitted. Rights to the AEE-created material and the absence of unauthorized music, voice clone, and intentional unauthorized stock footage were owner-confirmed on 2026-08-18. The owner then authorized publication, and the final video was verified as publicly accessible.

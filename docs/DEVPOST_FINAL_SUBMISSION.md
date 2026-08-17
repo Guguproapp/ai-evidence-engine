@@ -173,9 +173,7 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-Private review URL: https://youtu.be/LJh42-gYD4U
-
-Public judge-accessible URL: `PENDING OWNER REVIEW AND PUBLICATION`
+Public judge-accessible URL: https://youtu.be/LJh42-gYD4U
 
 Final local candidate: `docs/evidence/AI-Evidence-Engine-XPRIZE-Final-2026-08-18.mp4`.
 
@@ -183,7 +181,7 @@ Duration: 2:28.000. Resolution: 1920×1080 at 30fps. Audio: English 48 kHz mono 
 
 The visuals show real Production interaction and the real Development/Test prototype. They include signed provenance, measured known-version change, an unknown image returning `Unverified`, First-Seen with prior history unknown, V1 → V2, Gemini's bounded explanation, Google Cloud retention metadata, real delete rejection (HTTP 403), real overwrite rejection (HTTP 412), retrieval, SHA-256 Match, and Evidence Continuity. The older `pqRNOvyE3_c`, `Fwu7yGUTVwo`, and `HDG1qYo5hUg` videos are superseded and must not be submitted.
 
-The final candidate is uploaded as a private YouTube video pending Entrant review. It must not be made judge-accessible until Tsing-YI Chen approves the exact video and confirms the IP declarations.
+The Entrant approved publication after confirming the IP declarations. The final candidate is public, and its watch page and YouTube oEmbed endpoint both returned HTTP 200 on 2026-08-18.
 
 ## Production Evidence
 
@@ -199,5 +197,5 @@ Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google C
 - First-Seen proves only that AEE received, fingerprinted, signed, and sealed that exact version at the recorded time. It does not prove originality, authorship, copyright ownership, or history before that point.
 - The Google Cloud Evidence Black Box is a Development/Test prototype with short test retention, not a permanent or court-certified production vault.
 - No external users or revenue yet.
-- Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
-- Eligibility attestation, Google billing evidence, IP/video attestations, real-user evidence, financial confirmation, and Final Submission remain owner-controlled blockers.
+- External users remain truthfully disclosed as 0.
+- The Devpost draft is saved as submission ID `1142985`; Rules/Terms acceptance, legal eligibility attestation, and Final Submission remain owner-controlled blockers.

@@ -5,9 +5,9 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Requirement | Status | Evidence / action |
 |---|---|---|
 | Joined Hackathon | READY | Signed-in Devpost account can access the event submission manager |
-| Submission draft created | MISSING | Live Devpost page shows no project and only `Create project` |
+| Submission draft created | READY | Devpost project `AI Evidence Engine`, submission ID `1142985`, saved through 4/5 steps |
 | Eligible individual | OWNER INPUT REQUIRED | Entrant must attest age, residence, exclusions, and conflicts |
-| Category selected | MISSING | Prepared choice is Small Business Services, but no Devpost submission draft exists yet |
+| Category selected | READY | Small Business Services selected in the saved Devpost draft |
 | Project created after May 19 | READY | Objective dates in `PROJECT_START_EVIDENCE.md`; owner attestation remains required |
 | Pre-existing work disclosure | READY | `PREEXISTING_WORK_DISCLOSURE.md` |
 | Google Cloud product used | READY | Cloud Run, Vertex AI, Cloud Storage |
@@ -20,7 +20,7 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Public demo/test URL | READY | Public HTTPS, HTTP 200, no login/paywall |
 | Testing instructions | READY | `TESTING_INSTRUCTIONS.md` |
 | Demo video under 3 minutes | READY | 148 seconds |
-| Video publicly judge-accessible | MISSING | Private; owner approval then publish required |
+| Video publicly judge-accessible | READY | Public YouTube watch page and oEmbed both returned HTTP 200 |
 | Video shows working product | READY | Real Production and labelled Development/Test footage |
 | Video IP/music cleared | READY | Owner confirmed authorized AEE assets; no unauthorized music, voice clone, or intentional unauthorized stock footage |
 | Total Revenue | READY | Owner confirmed USD 0 |
@@ -41,4 +41,4 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Devpost Rules accepted | OWNER INPUT REQUIRED | Must be done personally |
 | Final Submission completed | MISSING | Irreversible owner action |
 
-Live Devpost audit: 2026-08-18 01:27 CST. The account is joined, but no submission project exists yet. Creating the draft may be assisted only after owner confirmation; Rules/Terms acceptance and Final Submission remain owner-only actions.
+Live Devpost update: 2026-08-18. Submission ID `1142985` is saved as a Draft with project name, category, English story, Google Cloud/Gemini descriptions, public repository, public video, financial fields, P&L, and product evidence. The browser is stopped on the finalization page. Rules/Terms remain unchecked and Final Submission remains owner-only.

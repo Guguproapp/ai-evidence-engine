@@ -1,6 +1,6 @@
 # AI Evidence Engine — Final Submission Package
 
-Status: **NOT SUBMISSION READY — OWNER AND EXTERNAL-EVIDENCE GATES REMAIN**
+Status: **OWNER FINALIZATION REQUIRED**
 
 ## Final video
 
@@ -10,8 +10,8 @@ Status: **NOT SUBMISSION READY — OWNER AND EXTERNAL-EVIDENCE GATES REMAIN**
 - Audio: English 48 kHz mono AAC narration
 - Subtitles: embedded English subtitle track
 - SHA-256: `30886bbc333cdda9fa5b5ce6992d3e271b6d4d676e17f0e5485dcdadbafb862f`
-- Private review URL: https://youtu.be/LJh42-gYD4U
-- Public URL: pending Tsing-YI Chen review and publication approval
+- Public URL: https://youtu.be/LJh42-gYD4U
+- Visibility: Public; external watch page and oEmbed verified HTTP 200
 
 ## Submission links
 
@@ -47,12 +47,12 @@ Status: **NOT SUBMISSION READY — OWNER AND EXTERNAL-EVIDENCE GATES REMAIN**
 
 ## Remaining hard gates
 
-- Tsing-YI Chen reviews and approves the exact final video.
-- Final video is uploaded and made judge-accessible.
 - Real-user count is disclosed truthfully as zero; an informed external test is optional if it can be completed without delaying submission.
 - Financial disclosures were owner-confirmed on 2026-08-18; the local archive retains private billing evidence.
 - IP, brand, AEE material, and video-rights boundaries were owner-confirmed on 2026-08-18; legal checkbox acceptance remains owner-only.
 - Tsing-YI Chen confirms legal eligibility, accepts Rules/Terms, and performs irreversible Final Submission.
+
+The Devpost draft is saved as submission ID `1142985` through 4/5 steps. Rules/Terms remain unchecked and the Submit Project button has not been pressed.
 
 ## Final status
 
