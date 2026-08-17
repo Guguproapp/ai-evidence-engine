@@ -24,13 +24,15 @@ Small Business Services
 
 ## Elevator Pitch
 
-AI Evidence Engine is a Universal Evidence Passport for Digital & Physical Creation: it records where a creation came from, who or what changed it, how much changed, and whether the evidence history was tampered with.
+AI Evidence Engine is a Universal Evidence Passport for Digital & Physical Creation: it preserves and verifies recorded provenance and signed version history, measures changes between trusted recorded versions, and detects tampering with the evidence chain.
 
 ## What it does
 
-AI Evidence Engine helps merchants, platforms, and consumers verify provenance without guessing whether AI made something. It combines content hashes, digital signatures, C2PA manifests, an append-only parent-child event chain, and modality-specific change metrics. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and manufacturing share the Passport, Registry, and Private Wallet architecture. The public verifier presents `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence` without claiming world truth or a legal verdict.
+AI Evidence Engine helps merchants, platforms, and consumers verify recorded provenance without guessing whether AI made something. It combines content hashes, digital signatures, C2PA manifests, an append-only parent-child event chain, and modality-specific change metrics. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and manufacturing share the Passport, Registry, and Private Wallet architecture. The public verifier presents `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence` without claiming world truth or a legal verdict.
 
-ProofCart is the first Small Business Services use case. A buyer can inspect a listing photo's original version, edit history, changed region, C2PA provenance, and signed registry evidence before deciding whether to trust the media.
+Capability boundary: Level 1 Provenance Verification is implemented. Level 2 Known-Version Modification Comparison is implemented when trusted recorded versions exist. Level 3 Single-Asset Forensic Modification Detection is not implemented. An unfamiliar image without trusted provenance returns `Unverified`; AEE does not infer whether it is real, fake, edited, or AI-generated from appearance.
+
+ProofCart is the first Small Business Services use case. For a listing photo with recorded provenance, a buyer can inspect its registered original version, edit history, changed region, C2PA provenance, and signed Registry evidence before deciding whether to trust the media.
 
 ## How we built it
 
@@ -38,7 +40,7 @@ ProofCart is the first Small Business Services use case. A buyer can inspect a l
 - Official `@contentauth/c2pa-web 0.13.4` verifies image provenance in the browser.
 - RSA-2048/SHA-256 signs canonical evidence events.
 - An append-only event chain preserves version and parent-hash relationships.
-- A deterministic RGB image-diff algorithm generates the Modification Mask, ratio, and bounding box.
+- A deterministic RGB image-diff algorithm compares trusted recorded versions and generates the Modification Mask, ratio, and bounding box.
 - AEE Evidence Identification & Coding Standard v1.0 separates integrity, provenance, identity trust, signed AI involvement, and change scope; `aee.event.v1` and legacy compatibility are covered by automated tests.
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
 - A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; Gemini cannot assign or change the deterministic provenance state.
@@ -75,7 +77,7 @@ The three-version ProofCart image chain contains real embedded C2PA manifests an
 
 ## ProofCart Use Case
 
-ProofCart demonstrates how a small merchant can attach evidence to a product image and how a buyer can verify the image's origin, two edits, changed region, signatures, C2PA chain, and registry record.
+ProofCart demonstrates how a small merchant can attach evidence to a product image and how a buyer can verify its recorded provenance, two registered edits, changed region, signatures, C2PA chain, and Registry record.
 
 ## Business Model
 
@@ -113,10 +115,10 @@ The Gemini boundary presents a second challenge: a helpful explanation must neve
 
 - Three signed image versions with nested C2PA parent ingredients.
 - Shared Event IDs between C2PA assertions and the signed Registry.
-- Actual pixel-derived Modification Masks.
+- Actual pixel-derived Modification Masks between trusted recorded versions.
 - Working local `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence` classification flows.
 - Public one-click ProofCart demo.
-- 34/34 Python tests and 11/11 website tests at the current local checkpoint.
+- 47/47 Python tests and 14/14 website tests at the current local checkpoint.
 - Implemented `aee.text.v1` and `aee.image.c2pa.v1` Evidence Profiles, with audio/video/document/2D/3D/manufacturing explicitly marked `SPECIFIED_NOT_IMPLEMENTED`.
 - Formal L0–L5 AI involvement, multimodal adapter metrics, and owner-controlled Private Black Box / Mobile Authorization architecture without representing the next-stage features as complete.
 
@@ -184,6 +186,7 @@ Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google C
 ## Known Limitations
 
 - Development C2PA certificate, not an official production Trust List identity.
+- Single-asset forensic modification detection without trusted provenance is not implemented.
 - No persistent cloud registry yet.
 - No external users or revenue yet.
 - Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.

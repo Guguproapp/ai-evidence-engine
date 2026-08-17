@@ -20,7 +20,9 @@ test("server-renders the Traditional Chinese default verifier", async () => {
   const html = await response.text();
   assert.match(html, /<title>AI Evidence Engine/);
   assert.match(html, /<html lang="zh-Hant-TW"/);
-  assert.match(html, /看見內容從哪裡來/);
+  assert.match(html, /驗證內容的來源履歷/);
+  assert.match(html, /有紀錄的版本改了什麼/);
+  assert.match(html, /沒有可信履歷時，系統會明確標示無法確認/);
   assert.match(html, /通用證據護照/);
   assert.match(html, /試用 60 秒示範/);
   assert.match(html, /上傳圖片/);
@@ -30,6 +32,7 @@ test("server-renders the Traditional Chinese default verifier", async () => {
   assert.match(html, />繁中</);
   assert.match(html, />EN</);
   assert.doesNotMatch(html, />Authentic</);
+  assert.doesNotMatch(html, /可以辨識任何修過的圖片|可以掃陌生圖片判斷是否修圖|AI fake detector|Detects any edited image|Detects fake images|Finds modifications in any image/i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 

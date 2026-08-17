@@ -2,9 +2,11 @@
 
 Local-first **Universal Evidence Passport for Digital & Physical Creation** by **GUGUPRO**.
 
-This is not an AI detector and does not produce legal conclusions. It records where a creation came from, which tools or agents changed it, how much changed, and whether its signed history was tampered with. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and digital manufacturing share the same Passport, Event Chain, Registry, and Private Wallet architecture.
+This is not an AI detector and does not produce legal conclusions. It preserves and verifies recorded provenance, tools, signed version history, and tamper evidence. When trusted versions exist, it measures their recorded changes. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and digital manufacturing share the same Passport, Event Chain, Registry, and Private Wallet architecture.
 
 **Current capability boundary:** AEE can verify content changes when a trusted source/version history exists. For an unfamiliar asset without a trusted original or provenance history, it can report only the provenance and integrity evidence actually present; it cannot currently guarantee that the asset was modified, locate the edit, calculate an edit ratio, or recover the original source from that single asset. See [Provenance Verification vs. Forensic Modification Detection](docs/PROVENANCE_VS_FORENSIC_CAPABILITIES.md).
+
+Capability levels: **Level 1 Provenance Verification — IMPLEMENTED**; **Level 2 Known-Version Modification Comparison — IMPLEMENTED**; **Level 3 Single-Asset Forensic Modification Detection — NOT IMPLEMENTED**.
 
 ## Working checkpoint
 

@@ -46,7 +46,7 @@
 
 旁白：
 
-> How can we prove where digital content came from — without guessing whether AI made it? AI Evidence Engine is a Universal Evidence Passport for digital and physical creation.
+> How can we verify recorded provenance — without guessing whether AI made the content? AI Evidence Engine preserves signed version history and measures changes between trusted recorded versions.
 
 ### 00:15–00:45｜真正上傳並驗證
 
@@ -115,5 +115,8 @@
 - C2PA Manifest 與內容完整性是真實官方工具結果，不是自製相似格式。
 - Demo 使用 Development signer，並未宣稱正式 Trust List 身分。
 - Modification Mask 是可解釋像素差異，不代表意圖、著作權比例、侵權或世界真相。
+- Level 1 Provenance Verification 與 Level 2 Known-Version Modification Comparison 已實作；Level 3 Single-Asset Forensic Modification Detection 尚未實作。
+- 不得宣稱 `Detects any edited image`、`Detects fake images`、`Finds modifications in any image`、`AI fake detector`、可以辨識任何修過的圖片，或可以掃陌生圖片判斷是否修圖。
+- 可使用 `Verifies recorded provenance`、`Verifies signed version history`、`Measures changes between trusted recorded versions`、`Preserves evidence from the moment content is created`。
 - Public Verifier 只有最低必要 Public Passport；完整 Prompt、原始私人素材與敏感輸入不公開。
 - Private Black Box 與 Mobile Authorization 本輪只有規格與 Next Stage 畫面，尚未正式實作。

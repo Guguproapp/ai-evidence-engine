@@ -415,8 +415,9 @@ export function EvidenceVerifier() {
       <section className="hero" id="top">
         <div className="hero-copy">
           <span className="eyebrow">{t("UNIVERSAL EVIDENCE PASSPORT")}</span>
-          <h1>{t("Prove where a creation came from.")}<br /><em>{t("Without guessing.")}</em></h1>
-          <p>{t("AI Evidence Engine records verifiable origin, tools, changes, and history across digital and physical creation. Image provenance is the first working modality.")}</p>
+          <h1>{t("Verify recorded provenance.")}<br /><em>{t("See what changed between trusted versions.")}</em></h1>
+          <p>{t("AI Evidence Engine verifies signed provenance, tools, changes, and version history. Image provenance is the first working modality.")}</p>
+          <p className="capability-boundary">{t("With trusted provenance, AEE verifies versions and measured changes. Without it, AEE reports Unverified instead of guessing whether content is real, fake, or AI-generated.")}</p>
           <div className="hero-actions">
             <button className="primary" onClick={tryDemo}>{t("Try the 60-second demo")} <span>→</span></button>
             <label className="secondary upload-button">{t("Upload an image")}<input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFile} /></label>
