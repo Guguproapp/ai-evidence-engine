@@ -75,6 +75,7 @@ test("declares upload limits and client-side validation", async () => {
   assert.match(verifier, /uploadError \? <div className="loading">/);
   assert.match(verifier, /setUploadError\(""\)/);
   assert.match(dictionary, /所選檔案無法處理，因此不顯示任何驗證結果。/);
+  assert.match(dictionary, /檔案太大，請選擇 10 MB 以下的圖片。/);
   assert.doesNotMatch(verifier, /fetch\([^)]*file|FormData|innerHTML|eval\(/);
 });
 
@@ -105,11 +106,31 @@ test("exposes the bounded Gemini evidence explainer", async () => {
   assert.match(verifier, /NEXT — NOT YET IMPLEMENTED/);
   assert.match(verifier, /One evidence foundation\. Many creation formats\./);
   assert.match(verifier, /Explain with Gemini/);
-  assert.match(verifier, /Hashes, signatures, C2PA, and the Registry remain the source of truth/);
+  assert.match(verifier, /AI only helps interpret the result\. It does not participate in verification decisions\./);
   assert.match(verifier, /ai-evidence-explainer-856572888721\.asia-east1\.run\.app/);
   assert.match(verifier, /payload\.verification_status !== status/);
   assert.match(verifier, /cryptographic verification result above is unchanged/);
   assert.match(verifier, /measured pixel change/);
   assert.match(verifier, /Private disclosure architecture — not yet implemented/);
   assert.match(verifier, /AI involvement/);
+});
+
+test("separates plain-language verification results from developer evidence", async () => {
+  const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  const dictionary = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
+  assert.match(verifier, /className="plain-result-facts"/);
+  assert.match(verifier, /className="technical-details"/);
+  assert.match(verifier, /View technical details/);
+  assert.match(verifier, /Full SHA-256/);
+  assert.match(verifier, /Copy hash/);
+  assert.match(verifier, /Reason codes/);
+  assert.match(verifier, /Canonical JSON/);
+  assert.match(dictionary, /無法確認來源/);
+  assert.match(dictionary, /這不代表圖片是假的，也不代表圖片由 AI 生成/);
+  assert.match(dictionary, /AEE 來源履歷/);
+  assert.match(dictionary, /C2PA 來源憑證/);
+  assert.match(dictionary, /簽署者身分/);
+  assert.match(dictionary, /AI 參與/);
+  assert.match(dictionary, /AI 僅協助解讀，不參與驗證判定/);
+  assert.doesNotMatch(verifier, /<h3>\{upload\.name\}<\/h3>/);
 });

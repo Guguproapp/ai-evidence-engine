@@ -140,12 +140,14 @@ export function EvidenceVerifier() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [upload, setUpload] = useState<UploadResult | null>(null);
   const [uploadError, setUploadError] = useState("");
+  const [uploadErrorDetail, setUploadErrorDetail] = useState("");
   const [busy, setBusy] = useState(false);
   const [evidenceQuery, setEvidenceQuery] = useState("");
   const [queryMessage, setQueryMessage] = useState("");
   const [explanation, setExplanation] = useState<ExplanationResult | null>(null);
   const [explanationError, setExplanationError] = useState("");
   const [explanationBusy, setExplanationBusy] = useState(false);
+  const [hashCopied, setHashCopied] = useState(false);
   const resultRef = useRef<HTMLElement | null>(null);
   const verificationAttempts = useRef<number[]>([]);
   const t = (key: string) => translate(locale, key);
@@ -192,6 +194,13 @@ export function EvidenceVerifier() {
   function clearExplanation() {
     setExplanation(null);
     setExplanationError("");
+  }
+
+  async function copyUploadHash() {
+    if (!upload) return;
+    await navigator.clipboard.writeText(upload.hash);
+    setHashCopied(true);
+    window.setTimeout(() => setHashCopied(false), 1600);
   }
 
   async function requestExplanation(
@@ -262,6 +271,7 @@ export function EvidenceVerifier() {
     setView("comparison");
     setUpload(null);
     setUploadError("");
+    setUploadErrorDetail("");
     clearExplanation();
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
@@ -271,7 +281,9 @@ export function EvidenceVerifier() {
     event.target.value = "";
     if (!file) return;
     setUploadError("");
+    setUploadErrorDetail("");
     setUpload(null);
+    setHashCopied(false);
     clearExplanation();
     const now = Date.now();
     verificationAttempts.current = verificationAttempts.current.filter((value) => now - value < 60_000);
@@ -285,7 +297,7 @@ export function EvidenceVerifier() {
       return;
     }
     if (file.size > MAX_UPLOAD) {
-      setUploadError("File is larger than the 10 MB safety limit.");
+      setUploadError("File is too large. Please choose an image under 10 MB.");
       return;
     }
     setBusy(true);
@@ -362,7 +374,8 @@ export function EvidenceVerifier() {
         matchedVersion,
       });
     } catch (error) {
-      setUploadError(error instanceof Error ? `Verification failed: ${error.message}` : "Verification failed.");
+      setUploadError("The image file could not be read. Please choose a valid PNG, JPEG, or WebP image.");
+      setUploadErrorDetail(error instanceof Error ? error.message : "unknown_file_read_error");
     } finally {
       setBusy(false);
     }
@@ -373,12 +386,12 @@ export function EvidenceVerifier() {
     if (!demo || !query) return;
     const found = demo.versions.find((item) => item.event_id.toLowerCase() === query || item.version_id.toLowerCase() === query) || (demo.passport_id.toLowerCase() === query ? demo.versions.at(-1) : undefined);
     if (!found) {
-      setQueryMessage("No registry record found for that Evidence ID.");
+      setQueryMessage("No AEE provenance history was found for that Evidence ID.");
       return;
     }
     setSelected(demo.versions.indexOf(found));
     clearExplanation();
-    setQueryMessage(`Registry record found: ${found.version_id}`);
+    setQueryMessage(`AEE provenance history found: ${found.version_id}`);
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
 
@@ -423,34 +436,47 @@ export function EvidenceVerifier() {
             <span className="upload-icon">↑</span><b>{t(busy ? "Checking C2PA and signature…" : "Choose an image to verify")}</b><small>{t("PNG, JPEG, or WebP · maximum 10 MB")}</small>
             <input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFile} disabled={busy} />
           </label>
-          <div className="evidence-lookup"><label htmlFor="evidence-id">{t("Or enter an Evidence ID")}</label><div><input id="evidence-id" value={evidenceQuery} onChange={(event) => setEvidenceQuery(event.target.value)} placeholder="proofcart-v3" /><button onClick={lookupEvidence}>{t("Verify")}</button></div>{queryMessage && <small>{queryMessage.startsWith("Registry record found:") ? `${t("Registry record found:")} ${queryMessage.split(": ")[1]}` : t(queryMessage)}</small>}</div>
+          <div className="evidence-lookup"><label htmlFor="evidence-id">{t("Or enter an Evidence ID")}</label><div><input id="evidence-id" value={evidenceQuery} onChange={(event) => setEvidenceQuery(event.target.value)} placeholder="proofcart-v3" /><button onClick={lookupEvidence}>{t("Verify")}</button></div>{queryMessage && <small>{queryMessage.startsWith("AEE provenance history found:") ? `${t("AEE provenance history found:")} ${queryMessage.split(": ")[1]}` : t(queryMessage)}</small>}</div>
         </div>
-        {uploadError && <div className="alert error">{uploadError.startsWith("Verification failed:") ? `${t("Verification failed.")} ${uploadError.slice(20)}` : t(uploadError)}</div>}
-        {upload && <div className="upload-result"><StatusPill value={upload.result} locale={locale} /><div><b>{upload.name}</b><small>SHA-256 {short(upload.hash, 16)} · {upload.manifestCount} C2PA Manifest</small></div>{upload.matchedVersion && <span>{t("Registry match:")} {upload.matchedVersion.version_id}</span>}</div>}
+        {uploadError && <><div className="alert error">{t(uploadError)}</div>{uploadErrorDetail && <details className="error-technical-details"><summary>{t("View technical details")}</summary><code>{uploadErrorDetail}</code></details>}</>}
+        {upload && <div className="upload-result"><StatusPill value={upload.result} locale={locale} /><div><b>{t("Uploaded image")}</b><small>{t("Content fingerprint")}: {t("Available")} · {t("C2PA provenance credential")}: {t(upload.manifestCount > 0 ? "Found" : "Not found")}</small></div>{upload.matchedVersion && <span>{t("AEE provenance history:")} {t("Found")}</span>}</div>}
       </section>
 
       <section className="verification-section" ref={resultRef}>
         <div className="section-heading"><div><span className="section-number">02</span><h2>{t("Verification result")}</h2></div>{!uploadError && (upload || (version && verification)) && <StatusPill value={upload?.result ?? result} locale={locale} />}</div>
         {uploadError ? <div className="loading">{t("No verification result is shown because the selected file could not be processed.")}</div> : upload && !upload.matchedVersion ? <div className="standalone-result">
-          <div><span>{t("Uploaded file")}</span><h3>{upload.name}</h3><p>{t(upload.result === "Invalid Evidence" ? "Evidence is present, but the asset bytes, C2PA claim, signature, or chain do not validate." : "This file is not proven original or modified because no matching AI Evidence Registry record was found.")}</p></div>
-          <dl>
+          <div><span>{t("Uploaded image")}</span><h3>{t(upload.result === "Invalid Evidence" ? "Evidence could not be validated" : "Unable to confirm source")}</h3><p>{t(upload.result === "Invalid Evidence" ? "The image contains evidence, but one or more integrity checks failed. Open technical details to see the exact reason." : "No verifiable AEE provenance history or C2PA credential was found for this image. This does not mean the image is fake or AI-generated.")}</p></div>
+          <dl className="plain-result-facts">
             <div><dt>{t("Provenance")}</dt><dd><StatusPill value={upload.result} locale={locale} /></dd></div>
             <div><dt>{t("Integrity")}</dt><dd>{t(upload.integrityState)}</dd></div>
-            <div><dt>{t("C2PA integrity")}</dt><dd>{t(upload.c2paIntegrity)}</dd></div>
-            <div><dt>{t("Registry")}</dt><dd>{t(upload.registryStatus)}</dd></div>
-            <div><dt>{t("Identity trust")}</dt><dd>{t(upload.identityTrust)}</dd></div>
-            <div><dt>{t("AI involvement")}</dt><dd>{upload.aiInvolvement === "UNKNOWN" ? t("Unknown — no signed Event level") : upload.aiInvolvement}</dd></div>
-            <div><dt>{t("Content hash")}</dt><dd><code>{upload.hash}</code></dd></div>
-            <div><dt>{t("C2PA manifests")}</dt><dd>{upload.manifestCount}</dd></div>
-            <div><dt>{t("Active manifest")}</dt><dd><code>{upload.activeManifest ?? t("None")}</code></dd></div>
-            <div><dt>{t("Validation")}</dt><dd>{upload.validation.map((item) => item.code).filter(Boolean).join(", ") || t("No C2PA validation record")}</dd></div>
-            <div><dt>{t("Decision reasons")}</dt><dd>{upload.reasons.join(", ")}</dd></div>
+            <div><dt>{t("AEE provenance history")}</dt><dd>{t(upload.registryStatus === "Matched" ? "Found" : "Not found")}</dd></div>
+            <div><dt>{t("C2PA provenance credential")}</dt><dd>{t(upload.c2paIntegrity === "Invalid" ? "Invalid" : upload.manifestCount > 0 ? "Found" : "Not found")}</dd></div>
+            <div><dt>{t("Signer identity")}</dt><dd>{t(upload.identityTrust === "Development" ? "Development certificate" : upload.identityTrust === "Unknown" ? "No verifiable data" : upload.identityTrust)}</dd></div>
+            <div><dt>{t("AI involvement summary")}</dt><dd>{upload.aiInvolvement === "UNKNOWN" ? t("Cannot determine") : upload.aiInvolvement}</dd></div>
+            <div><dt>{t("Content fingerprint")}</dt><dd>{t("Available")} · <code>{short(upload.hash, 8)}</code></dd></div>
           </dl>
-          <details><summary>{t("Developer JSON")}</summary><pre>{JSON.stringify(upload.raw, null, 2)}</pre></details>
+          <details className="technical-details">
+            <summary><span><b>{t("View technical details")}</b><small>{t("Technical evidence and reason codes")}</small></span><span>＋</span></summary>
+            <div className="technical-details-body">
+              <dl>
+                <div><dt>{t("Filename")}</dt><dd><code>{upload.name}</code></dd></div>
+                <div><dt>{t("Full SHA-256")}</dt><dd><code>{upload.hash}</code><button type="button" className="copy-button" onClick={copyUploadHash}>{t(hashCopied ? "Copied" : "Copy hash")}</button></dd></div>
+                <div><dt>{t("Manifest count")}</dt><dd>{upload.manifestCount}</dd></div>
+                <div><dt>{t("Active manifest")}</dt><dd><code>{upload.activeManifest ?? t("None")}</code></dd></div>
+                <div><dt>{t("Registry state")}</dt><dd>{upload.registryStatus}</dd></div>
+                <div><dt>{t("Identity trust")}</dt><dd>{upload.identityTrust}</dd></div>
+                <div><dt>{t("AI involvement evidence")}</dt><dd>{upload.aiInvolvement}</dd></div>
+                <div><dt>{t("Validation")}</dt><dd>{upload.validation.map((item) => item.code).filter(Boolean).join(", ") || "no_c2pa_validation_record"}</dd></div>
+                <div><dt>{t("Reason codes")}</dt><dd>{upload.reasons.join(", ")}</dd></div>
+              </dl>
+              <details><summary>{t("Canonical JSON")}</summary><pre>{JSON.stringify({ filename: upload.name, content_sha256: upload.hash, provenance_state: upload.result, integrity_state: upload.integrityState, c2pa_manifest_count: upload.manifestCount, active_manifest: upload.activeManifest, registry_state: upload.registryStatus, identity_trust: upload.identityTrust, ai_involvement: upload.aiInvolvement, reason_codes: upload.reasons, validation: upload.validation, c2pa: upload.raw }, null, 2)}</pre></details>
+              {explanation && <dl><div><dt>{t("Gemini model")}</dt><dd>{explanation.model} on Vertex AI</dd></div><div><dt>{t("Verification status")}</dt><dd>{explanation.verification_status}</dd></div></dl>}
+            </div>
+          </details>
           <div className="gemini-explainer">
             <span>{t("AI EVIDENCE EXPLANATION")}</span>
             <h3>{t("Explain the verified facts in plain language")}</h3>
-            {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · {t("Status remains")} {t(explanation.verification_status)}</small></> : explanationError ? <p className="explanation-fallback">{t(explanationError)}</p> : <p>{t("Gemini explains verified facts; it cannot assign or change the provenance state.")}</p>}
+            {explanation ? <><p>{explanation.explanation}</p><small>{t("AI only helps interpret the result. It does not participate in verification decisions.")}</small></> : explanationError ? <p className="explanation-fallback">{t(explanationError)}</p> : <p>{t("AI only helps interpret the result. It does not participate in verification decisions.")}</p>}
             <button className="secondary" onClick={explainUpload} disabled={explanationBusy}>{t(explanationBusy ? "Asking Gemini…" : explanation ? "Explain again" : "Explain with Gemini")}</button>
           </div>
           <button className="secondary" onClick={tryDemo}>{t("Return to signed demo")}</button>
@@ -469,17 +495,17 @@ export function EvidenceVerifier() {
               <div className="plain-answer"><span>{t("What happened?")}</span><h3>{t(version.parent_version_id ? "This image was modified." : "This is the recorded original.")}</h3><p>{humanAction(version.action_type, locale)}</p></div>
               <dl>
                 <div><dt>{t("Evidence signature")}</dt><dd className="good">✓ {t(verification.signature_status)}</dd></div>
-                <div><dt>C2PA Manifest</dt><dd className="good">✓ {t("Embedded")} · {version.c2pa.manifest_count} {t("version(s)")}</dd></div>
+                <div><dt>{t("C2PA provenance credential")}</dt><dd className="good">✓ {t("Found")}</dd></div>
                 <div><dt>{t("Signer")}</dt><dd>{version.issuer}</dd></div>
                 <div><dt>{t("Created")}</dt><dd>{new Date(version.timestamp).toLocaleString(locale)}</dd></div>
-                <div><dt>{t("Content hash")}</dt><dd><code>{short(version.exact_hash, 18)}</code></dd></div>
-                <div><dt>{t("Registry")}</dt><dd className="good">✓ {t("Signed record found")}</dd></div>
+                <div><dt>{t("Content fingerprint")}</dt><dd><code>{short(version.exact_hash, 10)}</code></dd></div>
+                <div><dt>{t("AEE provenance history")}</dt><dd className="good">✓ {t("Found")}</dd></div>
               </dl>
-              <div className="trust-note"><b>{t("Integrity verified; development identity")}</b><p>{t("The C2PA bytes and evidence signature validate. The demo C2PA certificate is a development signer and is not on the official C2PA Trust List.")}</p></div>
+              <div className="trust-note"><b>{t("Integrity verified; development identity")}</b><p>{t("Provenance and integrity checks passed. The signer uses a development certificate. Open technical details for trust-chain information.")}</p></div>
               <div className="gemini-explainer">
                 <span>{t("AI EVIDENCE EXPLANATION")}</span>
                 <h3>{t("What this evidence means")}</h3>
-                {explanation ? <><p>{explanation.explanation}</p><small>{explanation.model} on Vertex AI · {t("Status remains")} {t(explanation.verification_status)}</small></> : explanationError ? <p className="explanation-fallback">{t(explanationError)}</p> : <p>{t("Gemini can explain these verified facts in plain language. Hashes, signatures, C2PA, and the Registry remain the source of truth.")}</p>}
+                {explanation ? <><p>{explanation.explanation}</p><small>{t("AI only helps interpret the result. It does not participate in verification decisions.")}</small></> : explanationError ? <p className="explanation-fallback">{t(explanationError)}</p> : <p>{t("AI can explain the result in plain language, but does not participate in verification decisions.")}</p>}
                 <button className="secondary" onClick={explainVersion} disabled={explanationBusy}>{t(explanationBusy ? "Asking Gemini…" : explanation ? "Explain again" : "Explain with Gemini")}</button>
               </div>
             </div>
@@ -515,11 +541,11 @@ export function EvidenceVerifier() {
               <dl>
                 <div><dt>{t("Provenance")}</dt><dd>{t(result)}</dd></div>
                 <div><dt>{t("Integrity")}</dt><dd>{t(decision?.integrityState ?? "UNVERIFIED")}</dd></div>
-                <div><dt>{t("C2PA integrity")}</dt><dd>{t(version.c2pa.embedded ? "Valid bytes / manifest present" : "Not present")}</dd></div>
+                <div><dt>{t("C2PA provenance credential")}</dt><dd>{t(version.c2pa.embedded ? "Found" : "Not found")}</dd></div>
                 <div><dt>{t("Signature")}</dt><dd>{t(verification.signature_status)}</dd></div>
-                <div><dt>{t("Identity trust")}</dt><dd>{t(version.c2pa.development_signer ? "DEVELOPMENT" : (version.identity_trust ?? version.trust_status ?? "UNKNOWN").toUpperCase())}</dd></div>
+                <div><dt>{t("Signer identity")}</dt><dd>{t(version.c2pa.development_signer ? "Development certificate" : (version.identity_trust ?? version.trust_status ?? "UNKNOWN").toUpperCase())}</dd></div>
                 <div><dt>{t("AI involvement")}</dt><dd>{version.involvement_level} — {t("from signed Event evidence")}</dd></div>
-                <div><dt>{t("Registry")}</dt><dd>{t(verification.verified ? "Matched" : "Invalid")}</dd></div>
+                <div><dt>{t("AEE provenance history")}</dt><dd>{t(verification.verified ? "Found" : "Not found")}</dd></div>
               </dl>
             </article>
             <article>
@@ -541,18 +567,18 @@ export function EvidenceVerifier() {
 
           <section className="proofcart" id="proofcart">
             <div className="proofcart-image"><span className="product-badge">{t("Evidence protected")}</span><img src="/demo/version-3.png" alt="ProofCart verified listing" /></div>
-            <div className="proofcart-copy"><span className="eyebrow">{t("PROOFCART · VERTICAL DEMO")}</span><h2>{t("A buyer can verify the listing photo before trusting it.")}</h2><p>{t("The seller's original, both edits, exact changed region, C2PA chain, and registry signature are attached to one product photo.")}</p><button className="primary" onClick={tryDemo}>{t("Verify Evidence")} <span>→</span></button><div className="seller-proof"><span>{t("Seller image")}</span><b>{t("Signed by gugupro demo issuer")}</b><small>{t("Evidence ID")} {short(version.event_id, 14)}</small></div></div>
+            <div className="proofcart-copy"><span className="eyebrow">{t("PROOFCART · VERTICAL DEMO")}</span><h2>{t("A buyer can verify the listing photo before trusting it.")}</h2><p>{t("The seller's original, both edits, exact changed region, C2PA chain, and signed provenance history are attached to one product photo.")}</p><button className="primary" onClick={tryDemo}>{t("Verify Evidence")} <span>→</span></button><div className="seller-proof"><span>{t("Seller image")}</span><b>{t("Signed by gugupro demo issuer")}</b><small>{t("Evidence ID")} {short(version.event_id, 14)}</small></div></div>
           </section>
 
           <section className="universal-architecture" aria-label={t("Universal Evidence Passport architecture")}>
-            <div className="architecture-intro"><span className="eyebrow">{t("UNIVERSAL EVIDENCE PASSPORT")}</span><h2>{t("One evidence foundation. Many creation formats.")}</h2><p>{t("Images are the first working adapter. Every modality connects to the same signed Passport, Event Chain, Registry, and owner-controlled Private Wallet.")}</p></div>
+            <div className="architecture-intro"><span className="eyebrow">{t("UNIVERSAL EVIDENCE PASSPORT")}</span><h2>{t("One evidence foundation. Many creation formats.")}</h2><p>{t("Images are the first working adapter. Every modality connects to the same signed Passport, Event Chain, provenance index, and owner-controlled Private Wallet.")}</p></div>
             <div className="adapter-grid">
               {[
                 ["Text", "Text DNA · source coverage"], ["Image", "C2PA · spatial change"], ["Video", "Timeline · frames · audio"], ["Audio", "Segments · spectral fingerprint"],
                 ["Documents", "PDF · Office · embedded media"], ["2D Design", "Layers · geometry · print lineage"], ["3D Models", "Mesh · topology · dimensions"], ["Manufacturing", "CAD → G-code → physical output"],
               ].map(([name, detail]) => <div key={name}><b>{t(name)}</b><small>{t(detail)}</small></div>)}
             </div>
-            <div className="shared-foundation"><b>{t("Shared foundation")}</b><span>Passport</span><span>Event Chain</span><span>Hash</span><span>Signature</span><span>Registry</span><span>Private Wallet</span></div>
+            <div className="shared-foundation"><b>{t("Shared foundation")}</b><span>Passport</span><span>Event Chain</span><span>Hash</span><span>Signature</span><span>{t("Provenance index")}</span><span>Private Wallet</span></div>
           </section>
 
           <section className="next-stage" aria-label={t("Next stage private evidence authorization")}>
@@ -564,7 +590,7 @@ export function EvidenceVerifier() {
 
           <section className="developer-details" id="details">
             <button onClick={() => setDetailsOpen(!detailsOpen)} aria-expanded={detailsOpen}><span><b>{t("Advanced / Developer details")}</b><small>{t("Raw C2PA and registry evidence")}</small></span><span>{detailsOpen ? "−" : "+"}</span></button>
-            {detailsOpen && <div className="details-body"><div><b>{t("C2PA tool")}</b><code>{demo.c2pa_tool}</code></div><div><b>{t("Active manifest")}</b><code>{version.c2pa.active_manifest}</code></div><div><b>{t("Evidence event")}</b><code>{version.event_id}</code></div><div><b>{t("Parent event")}</b><code>{version.parent_event ?? t("None")}</code></div><div><b>{t("Event hash")}</b><code>{version.event_hash}</code></div><a href={version.c2pa.raw_report} target="_blank" rel="noreferrer">{t("Open preserved raw C2PA JSON")} →</a></div>}
+            {detailsOpen && <div className="details-body"><div><b>{t("C2PA tool")}</b><code>{demo.c2pa_tool}</code></div><div><b>{t("Manifest count")}</b><code>{version.c2pa.manifest_count}</code></div><div><b>{t("Active manifest")}</b><code>{version.c2pa.active_manifest}</code></div><div><b>{t("Full SHA-256")}</b><code>{version.exact_hash}</code></div><div><b>{t("Registry state")}</b><code>{verification.verified ? "matched" : "invalid"}</code></div><div><b>{t("Identity trust")}</b><code>{version.c2pa.development_signer ? "DEVELOPMENT" : (version.identity_trust ?? "UNKNOWN")}</code></div><div><b>{t("Evidence event")}</b><code>{version.event_id}</code></div><div><b>{t("Parent event")}</b><code>{version.parent_event ?? t("None")}</code></div><div><b>{t("Event hash")}</b><code>{version.event_hash}</code></div>{explanation && <><div><b>{t("Gemini model")}</b><code>{explanation.model} on Vertex AI</code></div><div><b>{t("Verification status")}</b><code>{explanation.verification_status}</code></div></>}<a href={version.c2pa.raw_report} target="_blank" rel="noreferrer">{t("Open preserved raw C2PA JSON")} →</a></div>}
           </section>
         </>}
       </section>
