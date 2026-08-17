@@ -5,8 +5,8 @@ Audit time: 2026-08-18 01:27 CST / 2026-08-17 10:27 PDT.
 | Gate | Status | Evidence / action |
 |---|---|---|
 | Deadline | READY | Deadline 2026-08-17 13:00 PDT; approximately 2h32m remained at audit time |
-| Entrant | OWNER INPUT REQUIRED | Individual, Tsing-YI Chen; owner must attest eligibility |
-| Category | READY | Small Business Services |
+| Entrant | OWNER INPUT REQUIRED | Prepared as Individual, Tsing-YI Chen; no Devpost draft exists and owner must attest eligibility |
+| Category | MISSING | Prepared choice is Small Business Services; it has not yet been selected in Devpost |
 | Project start eligibility | READY | Earliest verified AEE commit and repository/cloud creation are 2026-08-14 |
 | Project start proof | READY | `PROJECT_START_EVIDENCE.md` and `project-start-proof/` |
 | Pre-existing work disclosure | READY | `PREEXISTING_WORK_DISCLOSURE.md` |

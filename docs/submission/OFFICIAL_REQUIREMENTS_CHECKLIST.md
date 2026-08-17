@@ -7,7 +7,7 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Joined Hackathon | READY | Signed-in Devpost account can access the event submission manager |
 | Submission draft created | MISSING | Live Devpost page shows no project and only `Create project` |
 | Eligible individual | OWNER INPUT REQUIRED | Entrant must attest age, residence, exclusions, and conflicts |
-| Category selected | READY | Small Business Services |
+| Category selected | MISSING | Prepared choice is Small Business Services, but no Devpost submission draft exists yet |
 | Project created after May 19 | READY | Objective dates in `PROJECT_START_EVIDENCE.md`; owner attestation remains required |
 | Pre-existing work disclosure | READY | `PREEXISTING_WORK_DISCLOSURE.md` |
 | Google Cloud product used | READY | Cloud Run, Vertex AI, Cloud Storage |
