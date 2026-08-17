@@ -1,0 +1,13 @@
+Evidence source: GitHub API repos/Guguproapp/ai-evidence-engine
+Collected: 2026-08-18
+
+full_name: Guguproapp/ai-evidence-engine
+html_url: https://github.com/Guguproapp/ai-evidence-engine
+private: false
+visibility: public
+created_at: 2026-08-14T11:24:21Z
+default_branch: main
+license: Apache-2.0
+remote_main_sha_at_collection: 27d73634ea61982cdd33eb5dca608ab870b8d106
+remote_main_commit_date: 2026-08-17T13:46:24Z
+remote_main_subject: docs: record final legacy bridge regression

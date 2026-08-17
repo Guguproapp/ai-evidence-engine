@@ -1,0 +1,311 @@
+commit 27d73634ea61982cdd33eb5dca608ab870b8d106 (HEAD -> main, origin/main, origin/HEAD)
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 21:46:24 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 21:46:24 2026 +0800
+
+    docs: record final legacy bridge regression
+
+commit a259ac45a1afa6439e2e8a11440b8dcbbc5858a6
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 21:43:32 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 21:43:32 2026 +0800
+
+    test: record physical iPhone legacy bridge gate
+
+commit 87cf775c618858098e8f5022083a82b8dd973dcc
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 21:21:34 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 21:21:34 2026 +0800
+
+    fix: recover legacy bridge history after restart
+
+commit b6c11a2c6bfc6e3903ccc07bf463dc94c5c02e77
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 20:41:50 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 20:41:50 2026 +0800
+
+    feat: add legacy first-seen evidence bridge
+
+commit a5f69e494a13be6e0b57ac68023b8c048fbb903b
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 15:01:09 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 15:01:09 2026 +0800
+
+    docs: align public copy with provenance boundary
+
+commit 3c28ed50e90898279435ffd2405854f94f635e0e
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 13:03:25 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 13:03:25 2026 +0800
+
+    docs: separate provenance from forensic detection
+
+commit 81c579cdea66a063acab0a9d5a0e02dd7d1565c4
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 11:14:32 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 11:14:32 2026 +0800
+
+    docs: add UI layering production evidence
+
+commit 2842119e18758cd4a3c0a67b9654c88f5aa638b9
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 11:10:02 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 11:10:02 2026 +0800
+
+    fix: separate public evidence summary from developer details
+
+commit 7d76e8f28fb6f45fc4e545bda0f94d350f4c820c
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 07:11:31 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 07:11:31 2026 +0800
+
+    docs: correct physical device test status
+
+commit c9b6b8c4838cfbd9d8ce7fbd42e317b4b17bd5b0
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 07:08:31 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 07:08:31 2026 +0800
+
+    docs: add manual user test 023 evidence
+
+commit 764089dfcaf7a4f2bb853345b1326f3e73804638
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 06:58:06 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 06:58:06 2026 +0800
+
+    fix verifier stale success after invalid upload
+
+commit e4cb26df732806a4d5c011e3f30c17f354a9651a
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 02:24:40 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 02:24:40 2026 +0800
+
+    feat: add signed evidence continuity demo
+
+commit a8eccd8fb2e909310097593b1db2a7cb130197f0
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Mon Aug 17 00:41:49 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Mon Aug 17 00:41:49 2026 +0800
+
+    feat: bind remote seals to signed events
+
+commit 6e0dedfafaa80bdf0af450ff5cb0027b549ec10f
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sun Aug 16 23:58:02 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sun Aug 16 23:58:02 2026 +0800
+
+    feat: add remote black box test API
+
+commit 9b34a3f3d7c359311efbf2a77fd9f08e225cdc3e
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sun Aug 16 11:13:09 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sun Aug 16 11:13:09 2026 +0800
+
+    fix: persist locale during early language switch
+
+commit b0a68f2d1e30c5081983961e315ab91aa474c1dd
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sun Aug 16 11:04:31 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sun Aug 16 11:04:31 2026 +0800
+
+    Add bilingual verifier and Android Play preparation
+
+commit 5bc117cecbf032f8198e0daa093bacfd95c7ead3
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 18:04:23 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 18:04:23 2026 +0800
+
+    Replace silent demo with narrated video
+
+commit c91fe1138dde6a96458feebba2bd9265a1918fb4
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 17:15:03 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 17:15:03 2026 +0800
+
+    Record public XPRIZE demo video
+
+commit 01c78f2845bd481016fba0be81a11559f41cdb9f
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 09:31:09 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 09:31:09 2026 +0800
+
+    Prepare XPRIZE individual entrant closeout packet
+
+commit 64193a853f5099e1259ee43899d0d2ae1d3f688a
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 08:57:47 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 08:57:47 2026 +0800
+
+    docs: audit xprize qualification evidence
+
+commit 59f603461eba131a8c6263d5062dcc0bce2f09eb
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 07:46:23 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 07:46:23 2026 +0800
+
+    docs: record AEE v1 production verification
+
+commit 2e8ef3cea3945f8db830ff76fd97e4d45e5cc3c8
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 07:13:02 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 07:13:02 2026 +0800
+
+    feat: implement AEE evidence coding standard v1
+
+commit 78b2282a1add33363664b0d10091ca8c49303aac
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 05:59:59 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 05:59:59 2026 +0800
+
+    docs: mark final demo private pending review
+
+commit a4a949929e03990aa49dc8a20349a80946a5dcdf
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 05:56:01 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 05:56:01 2026 +0800
+
+    docs: record final video edge check
+
+commit e369ed12a147a255b2dbfccc0cd5a2fdd6312ea6
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 05:55:10 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 05:55:10 2026 +0800
+
+    docs: publish rebuilt xprize demo video
+
+commit 615bb316a5e0a21246df8eb338d4a0ba07762d76
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 05:29:57 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 05:29:57 2026 +0800
+
+    Record Version 4 production regression
+
+commit b0eb08c74c78ca5f6fa271204d8f335d74d850fd
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 04:50:38 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 04:50:38 2026 +0800
+
+    Reframe verifier as universal evidence passport
+
+commit ca8dc05f921481b9cda8a141e753dbb1512936ee
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 02:39:10 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 02:39:10 2026 +0800
+
+    docs: publish xprize demo video
+
+commit 51ba2d0f8bcdc057c23bb3b3ed717c8845ae1932
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Sat Aug 15 02:19:04 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Sat Aug 15 02:19:04 2026 +0800
+
+    docs: refresh production v3 submission evidence
+
+commit c0a407a160c3bf90a03f76a75c69ce6f577f5976
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 23:26:02 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 23:26:02 2026 +0800
+
+    fix: render gugupro brand correctly
+
+commit 15f93c006763ec7611b25468bdda3ea4d813a9d1
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 23:11:35 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 23:11:35 2026 +0800
+
+    docs: add submission demo video
+
+commit f8112c8f55746f02330f4dac019d8d67b8144519
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 22:52:03 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 22:52:03 2026 +0800
+
+    docs: record production verifier integration
+
+commit 362b324ce117ccf53efb1c3db84d31c3608a89f8
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 22:33:11 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 22:33:11 2026 +0800
+
+    feat: deploy Gemini evidence explainer
+
+commit 65f500ac5fabb787261017a0360f7cc8d72488a6
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 19:26:23 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 19:26:23 2026 +0800
+
+    chore: use complete Apache 2.0 license
+
+commit e2bfc7879e6af68fe741682403862a1a3de0a00e
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 19:24:47 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 19:24:47 2026 +0800
+
+    docs: record public repository
+
+commit bf47d51c856483439d2e66dbbac1861774c3679d
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 19:24:00 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 19:24:00 2026 +0800
+
+    docs: record submission readiness blockers
+
+commit bc62d6bd943da41047e66fd0abc05307e8b69363
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 03:16:52 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 03:16:52 2026 +0800
+
+    Prepare Gemini XPRIZE compliance and explainer
+
+commit 0fff179cb35ca9841a478dd749a62ec127da47bc
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 01:55:58 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 01:55:58 2026 +0800
+
+    Add hackathon demo runbook and submission draft
+
+commit f63318236bc5e80b8fd1ee7238c3275ce3140f42
+Author:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+AuthorDate: Fri Aug 14 00:46:34 2026 +0800
+Commit:     Guguproapp <w7ysm97864@privaterelay.appleid.com>
+CommitDate: Fri Aug 14 00:46:34 2026 +0800
+
+    Build judge-ready AI Evidence Engine verifier

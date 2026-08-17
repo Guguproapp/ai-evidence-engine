@@ -1,0 +1,9 @@
+Evidence collected: 2026-08-18
+
+commit f63318236bc5e80b8fd1ee7238c3275ce3140f42
+AuthorDate: 2026-08-14T00:46:34+08:00
+CommitDate: 2026-08-14T00:46:34+08:00
+Subject: Build judge-ready AI Evidence Engine verifier
+
+Hackathon start: 2026-05-19T10:00:00-07:00
+Earliest Git evidence falls after start: YES

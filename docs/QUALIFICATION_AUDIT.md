@@ -1,6 +1,6 @@
 # Build with Gemini XPRIZE — Final Qualification Audit
 
-Audit date: 2026-08-15. Overall status: **FAIL — NOT SUBMISSION READY**.
+Audit date: 2026-08-18. Overall status: **FAIL — NOT SUBMISSION READY**.
 
 Official references checked: Devpost Overview, FAQ, Schedule, and the XPRIZE launch announcement. The Rules page itself requires interactive browser verification; no rule acceptance or legal attestation was performed by this audit.
 
@@ -31,17 +31,18 @@ Entrant Type: **INDIVIDUAL**.
 | Repository Complete | Public repository contains core, verifier, C2PA adapter, tests, explainer, and submission docs | PASS | Repository URL |
 | Relevant License | Public repository reports Apache-2.0 | PASS | Repository / `LICENSE` |
 | Public / Judge-accessible Demo | Anonymous HTTPS verifier and Cloud Run health both returned HTTP 200 on 2026-08-15 | PASS | Public Demo URL |
-| Video <3 minutes | Final narrated candidate is 162.734 seconds, 1920×1080, 30fps, 16:9, with a 48 kHz mono AAC track | PASS | Video evidence |
-| Video shows functioning Product | 2:42.733 Production recording and sampled timeline show signed upload, verification, Mask, History, tamper failure, Gemini, ProofCart, and next-stage boundary | PASS technical review | Video URL |
+| Video <3 minutes | Final narrated candidate is 148.000 seconds, 1920×1080, 30fps, 16:9, with a 48 kHz mono AAC track and embedded English subtitles | PASS local technical review | Video evidence |
+| Video shows functioning Product | Real Production and Development/Test recordings show provenance verification, First-Seen, V1 → V2, measured change, Gemini boundary, retention, HTTP 403 delete rejection, HTTP 412 overwrite rejection, retrieval, SHA-256 Match, and Evidence Continuity | PASS local technical review | Video URL |
+| Video Judge-accessible | Final 2026-08-18 candidate has not been uploaded/published; the older public video is superseded | BLOCKED owner video approval and publication | Video URL |
 | English Materials | English submission draft, testing instructions, narration, and subtitles exist | PASS | Submission text / video |
 | Revenue Disclosure | Draft total revenue is $0.00; no bank/revenue evidence or owner confirmation supplied | BLOCKED | Revenue evidence / P&L |
 | Monthly Revenue | May, June, July, August each drafted as $0.00; owner confirmation required | BLOCKED | Revenue evidence / P&L |
 | Expenses | Draft total expenses is $0.00; Google Cloud and all other billing records not yet reconciled | BLOCKED | P&L |
 | Marketing/CAC Spend | Draft $0.00 / $0.00; owner confirmation required | BLOCKED | P&L |
 | Related-Party Revenue | Draft $0.00; owner confirmation required | BLOCKED | Revenue evidence / P&L |
-| Real User Evidence | 0 verified external users; no informed external-user record or testimonial | FAIL | User evidence |
+| Real User Evidence | 0 external users disclosed truthfully; FAQ states no minimum customer threshold, though this weakens Business Viability | PASS disclosure / no traction | User evidence |
 | Production Evidence | Public verifier screenshots, Cloud Run revision, Vertex AI request logs, and Gemini response evidence exist | PASS | Production Evidence |
-| Google Cloud Billing Evidence | Current official FAQ says the minimum evidence includes monthly billing PDFs, or a zero-dollar invoice/Cost Table when using credits; no export has been supplied | BLOCKED — required submission evidence, not Entrant-type eligibility | Private/redacted evidence upload |
+| Google Cloud Billing Evidence | Rules require total-expense disclosure; the FAQ checked 2026-08-18 does not make a monthly invoice PDF a separate hard gate. Redacted Cost Table/invoice is recommended support | OWNER INPUT REQUIRED for actual expense; supporting document recommended | Private/redacted evidence upload |
 | Gemini Dashboard Evidence | Sanitized two-day dashboard screenshot shows `gemini-2.5-flash` model invocations and token usage | PASS | `docs/evidence/2026-08-15-gemini-observability.jpg` |
 | Testing Instructions | Anonymous, no-payment test procedure exists in English | PASS | Testing Instructions |
 | IP Ownership / Licensing | Source/dependencies audited; GUGUPRO and final-video rights attestations remain owner-controlled | BLOCKED | IP / License Audit |
@@ -53,7 +54,7 @@ Entrant Type: **INDIVIDUAL**.
 - Public verifier: `https://ai-evidence-engine-gugupro.artistuncle.chatgpt.site` — no login or payment.
 - Cloud Run explainer: `https://ai-evidence-explainer-856572888721.asia-east1.run.app` — public Production endpoint used by the verifier.
 - Repository: `https://github.com/Guguproapp/ai-evidence-engine` — public, Apache-2.0.
-- Video: narrated version public at `https://www.youtube.com/watch?v=pqRNOvyE3_c`; signed-out oEmbed returned HTTP 200. Silent `HDG1qYo5hUg` is superseded.
+- Video: final 2026-08-18 candidate is complete locally but not judge-accessible. The older `pqRNOvyE3_c` and `HDG1qYo5hUg` videos are superseded.
 - Official judging period shown on Devpost: 2026-08-20 09:00 PDT through 2026-09-15 17:00 PDT; winners announced 2026-09-25.
 
 The Entrant must commit not to disable or place a paywall/login restriction on judge-required services before judging and verification are complete. If any endpoint becomes private, direct judge credentials and instructions must be supplied before the deadline.
@@ -61,8 +62,8 @@ The Entrant must commit not to disable or place a paywall/login restriction on j
 ## Blocking owner actions
 
 1. Attest legal eligibility, project start date, and completeness of pre-existing-work disclosure while accepting the official Rules personally.
-2. Export and redact Google Cloud monthly billing PDF, zero-dollar invoice, or Cost Table evidence required by the current FAQ.
-3. Reconcile and confirm revenue, monthly revenue, expenses, Marketing/CAC spend, and related-party revenue against real records.
-4. Complete at least one informed real external-user test and retain consent/evidence privately.
-5. Confirm IP/brand/video rights and the final submission facts for the now-public YouTube video.
-6. Keep the demo, Cloud Run, repository, and video available through judging; personally perform Join/Rules/Final Submission steps.
+2. Reconcile and confirm revenue, monthly revenue, expenses, Marketing/CAC spend, and related-party revenue against real records; attach redacted billing/Cost Table support if available.
+3. Review the exact 2026-08-18 final candidate, confirm IP/brand/video rights, and approve judge-accessible publication.
+4. Keep the demo, Cloud Run, repository, and video available through judging; personally perform Join/Rules/Final Submission steps.
+
+Optional before deadline: complete an informed real external-user test. Do not delay Final Submission if the truthful count remains zero.

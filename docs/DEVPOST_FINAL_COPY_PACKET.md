@@ -47,7 +47,7 @@ Confirm each statement only if true:
 - [ ] I own or am authorized to use all product and video screen content.
 - [ ] The final video contains no unauthorized narration or voice.
 - [ ] The final video contains no unauthorized voice clone.
-- [ ] The final video contains no unauthorized music; the reviewed local final candidate has no audio stream.
+- [ ] The final video contains no unauthorized music; the final candidate uses only macOS built-in synthetic narration and no music.
 - [ ] The final video contains no unauthorized stock image or stock footage.
 - [ ] The final video contains no unnecessary or misleading third-party trademark use.
 
@@ -55,25 +55,27 @@ Owner confirmation: `NOT CONFIRMED`.
 
 ## Final video review
 
-- Public video URL: https://www.youtube.com/watch?v=pqRNOvyE3_c
-- Visibility: `PUBLIC`; YouTube Studio saved the change and signed-out oEmbed returned HTTP 200 on 2026-08-15
-- Reviewed local candidate: 2:42.734, 1920×1080, 30fps, 16:9
+- Final local file: `docs/evidence/AI-Evidence-Engine-XPRIZE-Final-2026-08-18.mp4`
+- SHA-256: `30886bbc333cdda9fa5b5ce6992d3e271b6d4d676e17f0e5485dcdadbafb862f`
+- Duration: 2:28.000
+- Format: 1920×1080, 30fps, 16:9
 - Audio: 48 kHz mono AAC English narration generated with the macOS built-in Samantha voice; no music or cloned human voice
-- Real product operation: shown
+- Subtitles: embedded English subtitle track
+- Real Production operation: shown
+- Real Development/Test Black Box operation: shown and labelled
+- First-Seen prior-history boundary: shown
+- V1 → V2 signed history and measured change: shown
+- Google Cloud delete rejection: real HTTP 403 evidence shown
+- Google Cloud overwrite rejection: real HTTP 412 evidence shown
+- Retrieval, SHA-256 Match, and Evidence Continuity: shown
 - Complete browser viewport: shown in sampled frames
 - Giant black borders: not observed
 - Cropping: not observed
-- Actual signed Version 3 asset/result: shown
-- Verification Result: shown
-- Modification Mask and Change Overlay: shown
-- Version History 1/2/3: shown
-- Tampered upload to Invalid Evidence: shown
-- Gemini explanation: shown
-- ProofCart: shown
-- Universal adapter and next-stage architecture: shown
-- Upload identity: YouTube filename and duration match the narrated local candidate; public oEmbed returned HTTP 200
+- Private review URL: https://youtu.be/LJh42-gYD4U
+- Public video URL: `NOT YET AVAILABLE`
+- Visibility: `PRIVATE` pending Tsing-YI Chen review
 
-The video is now judge-accessible. Tsing-YI Chen must still confirm the IP declarations and final submission facts personally.
+The older public video `https://www.youtube.com/watch?v=pqRNOvyE3_c` is superseded and must not be submitted. Tsing-YI Chen must review this exact final candidate before it is made judge-accessible.
 
 ## Real user evidence
 
@@ -81,7 +83,7 @@ Current count: `0`. Use `docs/REAL_USER_TEST_PACKET.md`. At least one consenting
 
 ## Google Cloud billing evidence
 
-The current official FAQ says the minimum evidence includes monthly Google Cloud billing PDFs, or a zero-dollar invoice/Cost Table for Free Tier or credits. This is submission evidence rather than Entrant-type eligibility, but it remains missing and must not be downgraded to an optional recommendation while the official FAQ uses `At a minimum`.
+The Official Rules require total-expense disclosure and product-running evidence, but the FAQ checked on 2026-08-18 does not state that a monthly Google Cloud invoice PDF is a separate hard gate. Exporting a redacted Cost Table or invoice remains useful supporting evidence. Actual Google Cloud cash expense and credit/free-tier treatment must still be reconciled by the owner.
 
 ## Judging availability commitment
 

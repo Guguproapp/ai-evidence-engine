@@ -24,15 +24,19 @@ Small Business Services
 
 ## Elevator Pitch
 
-AI Evidence Engine is a Universal Evidence Passport for Digital & Physical Creation: it preserves and verifies recorded provenance and signed version history, measures changes between trusted recorded versions, and detects tampering with the evidence chain.
+AI Evidence Engine helps creators and small businesses preserve a verifiable evidence history around valuable digital work—from the first recorded point onward.
 
 ## What it does
 
-AI Evidence Engine helps merchants, platforms, and consumers verify recorded provenance without guessing whether AI made something. It combines content hashes, digital signatures, C2PA manifests, an append-only parent-child event chain, and modality-specific change metrics. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and manufacturing share the Passport, Registry, and Private Wallet architecture. The public verifier presents `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence` without claiming world truth or a legal verdict.
+Small creators and small businesses often have files, but not dedicated provenance and evidence-preservation infrastructure. AI Evidence Engine helps preserve provenance, signed version history, measured changes, and tamper-resistant evidence records around their work.
+
+When trusted provenance exists, AEE verifies it. When prior provenance is unavailable, AEE does not invent historical truth: the public First-Seen flow records and seals the exact content from a clearly identified first recorded point. Later versions create new signed child Events, preserving V1 → V2 history without overwriting the past.
+
+AEE combines content hashes, digital signatures, C2PA manifests, an append-only parent-child event chain, known-version change metrics, and evidence continuity. The public verifier presents `Verified Original`, `Verified Modified`, `Unverified`, or `Invalid Evidence` without claiming world truth, authorship, copyright ownership, or a legal verdict.
 
 Capability boundary: Level 1 Provenance Verification is implemented. Level 2 Known-Version Modification Comparison is implemented when trusted recorded versions exist. Level 3 Single-Asset Forensic Modification Detection is not implemented. An unfamiliar image without trusted provenance returns `Unverified`; AEE does not infer whether it is real, fake, edited, or AI-generated from appearance.
 
-ProofCart is the first Small Business Services use case. For a listing photo with recorded provenance, a buyer can inspect its registered original version, edit history, changed region, C2PA provenance, and signed Registry evidence before deciding whether to trust the media.
+ProofCart is the first Small Business Services use case. For a listing photo with recorded provenance, a buyer can inspect its recorded versions, edit history, changed region, C2PA provenance, and signed evidence before deciding how to use the media.
 
 ## How we built it
 
@@ -44,6 +48,8 @@ ProofCart is the first Small Business Services use case. For a listing photo wit
 - AEE Evidence Identification & Coding Standard v1.0 separates integrity, provenance, identity trust, signed AI involvement, and change scope; `aee.event.v1` and legacy compatibility are covered by automated tests.
 - The verifier processes uploaded images locally in the browser and has no image-upload endpoint.
 - A bounded Cloud Run Evidence Explainer calls Gemini on Vertex AI only after cryptographic verification; Gemini cannot assign or change the deterministic provenance state.
+- The public Legacy Content Bridge establishes a First-Seen evidence point for content whose earlier provenance is unknown, then persists and reconstructs its signed V1 → V2 history from sealed evidence rather than Cloud Run memory.
+- A Development/Test Evidence Black Box prototype uses Google Cloud Storage generation preconditions and short test retention to seal, retrieve, and reverify evidence continuity.
 
 The AI Evidence Engine business and repository were created during the Submission Period. The first Git commit is dated 2026-08-14. Generic language/runtime facilities, React/vinext tooling, open-source packages, C2PA tooling, generic starter assets, and standard cryptographic primitives are pre-existing building blocks and are not claimed as newly created project IP. See `docs/PROJECT_ELIGIBILITY_TIMELINE.md`.
 
@@ -79,9 +85,13 @@ The three-version ProofCart image chain contains real embedded C2PA manifests an
 
 ProofCart demonstrates how a small merchant can attach evidence to a product image and how a buyer can verify its recorded provenance, two registered edits, changed region, signatures, C2PA chain, and Registry record.
 
+## Creator Rights Evidence Use Case
+
+AEE is not a copyright registry and does not prove authorship. It helps photographers, designers, illustrators, writers, content creators, agencies, and brand teams preserve creation and version records that may form one part of the evidence they later choose to present when protecting their interests.
+
 ## Business Model
 
-Potential model: verification and provenance infrastructure sold to merchants and platforms through usage-based API plans and ProofCart verification features. No paid customer or enterprise partnership is currently claimed.
+Potential model: a free creator entry tier, paid evidence storage/export plans, and usage-based verification APIs for small businesses, agencies, marketplaces, and platforms. No paid customer or enterprise partnership is currently claimed.
 
 ## Users
 
@@ -118,7 +128,8 @@ The Gemini boundary presents a second challenge: a helpful explanation must neve
 - Actual pixel-derived Modification Masks between trusted recorded versions.
 - Working local `Verified Original`, `Verified Modified`, `Unverified`, and `Invalid Evidence` classification flows.
 - Public one-click ProofCart demo.
-- 47/47 Python tests and 14/14 website tests at the current local checkpoint.
+- Public First-Seen registration with explicit `Prior History Unknown`, signed Passport/Event creation, persistent V1 → V2 history, and measured known-version changes.
+- Development/Test Google Cloud evidence sealing, short retention, retrieval, SHA-256 reverification, delete rejection, overwrite rejection, and evidence continuity.
 - Implemented `aee.text.v1` and `aee.image.c2pa.v1` Evidence Profiles, with audio/video/document/2D/3D/manufacturing explicitly marked `SPECIFIED_NOT_IMPLEMENTED`.
 - Formal L0–L5 AI involvement, multimodal adapter metrics, and owner-controlled Private Black Box / Mobile Authorization architecture without representing the next-stage features as complete.
 
@@ -131,19 +142,18 @@ Provenance should report evidence rather than make legal verdicts. Recorded vers
 - Obtain external user feedback with informed disclosure.
 - Replace the demo registry bundle with a persistent production registry.
 - Obtain a production C2PA signing certificate and protect the key with KMS/HSM after submission readiness.
-- Implement the owner-controlled Private Black Box and single-use Mobile Authorization design after the hackathon submission.
+- Evolve the Development/Test Evidence Black Box prototype into an owner-controlled production service with reviewed retention, privacy, authorization, and cost policies after the hackathon submission.
+- Research Soft Binding recovery, invisible watermarking, and additional audio/video/CAD/3D evidence profiles without representing them as current capabilities.
 
 ## Testing Instructions
 
 1. Open the public demo without signing in.
-2. Use `Upload an image` with the signed Version 3 fixture, or click `Try the 60-second demo`.
-3. Confirm `Verified Modified`, valid evidence signature, three C2PA versions, and Registry match.
-4. Click `Change overlay` and `Mask` to inspect the 4.8% changed region.
-5. Select Versions 1, 2, and 3 to inspect parent-child history.
-6. Open Advanced details to inspect Manifest ID, Event ID, parent, and event hash.
-7. Click ProofCart `Verify Evidence`.
-8. Click `Explain with Gemini` and confirm the plain-language explanation appears while the deterministic status remains unchanged.
-9. Review `One evidence foundation. Many creation formats.` and the explicitly labelled `NEXT — NOT YET IMPLEMENTED` Mobile Authorization architecture.
+2. Upload the signed Version 3 fixture or use the built-in demo; confirm `Verified Modified`, the signed version history, and the 4.8% measured change mask.
+3. Upload an image without trusted provenance; confirm `Unverified` and that AEE does not guess whether it is real, fake, edited, or AI-generated.
+4. Choose `Start a verified history from now`; confirm the First-Seen notice says prior history remains unknown.
+5. Add the recorded V2 fixture; confirm the same Passport, a new child Event, parent linkage, history, and measured known-version change.
+6. Click `Explain with Gemini`; confirm that Gemini explains allowlisted facts while the deterministic status remains unchanged.
+7. Open the clearly labelled `Development / Test Evidence Black Box Prototype`; run Seal and Retrieve, then inspect retention metadata, SHA-256 Match, and Evidence Continuity.
 
 No login or payment is required for the public verifier.
 
@@ -163,18 +173,17 @@ https://github.com/Guguproapp/ai-evidence-engine
 
 ## Video URL
 
-https://www.youtube.com/watch?v=pqRNOvyE3_c
+Private review URL: https://youtu.be/LJh42-gYD4U
 
-Visibility: `PUBLIC`. A signed-out YouTube oEmbed request returned HTTP 200 on 2026-08-15, confirming judge-accessible playback metadata.
+Public judge-accessible URL: `PENDING OWNER REVIEW AND PUBLICATION`
 
-The matching local final candidate measures 2:42.734, 1920×1080, 30fps, 16:9, and contains a 48 kHz mono AAC English narration track. Its visuals use real Production
-interaction with burned-in English captions. It shows signed Version 3 upload,
-all three image views, version history, a real tampered upload,
-`assertion.dataHash.mismatch`, Gemini explanation, ProofCart, the universal
-adapter architecture, and the explicitly labelled next stage. The superseded
-`Fwu7yGUTVwo` and silent `HDG1qYo5hUg` videos must not be submitted.
+Final local candidate: `docs/evidence/AI-Evidence-Engine-XPRIZE-Final-2026-08-18.mp4`.
 
-Frame sampling found no giant black borders or cropped browser column. The Entrant must still confirm the IP declarations and final submission facts personally.
+Duration: 2:28.000. Resolution: 1920×1080 at 30fps. Audio: English 48 kHz mono AAC narration. Subtitles: embedded English subtitle track. No music or cloned human voice.
+
+The visuals show real Production interaction and the real Development/Test prototype. They include signed provenance, measured known-version change, an unknown image returning `Unverified`, First-Seen with prior history unknown, V1 → V2, Gemini's bounded explanation, Google Cloud retention metadata, real delete rejection (HTTP 403), real overwrite rejection (HTTP 412), retrieval, SHA-256 Match, and Evidence Continuity. The older `pqRNOvyE3_c`, `Fwu7yGUTVwo`, and `HDG1qYo5hUg` videos are superseded and must not be submitted.
+
+The final candidate is uploaded as a private YouTube video pending Entrant review. It must not be made judge-accessible until Tsing-YI Chen approves the exact video and confirms the IP declarations.
 
 ## Production Evidence
 
@@ -187,7 +196,8 @@ Sanitized Gemini Observability and Cloud Run screenshots are preserved. Google C
 
 - Development C2PA certificate, not an official production Trust List identity.
 - Single-asset forensic modification detection without trusted provenance is not implemented.
-- No persistent cloud registry yet.
+- First-Seen proves only that AEE received, fingerprinted, signed, and sealed that exact version at the recorded time. It does not prove originality, authorship, copyright ownership, or history before that point.
+- The Google Cloud Evidence Black Box is a Development/Test prototype with short test retention, not a permanent or court-certified production vault.
 - No external users or revenue yet.
 - Real-user evidence and owner-confirmed financial disclosures remain mandatory blockers.
 - Eligibility attestation, Google billing evidence, IP/video attestations, real-user evidence, financial confirmation, and Final Submission remain owner-controlled blockers.
