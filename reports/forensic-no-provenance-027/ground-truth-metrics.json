@@ -1,0 +1,14 @@
+{
+  "method": "ground_truth_pair_pixel_diff",
+  "pixel_threshold": 12,
+  "changed_pixels": 51920,
+  "total_pixels": 3000000,
+  "spatial_change_ratio": 0.017307,
+  "bounding_box": {
+    "x": 1094,
+    "y": 1419,
+    "width": 272,
+    "height": 192
+  },
+  "warning": "Offline A/B ground truth only; not a single-image AEE Production forensic result."
+}

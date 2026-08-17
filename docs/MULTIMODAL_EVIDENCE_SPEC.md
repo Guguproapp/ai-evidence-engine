@@ -36,7 +36,7 @@ Current status: exact, paragraph, sentence, five-token n-gram, coverage, continu
 
 Store exact hash, perceptual fingerprint, C2PA manifest, pixel diff, region mask, bounding box, and version chain. Display `Spatial Change %` with a warning that it is not an AI, ownership, copyright, or truth percentage.
 
-Current status: exact hash, C2PA, pixel diff, mask, bounding box, signed chain, and Registry match are implemented. Broad perceptual-source lookup is not implemented.
+Current status: exact hash, C2PA, signed chain, and Registry match are implemented. Pixel diff, mask, and bounding box are implemented only when AEE has the two bound image versions needed for deterministic comparison. Broad perceptual-source lookup and single unfamiliar-image forensic modification detection are not implemented.
 
 ## Video adapter
 

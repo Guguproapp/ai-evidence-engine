@@ -43,6 +43,8 @@ The public verifier uses `@contentauth/c2pa-web` in a Web Worker/WASM entirely i
 
 The deterministic demo retains RGB buffers before and after each edit. For every pixel, the maximum channel difference is compared with threshold 12. Changed pixels become white in the mask and red in the comparison overlay; unchanged pixels are black or averaged. The output includes changed pixel count, ratio, and bounding box. This is a visual modification statistic, never a copyright percentage.
 
+This comparison requires two bound versions (a trusted parent/source and a candidate version). It is provenance-backed version comparison, not single-image forensic detection. If only one unfamiliar image is supplied and no trusted source/history matches, AEE cannot currently infer that it was edited, reconstruct its original, locate an edit, or calculate an edit ratio. The deterministic verifier must return `UNVERIFIED` when the required provenance evidence is absent. The complete boundary and future research layer are defined in `PROVENANCE_VS_FORENSIC_CAPABILITIES.md`.
+
 ## Public demo boundary
 
 The deployed website contains signed public demo images, raw public C2PA reports, registry public evidence, and public keys only. It does not contain the Evidence Wallet source directory, development Registry private key, prompt data, credentials, or API secrets.

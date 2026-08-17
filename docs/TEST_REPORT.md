@@ -203,3 +203,24 @@ Event `1532be92-f70a-4c3f-a3fc-42226a524ceb`, Object generation
 An independent Google Storage metadata read confirmed the same identifiers,
 digest, Signed Event Hash reference, generation, and retention expiration.
 This remains Development/Test and does not change `VIDEO READY = NO`.
+
+## No-provenance modified image boundary — 2026-08-17
+
+Test Case: `TC-FORENSIC-MODIFIED-NO-PROVENANCE`
+
+| Check | Result |
+|---|---|
+| Public CC0 source A and deterministic local edit B retained | PASS |
+| A/B have no AEE Passport, Signed Event, Registry match, or C2PA claim | PASS |
+| Only modified B selected in public Production | PASS — real Chrome interaction |
+| Production provenance result | PASS — `UNVERIFIED` / `無法確認來源` |
+| Production avoids AI/real/fake guessing | PASS — AI involvement `UNKNOWN` |
+| Production single-image edit localization | NOT IMPLEMENTED — no mask/region shown |
+| Production single-image edit ratio | NOT IMPLEMENTED — no change percentage shown |
+| Production original-source recovery | NOT IMPLEMENTED |
+| Offline A/B Ground Truth | PASS — 51,920/3,000,000 pixels, 1.7307%, bbox `1094,1419,272,192` |
+
+The offline A/B number is not a Production forensic result. It is retained only
+to prove that B was genuinely modified before the single-image test. Full input,
+screenshots, hashes, and required A–F answers are in
+`reports/forensic-no-provenance-027/TC_FORENSIC_MODIFIED_NO_PROVENANCE.md`.

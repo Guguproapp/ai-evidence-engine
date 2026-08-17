@@ -142,6 +142,8 @@ spatial_change_ratio = changed_pixels / total_pixels
 
 Outputs: `changed_pixels`, `total_pixels`, `spatial_change_ratio`, `changed_region`, `bounding_box`, and `pixel_threshold`. Legacy `changed_ratio` and `threshold` remain aliases. UI wording is `<value>% measured pixel change`.
 
+These outputs require a bound source/candidate pair. They MUST NOT be produced as if they were measured facts when only one unfamiliar image is available and no trusted source version can be resolved. In that case the current v1 profile performs provenance/integrity verification only and returns `UNVERIFIED` when required evidence is absent; single-image forensic modification detection is `NOT IMPLEMENTED`.
+
 ## 9. Deterministic Decision Matrix
 
 | Case | Required result |
@@ -183,4 +185,4 @@ Canonical enum: `PUBLIC_MINIMUM`, `PUBLIC_EXTENDED`, `PRIVATE`, `SELECTIVE`. Def
 
 - **IMPLEMENTED:** v1 identifiers/helpers, canonical JSON, v1 Event fields/signing, legacy compatibility, Text Profile, Image C2PA Profile, deterministic Decision Engine, Wallet commitments, authorization schema/signing/validation foundation, and public Verifier state presentation.
 - **SPECIFIED — NOT IMPLEMENTED:** audio, video, document, 2D design, 3D model, and manufacturing verification adapters.
-- **NOT IMPLEMENTED:** complete encrypted Black Box product, mobile application, production IAM, and production C2PA Trust List identity.
+- **NOT IMPLEMENTED:** single unfamiliar-image forensic modification detection without a trusted source/history, complete encrypted Black Box product, mobile application, production IAM, and production C2PA Trust List identity.

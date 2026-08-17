@@ -4,6 +4,8 @@ Local-first **Universal Evidence Passport for Digital & Physical Creation** by *
 
 This is not an AI detector and does not produce legal conclusions. It records where a creation came from, which tools or agents changed it, how much changed, and whether its signed history was tampered with. Image is the first working adapter; text, video, audio, documents, 2D design, 3D models, and digital manufacturing share the same Passport, Event Chain, Registry, and Private Wallet architecture.
 
+**Current capability boundary:** AEE can verify content changes when a trusted source/version history exists. For an unfamiliar asset without a trusted original or provenance history, it can report only the provenance and integrity evidence actually present; it cannot currently guarantee that the asset was modified, locate the edit, calculate an edit ratio, or recover the original source from that single asset. See [Provenance Verification vs. Forensic Modification Detection](docs/PROVENANCE_VS_FORENSIC_CAPABILITIES.md).
+
 ## Working checkpoint
 
 - Real RSA-2048/SHA-256 issuer keys and signatures through the system OpenSSL executable.
@@ -78,4 +80,4 @@ and a complete recordable rehearsal pass. The older `Fwu7yGUTVwo` and silent
 - Current ProofCart Version 3 evidence event: `1c3d4a0f-9e2a-4a18-a83f-0c982db4ef33`
 - Current Version 3 SHA-256: `7e4bb29731e36aebad5907ce749bad3f0f542df155e39af713d30ed606bba37c`
 
-See [AEE Coding Standard v1.0](docs/EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md), [architecture](docs/ARCHITECTURE.md), [Android audit](docs/ANDROID_APP_AUDIT.md), [Google Play account checklist](docs/GOOGLE_PLAY_ACCOUNT_REQUIREMENTS.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).
+See [AEE Coding Standard v1.0](docs/EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md), [architecture](docs/ARCHITECTURE.md), [Provenance vs. Forensic capabilities](docs/PROVENANCE_VS_FORENSIC_CAPABILITIES.md), [Android audit](docs/ANDROID_APP_AUDIT.md), [Google Play account checklist](docs/GOOGLE_PLAY_ACCOUNT_REQUIREMENTS.md), [evidence classification](docs/EVIDENCE_CLASSIFICATION_SPEC.md), [multimodal adapters](docs/MULTIMODAL_EVIDENCE_SPEC.md), [Private Black Box](docs/BLACK_BOX_ARCHITECTURE.md), [Mobile Authorization](docs/MOBILE_AUTHORIZATION_SPEC.md), [API](docs/API.md), [qualification audit](docs/QUALIFICATION_AUDIT.md), [final submission draft](docs/DEVPOST_FINAL_SUBMISSION.md), and [test report](docs/TEST_REPORT.md).
