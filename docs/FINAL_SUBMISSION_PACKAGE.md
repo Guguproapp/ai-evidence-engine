@@ -39,20 +39,19 @@ Status: **NOT SUBMISSION READY — OWNER AND EXTERNAL-EVIDENCE GATES REMAIN**
 ## Financial and user evidence
 
 - Real external users: 0 verified at this checkpoint
-- Revenue: $0 draft, pending owner reconciliation and confirmation
-- Expenses: $0 draft, pending owner reconciliation and confirmation
-- Marketing spend: $0 draft, pending owner confirmation
-- Customer acquisition spend: $0 draft, pending owner confirmation
-- Related-party revenue: $0 draft, pending owner confirmation
+- Revenue: $0 owner-confirmed
+- Expenses: $0 actual cash; $0.45 Google Cloud gross usage fully offset by credits
+- Marketing spend: $0 owner-confirmed
+- Customer acquisition spend: $0 owner-confirmed
+- Related-party revenue: $0 owner-confirmed
 
 ## Remaining hard gates
 
 - Tsing-YI Chen reviews and approves the exact final video.
 - Final video is uploaded and made judge-accessible.
 - Real-user count is disclosed truthfully as zero; an informed external test is optional if it can be completed without delaying submission.
-- Tsing-YI Chen reconciles and confirms all financial disclosures.
-- Actual Google Cloud cash expense and credit/free-tier treatment are confirmed; redacted billing/Cost Table evidence is attached if available or requested by the live form.
-- Tsing-YI Chen confirms IP, brand, image, narration, and video rights.
+- Financial disclosures were owner-confirmed on 2026-08-18; the local archive retains private billing evidence.
+- IP, brand, AEE material, and video-rights boundaries were owner-confirmed on 2026-08-18; legal checkbox acceptance remains owner-only.
 - Tsing-YI Chen confirms legal eligibility, accepts Rules/Terms, and performs irreversible Final Submission.
 
 ## Final status

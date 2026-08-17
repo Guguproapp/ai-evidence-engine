@@ -35,17 +35,17 @@ Entrant Type: **INDIVIDUAL**.
 | Video shows functioning Product | Real Production and Development/Test recordings show provenance verification, First-Seen, V1 → V2, measured change, Gemini boundary, retention, HTTP 403 delete rejection, HTTP 412 overwrite rejection, retrieval, SHA-256 Match, and Evidence Continuity | PASS local technical review | Video URL |
 | Video Judge-accessible | Final 2026-08-18 candidate has not been uploaded/published; the older public video is superseded | BLOCKED owner video approval and publication | Video URL |
 | English Materials | English submission draft, testing instructions, narration, and subtitles exist | PASS | Submission text / video |
-| Revenue Disclosure | Draft total revenue is $0.00; no bank/revenue evidence or owner confirmation supplied | BLOCKED | Revenue evidence / P&L |
-| Monthly Revenue | May, June, July, August each drafted as $0.00; owner confirmation required | BLOCKED | Revenue evidence / P&L |
-| Expenses | Draft total expenses is $0.00; Google Cloud and all other billing records not yet reconciled | BLOCKED | P&L |
-| Marketing/CAC Spend | Draft $0.00 / $0.00; owner confirmation required | BLOCKED | P&L |
-| Related-Party Revenue | Draft $0.00; owner confirmation required | BLOCKED | Revenue evidence / P&L |
+| Revenue Disclosure | Owner confirmed total revenue USD 0 | PASS | Revenue evidence / P&L |
+| Monthly Revenue | Owner confirmed May, June, July, and August at USD 0 each | PASS | Revenue evidence / P&L |
+| Expenses | Google Cloud shows USD 0.45 gross August usage fully offset by credits; owner confirmed total actual cash expense USD 0 | PASS | P&L / private billing evidence |
+| Marketing/CAC Spend | Owner confirmed USD 0 / USD 0 | PASS | P&L |
+| Related-Party Revenue | Owner confirmed USD 0 | PASS | Revenue evidence / P&L |
 | Real User Evidence | 0 external users disclosed truthfully; FAQ states no minimum customer threshold, though this weakens Business Viability | PASS disclosure / no traction | User evidence |
 | Production Evidence | Public verifier screenshots, Cloud Run revision, Vertex AI request logs, and Gemini response evidence exist | PASS | Production Evidence |
-| Google Cloud Billing Evidence | Rules require total-expense disclosure; the FAQ checked 2026-08-18 does not make a monthly invoice PDF a separate hard gate. Redacted Cost Table/invoice is recommended support | OWNER INPUT REQUIRED for actual expense; supporting document recommended | Private/redacted evidence upload |
+| Google Cloud Billing Evidence | Signed-in Billing overview shows USD 0.45 gross August usage, USD 0.45 savings/credits, USD 0.00 total cost, and active free trial | PASS private evidence; invoice optional unless live form asks | Private local archive |
 | Gemini Dashboard Evidence | Sanitized two-day dashboard screenshot shows `gemini-2.5-flash` model invocations and token usage | PASS | `docs/evidence/2026-08-15-gemini-observability.jpg` |
 | Testing Instructions | Anonymous, no-payment test procedure exists in English | PASS | Testing Instructions |
-| IP Ownership / Licensing | Source/dependencies audited; GUGUPRO and final-video rights attestations remain owner-controlled | BLOCKED | IP / License Audit |
+| IP Ownership / Licensing | Owner confirmed GUGUPRO/AEE materials and license-compliant third-party use; legal checkbox remains owner-only | PASS evidence / OWNER ACTION for legal checkbox | IP / License Audit |
 | No Secrets | Working tree and Git-history signature scan found no key/token/private-key patterns at this checkpoint | PASS | Repository evidence |
 | Demo available through Judging Period | Demo, Cloud Run, repository, and video are publicly accessible now; owner maintenance commitment through 2026-09-15 is not recorded | BLOCKED owner commitment | Testing Availability statement |
 

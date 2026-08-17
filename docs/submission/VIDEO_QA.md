@@ -16,6 +16,6 @@ Status: **OWNER INPUT REQUIRED / SUBMISSION BLOCKER**
 | Private review URL | https://youtu.be/LJh42-gYD4U |
 | Visibility | Private — MISSING for submission |
 | Signed-out oEmbed | HTTP 403 on 2026-08-18 — confirms not judge-accessible |
-| Rights | OWNER INPUT REQUIRED |
+| Rights | OWNER CONFIRMED on 2026-08-18 |
 
-The superseded `pqRNOvyE3_c` video must not be submitted. The current video can become judge-accessible only after Tsing-YI Chen approves this exact file and confirms rights to its images, UI, narration, and other visual material.
+The superseded `pqRNOvyE3_c` video must not be submitted. Rights to the AEE-created material and the absence of unauthorized music, voice clone, and intentional unauthorized stock footage were owner-confirmed on 2026-08-18. Changing YouTube visibility still requires a separate action-time confirmation immediately before publication.

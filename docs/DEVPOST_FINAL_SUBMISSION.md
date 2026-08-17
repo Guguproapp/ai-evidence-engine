@@ -101,19 +101,19 @@ Verified external users: 0 at this checkpoint. Internal developer and automated 
 
 Total Revenue: $0.00 USD.
 
-Monthly revenue: May $0.00; June $0.00; July $0.00; August $0.00 as of 2026-08-15.
+Monthly revenue: May $0.00; June $0.00; July $0.00; August $0.00 through submission.
 
 Related-Party Revenue: $0.00.
 
-Status: draft pending owner reconciliation against bank, payment, and customer records.
+Status: owner confirmed on 2026-08-18. External paying customers and external users are both zero.
 
 ## Expenses
 
-Total documented expenses: $0.00 pending Entrant confirmation against all billing records.
+Total actual cash expenses: $0.00. Google Cloud August gross usage was $0.45 and was fully offset by $0.45 in savings/free-trial credits, resulting in $0.00 billed cost.
 
 Marketing Spend: $0.00. Customer Acquisition Spend: $0.00.
 
-Status: draft pending owner reconciliation against Google Cloud, API, hosting, labor, contractor, marketing, and acquisition records.
+Status: owner confirmed on 2026-08-18. No separate AEE hosting, domain, software/API, paid labor, contractor, marketing, or acquisition cash expense was identified.
 
 ## Challenges
 

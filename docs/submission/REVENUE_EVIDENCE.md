@@ -1,16 +1,16 @@
 # Revenue Evidence
 
-Status: **OWNER INPUT REQUIRED**
+Status: **OWNER CONFIRMED — READY**
 
 All amounts are USD and cover the Hackathon Submission Period only.
 
-| Field | Draft amount | Owner-confirmed |
+| Field | Final amount | Owner-confirmed |
 |---|---:|---|
-| May 2026 revenue | $0.00 | No |
-| June 2026 revenue | $0.00 | No |
-| July 2026 revenue | $0.00 | No |
-| August 2026 revenue through submission | $0.00 | No |
-| Total arms-length third-party revenue | $0.00 | No |
-| Related-party revenue | $0.00 | No |
+| May 2026 revenue | $0.00 | Yes, 2026-08-18 |
+| June 2026 revenue | $0.00 | Yes, 2026-08-18 |
+| July 2026 revenue | $0.00 | Yes, 2026-08-18 |
+| August 2026 revenue through submission | $0.00 | Yes, 2026-08-18 |
+| Total arms-length third-party revenue | $0.00 | Yes, 2026-08-18 |
+| Related-party revenue | $0.00 | Yes, 2026-08-18 |
 
-No customer, order, invoice, payment-platform receipt, or bank evidence has been supplied. Tsing-YI Chen must reconcile these figures against actual records before submission. If all are truly zero, submit zero; do not create a transaction for scoring purposes.
+Tsing-YI Chen confirmed these zero amounts for the submission on 2026-08-18. No customer, order, invoice, payment-platform receipt, or bank revenue evidence exists for AEE during the submission period. External paying customers and external users are both zero.

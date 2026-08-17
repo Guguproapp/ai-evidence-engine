@@ -20,11 +20,11 @@ Audit time: 2026-08-18 01:27 CST / 2026-08-17 10:27 PDT.
 | Product evidence | READY | Evidence index and sanitized Black Box evidence prepared |
 | External users | READY | Truthful disclosure: 0 |
 | Testimonials | NOT APPLICABLE | No external user feedback exists |
-| Revenue | OWNER INPUT REQUIRED | Draft USD 0 by month; owner must reconcile actual records |
-| Related-party revenue | OWNER INPUT REQUIRED | Draft USD 0; owner must confirm |
-| Expenses / P&L | OWNER INPUT REQUIRED | Owner must confirm actual Google Cloud/hosting/domain/software/API cash expense and credits |
-| Marketing / CAC | OWNER INPUT REQUIRED | Draft USD 0; owner must confirm |
-| IP rights | OWNER INPUT REQUIRED | Owner must attest source, brand, images, video, voice, and asset rights |
+| Revenue | READY | Owner confirmed USD 0 by month and total |
+| Related-party revenue | READY | Owner confirmed USD 0 |
+| Expenses / P&L | READY | USD 0 cash; Google Cloud USD 0.45 gross usage fully offset by credits |
+| Marketing / CAC | READY | Owner confirmed USD 0 / USD 0 |
+| IP rights | READY FOR SUBMISSION | Owner confirmed GUGUPRO/AEE rights and license-compliant third-party use; legal checkbox remains owner-only |
 | Devpost join | READY | Signed-in account reaches event submission manager |
 | Devpost submission draft | MISSING | No project exists yet; live page shows `Create project` |
 | Devpost Rules / Terms | OWNER INPUT REQUIRED | Owner-only legal action |

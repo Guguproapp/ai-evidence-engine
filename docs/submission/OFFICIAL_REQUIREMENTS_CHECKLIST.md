@@ -22,13 +22,13 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Demo video under 3 minutes | READY | 148 seconds |
 | Video publicly judge-accessible | MISSING | Private; owner approval then publish required |
 | Video shows working product | READY | Real Production and labelled Development/Test footage |
-| Video IP/music cleared | OWNER INPUT REQUIRED | No music/voice clone; owner rights attestation required |
-| Total Revenue | OWNER INPUT REQUIRED | $0 draft; reconcile actual records |
-| Revenue by month | OWNER INPUT REQUIRED | May–August $0 drafts |
-| Related-party revenue | OWNER INPUT REQUIRED | $0 draft |
-| Total Expenses | OWNER INPUT REQUIRED | Reconcile actual bills/credits |
-| Marketing/CAC spend | OWNER INPUT REQUIRED | $0 drafts |
-| P&L | OWNER INPUT REQUIRED | Draft exists; owner must reconcile |
+| Video IP/music cleared | READY | Owner confirmed authorized AEE assets; no unauthorized music, voice clone, or intentional unauthorized stock footage |
+| Total Revenue | READY | Owner confirmed USD 0 |
+| Revenue by month | READY | Owner confirmed May–August USD 0 each |
+| Related-party revenue | READY | Owner confirmed USD 0 |
+| Total Expenses | READY | USD 0 cash; USD 0.45 Google Cloud usage fully offset by credits |
+| Marketing/CAC spend | READY | Owner confirmed USD 0 / USD 0 |
+| P&L | READY | Owner-confirmed P&L with billing evidence |
 | Real user count | READY | Truthfully disclosed as 0 |
 | User breakdown | NOT APPLICABLE | No external users |
 | Feedback/testimonials | NOT APPLICABLE | No external feedback |
@@ -37,7 +37,7 @@ Audit basis: Official Rules and FAQ checked 2026-08-18. Status vocabulary: `READ
 | Google Cloud evidence | READY | Project/service/bucket metadata and logs |
 | Corporate ID | NOT APPLICABLE | Individual Entrant |
 | English materials | READY | Description, instructions, narration, subtitles |
-| IP ownership statement | OWNER INPUT REQUIRED | Legal attestation by Entrant |
+| IP ownership statement | READY FOR SUBMISSION | Owner confirmed GUGUPRO/AEE materials and license-compliant third-party use; final legal checkbox remains owner-only |
 | Devpost Rules accepted | OWNER INPUT REQUIRED | Must be done personally |
 | Final Submission completed | MISSING | Irreversible owner action |
 

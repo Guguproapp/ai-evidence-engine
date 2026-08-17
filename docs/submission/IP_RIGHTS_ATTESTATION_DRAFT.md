@@ -1,6 +1,6 @@
 # IP and Rights Attestation Draft
 
-Status: **OWNER ATTESTATION REQUIRED**
+Status: **OWNER CONFIRMED FOR SUBMISSION CONTENT — LEGAL CHECKBOX REMAINS OWNER-ONLY**
 
 Technical audit findings:
 
@@ -12,14 +12,14 @@ Technical audit findings:
 - Final video uses project UI, no music, and macOS built-in synthetic narration; no human voice clone is used.
 - Screenshots of Google Cloud, Gemini, GitHub, Devpost, and C2PA references are descriptive and must not imply endorsement or certification.
 
-Owner must confirm each item before Final Submission:
+Owner confirmation recorded 2026-08-18:
 
-- [ ] I own or am authorized to use the GUGUPRO name, brand, and logo.
-- [ ] I own or am authorized to submit the AEE source and project-specific visual assets.
-- [ ] I am authorized to use every demo/test image shown in the final video.
-- [ ] The final video contains no unauthorized music, stock image, stock footage, voice, or voice clone.
-- [ ] Any third-party trademarks are used only as necessary descriptive references and do not imply endorsement.
-- [ ] The open-source and third-party-work disclosure is complete.
-- [ ] The Submission is my original work product as required by the Rules, subject to the disclosed open-source and third-party components.
+- [x] I own or am authorized to use the GUGUPRO name, brand, and logo.
+- [x] I own or am authorized to submit the AEE source and project-specific visual assets.
+- [x] I am authorized to use the AEE-created demo/test images shown in the final video and use third-party/CC0 material only under its applicable license.
+- [x] The final video contains no unauthorized music, intentional unauthorized stock footage, human voice clone, or unauthorized narration.
+- [x] Any third-party trademarks are used only as necessary descriptive references and do not imply endorsement.
+- [x] The open-source and third-party-work disclosure is complete to the owner's knowledge.
+- [x] AEE project-specific work is submitted as the owner's work product, subject to the disclosed open-source and third-party components.
 
-No owner signature or legal acceptance is made by this draft.
+This record documents the owner's content-rights confirmation. It does not accept Devpost/XPRIZE legal terms or replace the owner's final legal checkbox and Final Submission action.
