@@ -96,9 +96,42 @@ type ExplanationResult = {
   decision_source: string;
 };
 
+type BridgeEvent = {
+  passport_id: string;
+  event_id: string;
+  event_hash: string;
+  content_sha256: string;
+  version_id: string;
+  parent_event: string | null;
+  timestamp: string;
+  integrity_state: string;
+  provenance_state: string;
+  signature_valid: boolean;
+  hash_valid: boolean;
+};
+
+type FirstSeenResult = {
+  ok: boolean;
+  environment: string;
+  bridge_id: string;
+  registration_status: "FIRST_SEEN_SEALED";
+  prior_provenance: "unknown";
+  message: string;
+  first_seen_time?: string;
+  server_received_time?: string;
+  seal_time?: string;
+  signed_event: BridgeEvent;
+  remote_seal: { object_path: string; generation: string; retention_expiration: string; storage_location: string };
+  retrieval: { stored_sha256: string; retrieved_sha256: string; hash_match: boolean; generation: string };
+  evidence_continuity: "PASS";
+  change_metrics?: { spatial_change_ratio?: number | null; changed_region?: unknown };
+  history: BridgeEvent[];
+};
+
 const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
 const MAX_UPLOAD = 10 * 1024 * 1024;
 const EXPLAINER_URL = "https://ai-evidence-explainer-856572888721.asia-east1.run.app/v1/explain";
+const LEGACY_BRIDGE_URL = "https://aee-continuity-demo-856572888721.asia-east1.run.app";
 
 function short(value: string, size = 10) {
   return value ? `${value.slice(0, size)}…${value.slice(-6)}` : "—";
@@ -128,7 +161,8 @@ function verificationDecision(version: Version, verification: Verification) {
 
 function StatusPill({ value, locale }: { value: string; locale: Locale }) {
   const key = value.toLowerCase().replaceAll(" ", "-");
-  return <span className={`status-pill ${key}`} data-canonical-value={value}>{translate(locale, value)}</span>;
+  const label = value === "FIRST_SEEN_SEALED" && locale === "en" ? "FIRST-SEEN SEALED" : translate(locale, value);
+  return <span className={`status-pill ${key}`} data-canonical-value={value}>{label}</span>;
 }
 
 export function EvidenceVerifier() {
@@ -148,6 +182,10 @@ export function EvidenceVerifier() {
   const [explanationError, setExplanationError] = useState("");
   const [explanationBusy, setExplanationBusy] = useState(false);
   const [hashCopied, setHashCopied] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [firstSeen, setFirstSeen] = useState<FirstSeenResult | null>(null);
+  const [firstSeenBusy, setFirstSeenBusy] = useState(false);
+  const [firstSeenError, setFirstSeenError] = useState("");
   const resultRef = useRef<HTMLElement | null>(null);
   const verificationAttempts = useRef<number[]>([]);
   const t = (key: string) => translate(locale, key);
@@ -273,6 +311,9 @@ export function EvidenceVerifier() {
     setUploadError("");
     setUploadErrorDetail("");
     clearExplanation();
+    setSelectedFile(null);
+    setFirstSeen(null);
+    setFirstSeenError("");
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
 
@@ -283,6 +324,9 @@ export function EvidenceVerifier() {
     setUploadError("");
     setUploadErrorDetail("");
     setUpload(null);
+    setSelectedFile(null);
+    setFirstSeen(null);
+    setFirstSeenError("");
     setHashCopied(false);
     clearExplanation();
     const now = Date.now();
@@ -300,6 +344,7 @@ export function EvidenceVerifier() {
       setUploadError("File is too large. Please choose an image under 10 MB.");
       return;
     }
+    setSelectedFile(file);
     setBusy(true);
     try {
       const digest = await crypto.subtle.digest("SHA-256", await file.arrayBuffer());
@@ -374,10 +419,56 @@ export function EvidenceVerifier() {
         matchedVersion,
       });
     } catch (error) {
+      setSelectedFile(null);
       setUploadError("The image file could not be read. Please choose a valid PNG, JPEG, or WebP image.");
       setUploadErrorDetail(error instanceof Error ? error.message : "unknown_file_read_error");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function startVerifiedHistory() {
+    if (!selectedFile || !upload || upload.result !== "Unverified") return;
+    setFirstSeenBusy(true);
+    setFirstSeenError("");
+    const form = new FormData();
+    form.append("evidence_file", selectedFile, selectedFile.name);
+    try {
+      const response = await fetch(`${LEGACY_BRIDGE_URL}/v1/demo/first-seen`, { method: "POST", body: form });
+      const payload = await response.json() as FirstSeenResult & { error?: string };
+      if (!response.ok || payload.registration_status !== "FIRST_SEEN_SEALED" || payload.evidence_continuity !== "PASS") {
+        throw new Error(payload.error || `HTTP ${response.status}`);
+      }
+      setFirstSeen(payload);
+    } catch (error) {
+      setFirstSeenError(error instanceof Error ? error.message : "first_seen_failed");
+    } finally {
+      setFirstSeenBusy(false);
+    }
+  }
+
+  async function addVerifiedVersion(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file || !firstSeen) return;
+    if (!ALLOWED_TYPES.has(file.type) || file.size > MAX_UPLOAD) {
+      setFirstSeenError("Only PNG, JPEG, and WebP images under 10 MB are accepted.");
+      return;
+    }
+    setFirstSeenBusy(true);
+    setFirstSeenError("");
+    const form = new FormData();
+    form.append("bridge_id", firstSeen.bridge_id);
+    form.append("evidence_file", file, file.name);
+    try {
+      const response = await fetch(`${LEGACY_BRIDGE_URL}/v1/demo/first-seen/version`, { method: "POST", body: form });
+      const payload = await response.json() as FirstSeenResult & { error?: string };
+      if (!response.ok || payload.evidence_continuity !== "PASS") throw new Error(payload.error || `HTTP ${response.status}`);
+      setFirstSeen(payload);
+    } catch (error) {
+      setFirstSeenError(error instanceof Error ? error.message : "recorded_version_failed");
+    } finally {
+      setFirstSeenBusy(false);
     }
   }
 
@@ -422,7 +513,7 @@ export function EvidenceVerifier() {
             <button className="primary" onClick={tryDemo}>{t("Try the 60-second demo")} <span>→</span></button>
             <label className="secondary upload-button">{t("Upload an image")}<input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFile} /></label>
           </div>
-          <div className="trust-strip"><span>✓ {t("Local verification")}</span><span>✓ {t("Official C2PA SDK")}</span><span>✓ {t("No image upload")}</span></div>
+          <div className="trust-strip"><span>✓ {t("Local verification by default")}</span><span>✓ {t("Official C2PA SDK")}</span><span>✓ {t("Explicit opt-in before evidence sealing")}</span></div>
         </div>
         <div className="hero-proof">
           <div className="proof-card back-card"><span>{t("ORIGINAL")}</span><img src="/demo/version-1.png" alt={t("Original ProofCart product")} /></div>
@@ -431,7 +522,7 @@ export function EvidenceVerifier() {
       </section>
 
       <section className="verify-entry" id="verify">
-        <div><span className="section-number">01</span><h2>{t("Verify your evidence")}</h2><p>{t("The file stays in your browser. We reject unsupported formats and files over 10 MB before processing.")}</p></div>
+        <div><span className="section-number">01</span><h2>{t("Verify your evidence")}</h2><p>{t("Verification starts in your browser. An unknown image is uploaded only if you explicitly choose to start a Development / Test evidence history.")}</p></div>
         <div className="entry-grid">
           <label className={`drop-zone ${busy ? "busy" : ""}`}>
             <span className="upload-icon">↑</span><b>{t(busy ? "Checking C2PA and signature…" : "Choose an image to verify")}</b><small>{t("PNG, JPEG, or WebP · maximum 10 MB")}</small>
@@ -474,6 +565,35 @@ export function EvidenceVerifier() {
               {explanation && <dl><div><dt>{t("Gemini model")}</dt><dd>{explanation.model} on Vertex AI</dd></div><div><dt>{t("Verification status")}</dt><dd>{explanation.verification_status}</dd></div></dl>}
             </div>
           </details>
+          {upload.result === "Unverified" && <section className="first-seen-bridge" aria-label={t("Legacy Content Bridge")}>
+            <span className="eyebrow">{t("LEGACY CONTENT BRIDGE · DEVELOPMENT / TEST")}</span>
+            <h3>{t("Start a verified history from now")}</h3>
+            <p>{t("Provenance before this AEE record is unknown.")}</p>
+            <p>{t("AEE can preserve a verifiable evidence history from this point forward. This is not proof of originality, authorship, copyright, or earlier history.")}</p>
+            {!firstSeen ? <button className="primary" type="button" onClick={startVerifiedHistory} disabled={firstSeenBusy || !selectedFile}>{t(firstSeenBusy ? "Sealing evidence…" : "Start a verified history from now")}</button> : <>
+              <div className="first-seen-status"><StatusPill value="FIRST_SEEN_SEALED" locale={locale} /><b>{t("Evidence Continuity")}: {firstSeen.evidence_continuity}</b></div>
+              <p className="good">{t("AEE preserves a verifiable evidence history from this point forward.")}</p>
+              <dl className="plain-result-facts">
+                <div><dt>{t("History start")}</dt><dd>{firstSeen.first_seen_time ?? firstSeen.history[0]?.timestamp}</dd></div>
+                <div><dt>{t("Passport ID")}</dt><dd><code>{short(firstSeen.signed_event.passport_id)}</code></dd></div>
+                <div><dt>{t("Evidence Event")}</dt><dd><code>{short(firstSeen.signed_event.event_id)}</code></dd></div>
+                <div><dt>{t("Google object generation")}</dt><dd>{firstSeen.remote_seal.generation}</dd></div>
+                <div><dt>{t("Retention until")}</dt><dd>{firstSeen.remote_seal.retention_expiration}</dd></div>
+                <div><dt>{t("Retrieved hash match")}</dt><dd className="good">{firstSeen.retrieval.hash_match ? "YES" : "NO"}</dd></div>
+                {typeof firstSeen.change_metrics?.spatial_change_ratio === "number" && <div><dt>{t("Measured pixel change")}</dt><dd>{(firstSeen.change_metrics.spatial_change_ratio * 100).toFixed(2)}%</dd></div>}
+              </dl>
+              <div className="first-seen-history">
+                <b>{t("History")}</b>
+                {firstSeen.history.map((item, index) => <div key={item.event_id}><span>V{index + 1}</span><code>{short(item.event_id)}</code><small>{index === 0 ? t("First AEE record — prior history unknown") : t("Recorded child version")}</small></div>)}
+              </div>
+              <label className="secondary first-seen-version-button">{t("Add a modified version to this history")}<input type="file" accept="image/png,image/jpeg,image/webp" onChange={addVerifiedVersion} disabled={firstSeenBusy} /></label>
+              <details className="technical-details">
+                <summary><span><b>{t("View First-Seen technical details")}</b><small>{t("Signed Event, seal, retrieval, and hash evidence")}</small></span><span>＋</span></summary>
+                <div className="technical-details-body"><pre>{JSON.stringify(firstSeen, null, 2)}</pre></div>
+              </details>
+            </>}
+            {firstSeenError && <div className="alert error">{t("First-Seen registration failed")}: <code>{firstSeenError}</code></div>}
+          </section>}
           <div className="gemini-explainer">
             <span>{t("AI EVIDENCE EXPLANATION")}</span>
             <h3>{t("Explain the verified facts in plain language")}</h3>

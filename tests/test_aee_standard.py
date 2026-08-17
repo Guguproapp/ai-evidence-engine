@@ -52,6 +52,7 @@ class ProfileAndDecisionTests(unittest.TestCase):
     def test_implemented_profiles_resolve(self):
         self.assertEqual(resolve_profile("aee.text.v1", True).implementation_status, IMPLEMENTED)
         self.assertEqual(resolve_profile("aee.image.c2pa.v1", True).implementation_status, IMPLEMENTED)
+        self.assertEqual(resolve_profile("aee.image.firstseen.v1", True).implementation_status, IMPLEMENTED)
 
     def test_reserved_profiles_cannot_verify(self):
         self.assertEqual(resolve_profile("aee.video.v1").implementation_status, SPECIFIED_NOT_IMPLEMENTED)
@@ -105,6 +106,25 @@ class RegistryV1AndLegacyTests(unittest.TestCase):
         self.assertTrue(event["event_hash"].startswith("sha256:"))
         self.assertTrue(validate_event_v1(event))
         self.assertTrue(self.registry.verify_event(event)["verified"])
+
+    def test_first_seen_event_preserves_unknown_prior_provenance(self):
+        source = Path(self.temp.name) / "first-seen.png"
+        source.write_bytes(b"\x89PNG\r\n\x1a\nsynthetic-test")
+        event = self.registry.register_file(
+            source,
+            media_type="image/png",
+            evidence_profile="aee.image.firstseen.v1",
+            action_type="first_seen_registration",
+            provenance_state="UNVERIFIED",
+            source_assets=[{"relationship": "first_seen", "prior_provenance": "unknown"}],
+        )
+        verification = self.registry.verify_event(event)
+        self.assertTrue(verification["signature_valid"])
+        self.assertTrue(verification["hash_valid"])
+        self.assertEqual(verification["integrity_state"], "VALID")
+        self.assertEqual(verification["provenance_state"], "UNVERIFIED")
+        self.assertIn("prior_provenance_unknown", verification["reasons"])
+        self.assertEqual(event["source_assets"][0]["prior_provenance"], "unknown")
 
     def _legacy(self, event):
         legacy = {key: event[key] for key in LEGACY_PUBLIC_EVENT_FIELDS if key in event}

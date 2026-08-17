@@ -204,6 +204,26 @@ An independent Google Storage metadata read confirmed the same identifiers,
 digest, Signed Event Hash reference, generation, and retention expiration.
 This remains Development/Test and does not change `VIDEO READY = NO`.
 
+## Legacy Content Bridge real Google Cloud test — 2026-08-17
+
+| Check | Result |
+|---|---|
+| Unknown pre-AEE provenance | PASS — V1 remained `UNVERIFIED` |
+| Derived registration status | PASS — `FIRST_SEEN_SEALED` only after seal/retrieval continuity passed |
+| Exact V1 SHA-256 | PASS — `2fc36dd07038add110cf4aba3b9db4bae46499e975d49c85419bca8b1ffc03ca` |
+| Passport | PASS — `2046cdd3-9f03-4c53-bfc2-8ac9cc5f9890` |
+| V1 Event | PASS — `faeeec05-c3e0-4175-bfa4-1f25cc6801a5` |
+| V1 Google generation | PASS — `1786969771371750` |
+| V1 retrieval | PASS — stored and retrieved SHA-256 identical |
+| V2 Parent Event | PASS — V2 references V1 Event |
+| V2 Google generation | PASS — `1786969986181368` |
+| V2 retrieval | PASS — stored and retrieved SHA-256 identical |
+| Known-version comparison | PASS — 51,920 / 3,000,000 pixels, `spatial_change_ratio=0.017307`, bounding box `x=1094, y=1419, width=272, height=192` |
+| Browser-operated Development UI | PASS — First-Seen seal, generation, retention, and hash match rendered from live service |
+| Public Sites Production | NOT DEPLOYED — source update and Production regression remain required |
+
+The test used the public CC0 A/B fixtures under `reports/forensic-no-provenance-027/`. No private image, credential, token, or signing key was transmitted or recorded in this report. Full C2PA Soft Binding recovery remains `NOT IMPLEMENTED`.
+
 ## No-provenance modified image boundary — 2026-08-17
 
 Test Case: `TC-FORENSIC-MODIFIED-NO-PROVENANCE`

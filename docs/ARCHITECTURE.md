@@ -27,7 +27,7 @@ The verifier reports evidence and provenance similarity. It never returns copyri
 
 `EVIDENCE_IDENTIFICATION_AND_CODING_STANDARD.md` is the normative v1 evidence language. New events use `aee.event.v1`; legacy events are normalized only at read time and continue to verify against their original signed-field set. Passport, Event, content digest, Event hash, integrity, provenance, identity trust, AI involvement, and change scope have distinct responsibilities.
 
-The deterministic Decision Engine lives in `src/ai_evidence/decision.py`; the browser policy in `apps/web/app/evidence-classification.mjs` uses the same matrix. Implemented profile resolution is centralized in `src/ai_evidence/profiles.py`. Reserved audio, video, document, 2D, 3D, and manufacturing profiles return `SPECIFIED_NOT_IMPLEMENTED` and cannot be treated as verified adapters.
+The deterministic Decision Engine lives in `src/ai_evidence/decision.py`; the browser policy in `apps/web/app/evidence-classification.mjs` uses the same matrix. Implemented profile resolution is centralized in `src/ai_evidence/profiles.py`. `aee.image.firstseen.v1` is the implemented Development / Test external-manifest profile for a truthful history start; its First-Seen Event remains `UNVERIFIED` because earlier provenance is unknown. Reserved audio, video, document, 2D, 3D, and manufacturing profiles return `SPECIFIED_NOT_IMPLEMENTED` and cannot be treated as verified adapters.
 
 ## Cryptography
 
@@ -37,7 +37,11 @@ The development issuer is self-issued and uses RSA-2048 with SHA-256 because thi
 
 C2PA is the standards adapter for embedded manifests, ingredients, actions, signatures, trust lists, and hard bindings. `scripts/build_image_demo.py` creates true embedded C2PA manifests with `c2patool`, carries the parent asset as an ingredient, and preserves the complete raw read report. The custom C2PA assertion stores the matching AI Evidence Event ID; the Registry separately signs that event and verifies the parent hash.
 
-The public verifier uses `@contentauth/c2pa-web` in a Web Worker/WASM entirely inside the visitor's browser. Selected images are never posted to an application endpoint. The website displays both integrity and identity trust separately: a valid asset hash/signature is not the same as a signer trusted by the official C2PA Trust List.
+The public verifier uses `@contentauth/c2pa-web` in a Web Worker/WASM entirely inside the visitor's browser. Ordinary verification stays local. An image is posted to the Development / Test Legacy Content Bridge only after the user explicitly selects **Start a verified history from now**. The website displays both integrity and identity trust separately: a valid asset hash/signature is not the same as a signer trusted by the official C2PA Trust List.
+
+## Legacy Content Bridge
+
+An unfamiliar image remains `UNVERIFIED`. The optional First-Seen flow creates a Passport and signed Event, records `prior_provenance: unknown`, seals the exact bytes through the IAM-protected Development / Test Remote Black Box, retrieves them, and re-verifies SHA-256. `FIRST_SEEN_SEALED` is a derived registration status, not a new canonical Provenance State. Google object generation and retention metadata remain in a separate Seal Result and never modify the signed Event. Full Soft Binding recovery is reserved but not implemented. See `LEGACY_CONTENT_BRIDGE.md`.
 
 ## Image difference masks
 

@@ -27,4 +27,5 @@ button:disabled { opacity: .55; cursor: wait; }
 .facts article { background: #071211; border-radius: 12px; padding: 14px; display: grid; gap: 8px; }.facts .wide { grid-column: 1 / -1; }
 code { color: #bbf8df; overflow-wrap: anywhere; }.boundary { line-height: 1.65; margin: 18px 0 0; }
 .privacy-notice { margin-top: 24px; padding: 18px 22px; border: 1px solid #1f3530; border-radius: 16px; color: #92a8a0; line-height: 1.65; }.privacy-notice h2 { margin: 0 0 6px; color: #eef8f4; font-size: 16px; }.privacy-notice p { margin: 0; }
+.legacy-card { margin-top: 24px; }.legacy-card h2 { margin: 10px 0; }.legacy-card>p { color:#a9bdb6;line-height:1.65; }.file-field { display:grid;gap:8px;margin-top:18px;color:#a9bdb6;font-weight:700; }.file-field input { width:100%;padding:12px;border:1px solid #315047;border-radius:12px;background:#071211;color:#eef8f4; }
 @media (max-width: 700px) { .hero { display: block; }.test-badge { display: inline-block; margin-top: 8px; }.asset { align-items: start; }.asset img { width: 100px; }.facts { grid-template-columns: 1fr; }.facts .wide { grid-column: auto; }.result-title { align-items: start; }.result-title strong { font-size: 22px; } }

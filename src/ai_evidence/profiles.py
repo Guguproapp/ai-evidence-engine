@@ -42,6 +42,16 @@ PROFILES = {
         ("changed_pixels", "total_pixels", "spatial_change_ratio", "changed_region", "bounding_box", "pixel_threshold"),
         "REQUIRED", "External manifest allowed only where embedding is unsupported; policy must be disclosed.", IMPLEMENTED,
     ),
+    "aee.image.firstseen.v1": EvidenceProfile(
+        "aee.image.firstseen.v1", "image", "image/*",
+        ("exact_asset_bytes",),
+        ("exact_sha256", "signed_first_seen_event"),
+        ("perceptual_fingerprint", "soft_binding", "region_mask"),
+        ("signed_registry_event", "content_hash", "event_hash", "signature", "remote_seal_result"),
+        ("signature_valid", "content_hash_valid", "remote_retrieval_hash_match", "prior_provenance_remains_unknown"),
+        ("first_seen_time", "server_received_time", "seal_time", "spatial_change_ratio", "changed_region"),
+        "OPTIONAL", "External Evidence Passport is the primary manifest; future soft-binding recovery may link a C2PA manifest repository.", IMPLEMENTED,
+    ),
 }
 
 

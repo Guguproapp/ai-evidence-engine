@@ -41,7 +41,24 @@
         </div>
         <p class="boundary">PASS只代表Passport、Event、簽章、Hash、Google Object與取回結果在這次Development/Test流程中一致；不代表世界真實、法律結論或Production Black Box。</p>
       </section>
-      <section class="privacy-notice"><h2>資料處理邊界</h2><p>本Demo不接受或上傳使用者檔案，只處理容器內建合成圖片。每次執行會在Development/Test Bucket建立新的合成Evidence Object，套用既有約10分鐘Retention；Google Cloud標準請求Log可能包含時間、HTTP狀態與網路技術資料。本流程不把資料傳給Gemini。</p></section>
+      <section class="demo-card legacy-card">
+        <span class="eyebrow">LEGACY CONTENT BRIDGE · DEVELOPMENT / TEST</span>
+        <h2>從現在開始建立證據履歷</h2>
+        <p>先選一張沒有AEE／C2PA來源履歷的公開或合成測試圖片。AEE只證明從收到並封存的時間點以後的履歷；不證明原創、作者、著作權或更早歷史。</p>
+        <label class="file-field">選擇測試圖片<input id="first-seen-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        <button id="first-seen-run" type="button">建立First-Seen封存起點</button>
+        <p id="first-seen-message" role="status">尚未執行</p>
+        <div id="first-seen-result" class="facts" hidden>
+          <article><small>Registration Status</small><code id="first-seen-status">—</code></article>
+          <article><small>Prior Provenance</small><code id="first-seen-prior">—</code></article>
+          <article><small>Passport ID</small><code id="first-seen-passport">—</code></article>
+          <article><small>Event ID</small><code id="first-seen-event">—</code></article>
+          <article><small>Object Generation</small><code id="first-seen-generation">—</code></article>
+          <article><small>Retention Expiration</small><code id="first-seen-retention">—</code></article>
+          <article class="wide"><small>SHA-256 Retrieval Match</small><code id="first-seen-hash">—</code></article>
+        </div>
+      </section>
+      <section class="privacy-notice"><h2>資料處理邊界</h2><p>上方既有Continuity流程只處理容器內建合成圖片。Legacy Content Bridge只有在使用者明確選擇後，才會把所選圖片傳送到Development/Test Bucket，建立Signed Event並套用既有約10分鐘最低Retention保護；此時間不是自動刪除時間。本流程不把原始圖片傳給Gemini。</p></section>
     </main>
     <script src="/static/app.js" defer></script>
   </body>

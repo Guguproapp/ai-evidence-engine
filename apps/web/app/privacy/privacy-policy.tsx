@@ -7,10 +7,12 @@ import { DEFAULT_LOCALE, htmlLang, isLocale, Locale, LOCALE_STORAGE_KEY } from "
 const copy = {
   "zh-TW": {
     title: "隱私權政策",
-    updated: "最後更新：2026 年 8 月 16 日",
+    updated: "最後更新：2026 年 8 月 17 日",
     intro: "本政策說明 AI Evidence Engine by GUGUPRO 如何處理你在公開 Verifier 與未來 Android 應用程式中使用的資料。",
     localTitle: "本機圖片驗證",
-    local: "你選擇的 PNG、JPEG 或 WebP 圖片會在裝置瀏覽器內計算 SHA-256 並解析 C2PA。公開 Verifier 的現行流程不會把原始圖片傳送到 AI Evidence Engine、Google Cloud Run 或 Gemini。",
+    local: "你選擇的 PNG、JPEG 或 WebP 圖片會先在裝置瀏覽器內計算 SHA-256 並解析 C2PA。一般驗證不會把原始圖片傳送到 Gemini。只有你明確點選「從現在開始建立證據履歷」時，原始圖片才會上傳至標示為 Development / Test 的 AEE Evidence Black Box 服務進行封存。",
+    bridgeTitle: "Legacy Content Bridge 與 First-Seen 封存",
+    bridge: "First-Seen 會把你明確選擇的圖片、SHA-256、Signed Event、Passport／Event識別碼與必要技術中繼資料傳送至 Google Cloud Run，並把圖片封存於 AEE Development / Test Google Cloud Storage。保存保護期限是物件在該時間前不得刪除的最低保護，不代表到期會自動刪除。此流程不會把原始圖片傳送給 Gemini，也不會證明原創、作者、著作權或AEE收到檔案以前的歷史。",
     cloudTitle: "Gemini 證據說明",
     cloud: "只有在你按下「使用 Gemini 解釋」時，系統才會把經過白名單限制的結構化驗證事實傳送至 Google Cloud Run，再由 Vertex AI Gemini 產生白話說明。資料可能包含驗證狀態、版本 ID、Evidence ID、修改比例、C2PA 狀態、Registry 狀態、簽章狀態與公開簽發者；不包含原始圖片、Prompt、私人來源檔案或 Private Black Box 內容。Gemini 不會決定或改變驗證狀態。",
     logsTitle: "紀錄與保存",
@@ -27,10 +29,12 @@ const copy = {
   },
   en: {
     title: "Privacy Policy",
-    updated: "Last updated: August 16, 2026",
+    updated: "Last updated: August 17, 2026",
     intro: "This policy explains how AI Evidence Engine by GUGUPRO handles data used in the public Verifier and planned Android application.",
     localTitle: "On-device image verification",
-    local: "PNG, JPEG, or WebP images you select are hashed with SHA-256 and parsed for C2PA inside your device browser. The current public Verifier does not send the original image to AI Evidence Engine, Google Cloud Run, or Gemini.",
+    local: "PNG, JPEG, or WebP images you select are first hashed with SHA-256 and parsed for C2PA inside your device browser. Ordinary verification does not send the original image to Gemini. The original image is uploaded to the Development / Test AEE Evidence Black Box only when you explicitly choose “Start a verified history from now.”",
+    bridgeTitle: "Legacy Content Bridge and First-Seen sealing",
+    bridge: "First-Seen sends the image you explicitly select, its SHA-256, Signed Event, Passport/Event identifiers, and necessary technical metadata to Google Cloud Run, then seals the image in AEE Development / Test Google Cloud Storage. The retention expiration is a minimum deletion-protection period, not an automatic deletion time. Original images are never sent to Gemini by this flow. First-Seen does not prove originality, authorship, copyright, or history before AEE received the file.",
     cloudTitle: "Gemini Evidence Explanation",
     cloud: "Only when you select “Explain with Gemini” does the app send allowlisted structured verification facts to Google Cloud Run and Vertex AI Gemini. Facts may include verification state, version ID, Evidence ID, change ratio, C2PA status, Registry status, signature status, and public issuer. They do not include the original image, prompts, private source files, or Private Black Box contents. Gemini cannot decide or change verification states.",
     logsTitle: "Logging and retention",
@@ -65,7 +69,7 @@ export function PrivacyPolicy() {
   return <>
     <header className="topbar"><Link className="brand" href="/"><span className="brand-mark">AE</span><span><b>AI Evidence Engine</b><small>by GUGUPRO</small></span></Link><div className="language-switch" role="group" aria-label="Language / 語言"><button className={locale === "zh-TW" ? "active" : ""} onClick={() => choose("zh-TW")}>繁中</button><span>|</span><button className={locale === "en" ? "active" : ""} onClick={() => choose("en")}>EN</button></div></header>
     <main className="privacy-page"><span className="eyebrow">AI EVIDENCE ENGINE</span><h1>{c.title}</h1><p className="policy-note">{c.updated}<br />{c.intro}</p>
-      <h2>{c.localTitle}</h2><p>{c.local}</p><h2>{c.cloudTitle}</h2><p>{c.cloud}</p><h2>{c.logsTitle}</h2><p>{c.logs}</p><h2>{c.browserTitle}</h2><p>{c.browser}</p><h2>{c.thirdTitle}</h2><p>{c.third}</p><h2>{c.rightsTitle}</h2><p>{c.rights}</p><h2>{c.contactTitle}</h2><p>{c.contact}</p><p><Link href="/">← {c.back}</Link></p>
+      <h2>{c.localTitle}</h2><p>{c.local}</p><h2>{c.bridgeTitle}</h2><p>{c.bridge}</p><h2>{c.cloudTitle}</h2><p>{c.cloud}</p><h2>{c.logsTitle}</h2><p>{c.logs}</p><h2>{c.browserTitle}</h2><p>{c.browser}</p><h2>{c.thirdTitle}</h2><p>{c.third}</p><h2>{c.rightsTitle}</h2><p>{c.rights}</p><h2>{c.contactTitle}</h2><p>{c.contact}</p><p><Link href="/">← {c.back}</Link></p>
     </main>
   </>;
 }

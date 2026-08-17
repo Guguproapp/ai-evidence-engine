@@ -103,6 +103,7 @@ Every profile declares: profile ID, asset/media type, canonicalization, required
 |---|---|---|
 | `aee.text.v1` | `IMPLEMENTED` | exact/normalized hash, paragraph/sentence/5-gram fingerprints, source/candidate coverage, continuous ratio, character similarity |
 | `aee.image.c2pa.v1` | `IMPLEMENTED` | exact SHA-256, C2PA, Registry Event, parent chain, signature, mask, spatial change |
+| `aee.image.firstseen.v1` | `IMPLEMENTED` (Development / Test) | exact SHA-256, signed First-Seen Event, external seal/retrieval continuity, prior provenance explicitly unknown |
 | `aee.audio.v1` | `SPECIFIED_NOT_IMPLEMENTED` | modified-time ratio, source coverage |
 | `aee.video.v1` | `SPECIFIED_NOT_IMPLEMENTED` | temporal/spatial/audio change ratios, source coverage |
 | `aee.document.v1` | `SPECIFIED_NOT_IMPLEMENTED` | Text DNA, embedded media passports, document version chain, C2PA where applicable |
@@ -157,6 +158,8 @@ These outputs require a bound source/candidate pair. They MUST NOT be produced a
 
 The Decision Engine returns `integrity_state`, `provenance_state`, `identity_trust`, and machine-readable `reasons[]`.
 
+A signed `first_seen_registration` is a deliberate exception to the no-parent promotion rule: even with valid Event integrity, its canonical Provenance State remains `UNVERIFIED` because the asset history before AEE received it is unknown. `FIRST_SEEN_SEALED` is a derived registration status after remote seal/retrieval continuity passes; it is not a canonical Provenance State and never means original, authorship, copyright, or historical provenance proof.
+
 ## 10. Legacy compatibility
 
 Events without `schema_version` are read as `legacy`. Read-time normalization may derive display fields but MUST NOT alter stored JSON, event hash input, or signature input. Legacy Event reads, signatures, histories, passport lookup, and parent-chain checks remain supported.
@@ -183,6 +186,6 @@ Canonical enum: `PUBLIC_MINIMUM`, `PUBLIC_EXTENDED`, `PRIVATE`, `SELECTIVE`. Def
 
 ## 14. Implementation boundary
 
-- **IMPLEMENTED:** v1 identifiers/helpers, canonical JSON, v1 Event fields/signing, legacy compatibility, Text Profile, Image C2PA Profile, deterministic Decision Engine, Wallet commitments, authorization schema/signing/validation foundation, and public Verifier state presentation.
+- **IMPLEMENTED:** v1 identifiers/helpers, canonical JSON, v1 Event fields/signing, legacy compatibility, Text Profile, Image C2PA Profile, Development / Test Image First-Seen Profile, deterministic Decision Engine, Wallet commitments, authorization schema/signing/validation foundation, and public Verifier state presentation.
 - **SPECIFIED — NOT IMPLEMENTED:** audio, video, document, 2D design, 3D model, and manufacturing verification adapters.
 - **NOT IMPLEMENTED:** single unfamiliar-image forensic modification detection without a trusted source/history, complete encrypted Black Box product, mobile application, production IAM, and production C2PA Trust List identity.

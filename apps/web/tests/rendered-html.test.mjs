@@ -41,7 +41,8 @@ test("ships a bilingual privacy policy", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /隱私權政策/);
-  assert.match(html, /不會把原始圖片傳送/);
+  assert.match(html, /只有你明確點選/);
+  assert.match(html, /First-Seen/);
   assert.match(html, /Vertex AI Gemini/);
   assert.match(html, /OWNER INPUT REQUIRED/);
 });
@@ -79,7 +80,9 @@ test("declares upload limits and client-side validation", async () => {
   assert.match(verifier, /setUploadError\(""\)/);
   assert.match(dictionary, /所選檔案無法處理，因此不顯示任何驗證結果。/);
   assert.match(dictionary, /檔案太大，請選擇 10 MB 以下的圖片。/);
-  assert.doesNotMatch(verifier, /fetch\([^)]*file|FormData|innerHTML|eval\(/);
+  assert.match(verifier, /new FormData\(\)/);
+  assert.match(verifier, /Start a verified history from now/);
+  assert.doesNotMatch(verifier, /innerHTML|eval\(/);
 });
 
 test("uses a static bilingual dictionary and persistent locale without changing canonical enums", async () => {
@@ -136,4 +139,19 @@ test("separates plain-language verification results from developer evidence", as
   assert.match(dictionary, /AI 參與/);
   assert.match(dictionary, /AI 僅協助解讀，不參與驗證判定/);
   assert.doesNotMatch(verifier, /<h3>\{upload\.name\}<\/h3>/);
+});
+
+test("offers an opt-in First-Seen bridge without changing canonical provenance states", async () => {
+  const verifier = await readFile(new URL("../app/verifier.tsx", import.meta.url), "utf8");
+  const dictionary = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
+  const decision = await readFile(new URL("../app/evidence-classification.mjs", import.meta.url), "utf8");
+  assert.match(verifier, /upload\.result === "Unverified"/);
+  assert.match(verifier, /LEGACY CONTENT BRIDGE · DEVELOPMENT \/ TEST/);
+  assert.match(verifier, /registration_status: "FIRST_SEEN_SEALED"/);
+  assert.match(verifier, /Provenance before this AEE record is unknown/);
+  assert.match(verifier, /This is not proof of originality, authorship, copyright, or earlier history/);
+  assert.match(verifier, /\/v1\/demo\/first-seen/);
+  assert.match(dictionary, /從現在開始建立證據履歷/);
+  assert.match(dictionary, /不是原創、作者、著作權或先前歷史的證明/);
+  assert.doesNotMatch(decision, /FIRST_SEEN_SEALED/);
 });

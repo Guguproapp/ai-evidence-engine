@@ -102,3 +102,7 @@ Forbidden:
 - any equivalent claim that turns probabilistic forensic signals into legal or cryptographic proof
 
 Forensic confidence must be displayed separately from `Integrity State`, `Provenance State`, `Identity Trust`, `AI Involvement`, and recorded `Change Scope`.
+
+## Legacy Content Bridge boundary
+
+An unfamiliar image can now opt into a **First-Seen** Development / Test seal. This does not add forensic detection and does not convert the image to `VERIFIED_ORIGINAL`. Prior provenance remains `UNVERIFIED`; AEE only establishes an exact-byte, signed, remotely sealed history starting at the First-Seen timestamp. Later recorded child versions can use the implemented known-version comparison capability.

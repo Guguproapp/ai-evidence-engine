@@ -18,3 +18,16 @@ Default base URL: `http://127.0.0.1:8787`
 `POST /verify` with `event` returns `hash_valid`, `signature_valid`, `parent_valid`, and `verified`. With `source` and `candidate`, it returns provenance similarity evidence, not a legal verdict.
 
 This checkpoint has no authentication or authorization layer. Bind to localhost only; do not expose it to the internet.
+
+## Development / Test Legacy Content Bridge
+
+Base URL: `https://aee-continuity-demo-856572888721.asia-east1.run.app`
+
+| Method | Path | Purpose |
+|---|---|---|
+| POST | `/v1/demo/first-seen` | Multipart image upload; create signed First-Seen Event, seal, retrieve, and reverify |
+| POST | `/v1/demo/first-seen/version` | Multipart child image plus server-issued `bridge_id`; create V2 parent link, compare known versions, seal, and reverify |
+
+The browser may provide only `evidence_file` and, for V2, the opaque server-issued `bridge_id`. It cannot provide a bucket, object path, generation, retention setting, credential, Passport ID, Event ID, content hash, or Signed Event. The backend validates image bytes, computes SHA-256, creates the existing `aee.event.v1`, and calls the IAM-protected Remote Black Box.
+
+This is Development / Test only. First-Seen returns canonical `provenance_state=UNVERIFIED` and derived `registration_status=FIRST_SEEN_SEALED`; it never returns `VERIFIED_ORIGINAL`. Local V1/V2 state is ephemeral and full C2PA Soft Binding recovery is not implemented.

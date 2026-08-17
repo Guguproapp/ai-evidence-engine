@@ -170,7 +170,7 @@ class Registry:
             "trust_status": metadata.get("trust_status", "development"),
             "identity_trust": str(metadata.get("identity_trust", "DEVELOPMENT")).upper(),
             "integrity_state": "VALID",
-            "provenance_state": "VERIFIED_MODIFIED" if parent else "VERIFIED_ORIGINAL",
+            "provenance_state": metadata.get("provenance_state", "VERIFIED_MODIFIED" if parent else "VERIFIED_ORIGINAL"),
             "change_metrics": metadata.get("change_metrics", metadata.get("modification_scope") if isinstance(metadata.get("modification_scope"), dict) else {}),
             "public_disclosure_level": _disclosure_level(metadata.get("public_disclosure_level")),
         }
@@ -236,6 +236,14 @@ class Registry:
             identity_trust=identity,
             has_parent=bool(event.get("parent_event")),
         )
+        # A signed first-seen event proves integrity from the registration time
+        # forward. It must never be promoted to VERIFIED_ORIGINAL because the
+        # asset history before AEE first saw it is explicitly unknown.
+        provenance_state = decision["provenance_state"]
+        reasons = list(decision["reasons"])
+        if event.get("action_type") == "first_seen_registration" and decision["integrity_state"] == "VALID":
+            provenance_state = "UNVERIFIED"
+            reasons.append("prior_provenance_unknown")
         verified = decision["integrity_state"] == "VALID" and revocation is None
         return {
             "ai_involvement": event.get("involvement_level") not in {None, "L0"},
@@ -252,9 +260,9 @@ class Registry:
             "parent_valid": parent_valid,
             "required_profile_evidence_valid": profile_valid,
             "integrity_state": decision["integrity_state"],
-            "provenance_state": decision["provenance_state"],
+            "provenance_state": provenance_state,
             "identity_trust": decision["identity_trust"],
-            "reasons": decision["reasons"],
+            "reasons": reasons,
             "verified": verified,
         }
 

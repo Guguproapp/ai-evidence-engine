@@ -17,7 +17,7 @@ Official reference: https://support.google.com/googleplay/android-developer/answ
 
 | Play data type | Status | Collected / shared | Required / optional | Processing / purpose |
 |---|---|---|---|---|
-| Photos and videos | NOT COLLECTED off device | Not shared by AEE; selected locally | Optional user action | Local app functionality only |
+| Photos and videos | COLLECTED only for explicit First-Seen opt-in | NOT SHARED with Gemini; processed by AEE/Google Cloud service providers | Optional user action | Development / Test Evidence Black Box seal and retrieval |
 | Files and docs | NOT COLLECTED off device | Not shared | Optional | Local verification only |
 | Personal info | NOT COLLECTED | Not shared | N/A | No account/contact form |
 | Device or other IDs | NOT COLLECTED by app source | Browser/cloud request metadata requires final platform review | N/A | No advertising ID SDK |
@@ -26,6 +26,8 @@ Official reference: https://support.google.com/googleplay/android-developer/answ
 | Crash logs | NOT COLLECTED by dedicated SDK | Cloud service errors may be logged | N/A | Diagnostics |
 | Diagnostics | COLLECTED server-side | NOT SHARED for advertising | Required for Cloud request | Security, reliability, debugging |
 | Approximate location | NOT COLLECTED intentionally | IP address may exist in standard infrastructure metadata | N/A | Rate limiting/security; verify final Console interpretation |
+
+Legacy Content Bridge update (2026-08-17): ordinary verification remains local, but the explicit **Start a verified history from now** action uploads the selected image to the AEE Development / Test Cloud Run/Cloud Storage flow. The retention expiration is a minimum deletion-protection time and is not an automatic deletion schedule. This draft must be reviewed again before any Google Play submission; the earlier “no off-device photo collection” conclusion no longer applies to that opt-in flow.
 
 ## Security and deletion
 

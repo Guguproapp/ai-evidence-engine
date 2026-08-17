@@ -1,17 +1,34 @@
 # AEE Evidence Continuity Demo — Development/Test
 
-This service is a controlled UI and backend orchestrator for the single built-in
-synthetic ProofCart Version 3 asset. It creates a real `aee.event.v1` through the
-existing AEE Registry, verifies its signature, invokes the IAM-protected Remote
-Black Box service-to-service, retrieves the Google Cloud Object, reverifies
-SHA-256, and verifies the unchanged local Signed Event again.
+This service is a controlled UI and backend orchestrator. The original
+continuity path uses the single built-in synthetic ProofCart Version 3 asset.
+The explicit opt-in Legacy Content Bridge accepts PNG/JPEG/WebP test images
+under 10 MB and creates a First-Seen history start whose prior provenance
+remains unknown. Both paths create a real `aee.event.v1` through the existing
+AEE Registry, verify its signature, invoke the IAM-protected Remote Black Box
+service-to-service, retrieve the Google Cloud Object, reverify SHA-256, and
+verify the unchanged local Signed Event again.
 
-It does not accept user uploads, arbitrary object paths, bucket selection,
-retention controls, credentials, or private evidence. It is not the Production
-Black Box and does not expose Google identity tokens to the browser.
+It never accepts arbitrary object paths, bucket selection, retention controls,
+credentials, or browser-provided Signed Events. The Legacy Bridge accepts an
+image only after an explicit user action and creates the Signed Event on the
+AEE backend. It is not the Production Black Box and does not expose Google
+identity tokens to the browser.
 
 Environment variables:
 
 - `REMOTE_BLACKBOX_URL`
 - `REMOTE_BLACKBOX_AUDIENCE`
 - optional `DEMO_EVIDENCE_PATH`
+- optional `LEGACY_BRIDGE_ROOT`
+- optional comma-separated `LEGACY_BRIDGE_ALLOWED_ORIGINS`
+
+Endpoints:
+
+- `POST /v1/demo/continuity` — bundled synthetic asset only.
+- `POST /v1/demo/first-seen` — explicit multipart image First-Seen seal.
+- `POST /v1/demo/first-seen/version` — child version for an existing in-memory Development/Test bridge.
+
+The V1 to V2 bridge state is held on ephemeral Cloud Run local storage. The
+service is limited to one instance for the bounded test flow, but a restart can
+remove that local state. This is not a Production durability design.
